@@ -14,8 +14,9 @@ const MobileHeader = ({ user }) => {
     return (
         <div className="bg-blue-900 py-3 px-3 fixed w-lvw flex justify-between items-center shadow-md">
             {/* Logo */}
-            <Link to="/dashboard">
+            <Link to="/dashboard" className="flex items-center">
                 <img src={logo} alt="LinkUp Logo" className="h-8 w-auto sm:h-8" />
+                <h1 className="text-white text-lg font-bold ml-2 hidden sm:block">VokaLink</h1>
             </Link>
 
             {/* Icons on Right */}
