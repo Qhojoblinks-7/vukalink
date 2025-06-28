@@ -23,13 +23,11 @@ const Header = () => {
     <header className="bg-white shadow-md py-4 px-6 md:px-10 flex justify-between items-center">
       {/* Logo Section */}
       <div className="flex items-center">
-        <Link to={user ? '/dashboard' : '/'}>
-          <img src={logo} alt="LinkUp Logo" className="h-10 w-auto" />
-          <h1 className="text-white text-2xl font-bold ">okaLink</h1>
+        <Link to={user ? '/dashboard' : '/'} className="flex items-center space-x-2">
+          <img src={logo} alt="VukaLink Logo" className="h-10 w-auto" />
+          <h1 className="text-blue-900 text-2xl font-bold -ml-4 mt-4">ukaLink</h1>
         </Link>
       </div>
-
-      {/* Conditional Navigation and Auth Links */}
       <nav className="flex items-center space-x-6">
         {user ? (
           // Logged In State Navigation
