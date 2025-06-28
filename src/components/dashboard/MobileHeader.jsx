@@ -16,9 +16,8 @@ const MobileHeader = ({ user }) => {
             {/* Logo */}
             <Link to="/dashboard" className="flex items-center">
                 <img src={logo} alt="LinkUp Logo" className="h-8 w-auto sm:h-8" />
-                <h1 className="text-white text-lg font-bold ml-2 lg:hidden sm:block">VokaLink</h1>
+                <h1 className="text-white text-lg font-bold ml-2">VokaLink</h1>
             </Link>
-
             {/* Icons on Right */}
             <div className="flex items-center space-x-3 sm:space-x-4">
                 <BellIcon className="h-7 w-7 text-white cursor-pointer hover:text-blue-500 sm:h-6 sm:w-6" />
