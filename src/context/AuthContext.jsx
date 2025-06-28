@@ -1,63 +1,27 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../services/supabaseClient'; // Import our initialized Supabase client
+// src/pages/AuthPage.jsx
+import React, { useState, useEffect } from 'react'; // Import useEffect
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import LoginForm from '../components/auth/LoginForm';
+import RegisterForm from '../components/auth/RegisterForm';
+import Button from '../components/ui/Button';
 
-// 1. Create the Auth Context
-const AuthContext = createContext(null);
+const AuthPage = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(true);
 
-// 2. Create a custom hook to use the Auth Context
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-// 3. Create the Auth Provider Component
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(true);
-
+  // Effect for Redirection:
+  // Best Practice: Use useEffect for side effects like navigation based on state changes.
   useEffect(() => {
-    // Function to get initial session and set up real-time session listener
-    const getInitialSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
+    if (!loading && user) {
+      // If user is logged in and loading is complete, redirect.
+      navigate('/dashboard'); // Use navigate directly here, not return null from component render.
+    }
+  }, [user, loading, navigate]); // Dependencies array: ensures effect re-runs only when these change.
 
-      if (error) {
-        console.error("Error getting initial session:", error);
-      } else {
-        setSession(session);
-        setUser(session?.user || null);
-      }
-      setLoading(false); // Set loading to false once initial session is fetched
-    };
-
-    getInitialSession();
-
-    // Listen for auth state changes (e.g., login, logout, token refresh)
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, currentSession) => {
-        setSession(currentSession);
-        setUser(currentSession?.user || null);
-        setLoading(false); // Update loading state on any auth change
-        console.log('Auth event:', event, 'Session:', currentSession); // For debugging
-      }
-    );
-
-    // Cleanup the subscription when the component unmounts
-    return () => {
-      authListener?.subscription.unsubscribe();
-    };
-  }, []); // Run once on component mount
-
-  // Provide the auth state and any auth functions (will be added via auth.js later)
-  const value = {
-    user,
-    session,
-    loading,
-    // We'll add signup, signIn, signOut functions here later through the services/auth.js
-  };
-
+  // Conditional Rendering for Loading State: Show a clear message while authenticating.
   if (loading) {
-    // You might want a full-page loading spinner here
     return (
       <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
         Loading VukaLink...
@@ -65,9 +29,36 @@ export function AuthProvider({ children }) {
     );
   }
 
+  // If `user` is present after loading, useEffect will handle redirection.
+  // No need for `if (!loading && user) { return null; }` directly in the render.
+
   return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+    // Main Container Styling: Centered content, background.
+    <div className="min-h-screen flex items-center justify-center bg-vuka-background p-4">
+      {/* Form Card Styling: Responsive width, shadow, rounded corners. */}
+      <div className="bg-vuka-white rounded-lg shadow-xl p-8 w-full max-w-md">
+        {/* Dynamic Heading: Changes based on form mode. */}
+        <h1 className="text-3xl font-heading font-extrabold text-vuka-blue text-center mb-6">
+          {isLogin ? 'Welcome Back!' : 'Join VukaLink Today!'}
+        </h1>
+
+        {/* Conditional Form Rendering: Displaying one form at a time. */}
+        {isLogin ? <LoginForm /> : <RegisterForm />}
+
+        {/* Toggle between Login/Register */}
+        <div className="text-center mt-6">
+          <p className="text-vuka-medium-grey">
+            {isLogin ? "Don't have an account?" : "Already have an account?"}
+            {' '}
+            {/* Button Component: Reusing `Button` for consistency. */}
+            <Button variant="ghost" size="sm" onClick={() => setIsLogin(!isLogin)} className="font-bold">
+              {isLogin ? 'Sign Up' : 'Log In'}
+            </Button>
+          </p>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default AuthPage;
