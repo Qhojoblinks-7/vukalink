@@ -106,21 +106,21 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
   const displayAvatarSrc = avatarUrl || getGravatarUrl(user?.email);
 
   return (
-    <div className="bg-vuka-white rounded-lg shadow-xl p-8 w-full max-w-lg">
+    <div className="bg-white  rounded-lg shadow-xl p-8 w-full max-w-lg">
       <div className="flex flex-col items-center mb-6">
         <img
           src={displayAvatarSrc} // <-- Use the conditional avatar source
           alt="Avatar"
-          className="w-28 h-28 rounded-full object-cover border-4 border-vuka-blue-light mb-4"
+          className="w-28 h-28 rounded-full object-cover border-4 border-blue-900 -light mb-4"
         />
         {isEditing && ( // Only show upload input in edit mode
-          <label className="cursor-pointer text-vuka-blue hover:underline text-sm mb-4">
+          <label className="cursor-pointer text-blue-900  hover:underline text-sm mb-4">
             Upload New Avatar
             <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" disabled={loading} />
           </label>
         )}
-        <h2 className="text-2xl font-heading font-bold text-vuka-strong text-center">{profile?.full_name || user?.email}</h2>
-        <p className="text-vuka-medium-grey text-md">{user?.email}</p>
+        <h2 className="text-2xl font-heading font-bold text-boldtext-center">{profile?.full_name || user?.email}</h2>
+        <p className="text-grey-500 text-md">{user?.email}</p>
       </div>
 
       {formError && <p className="text-vuka-danger text-center mb-4">{formError}</p>}
@@ -138,8 +138,8 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
           <ProfileDetail label="Bio" value={profile?.bio} />
           {profile?.resume_url && (
             <div className="border-b border-vuka-light-grey pb-4 last:border-b-0">
-              <p className="text-sm text-vuka-medium-grey">Resume:</p>
-              <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-vuka-blue hover:underline">
+              <p className="text-sm text-grey-500">Resume:</p>
+              <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-blue-900  hover:underline">
                 View Resume
               </a>
             </div>
@@ -261,7 +261,7 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
 // Helper component for consistent display of profile details
 const ProfileDetail = ({ label, value }) => (
   <div className="border-b border-vuka-light-grey pb-4 last:border-b-0">
-    <p className="text-sm text-vuka-medium-grey">{label}:</p>
+    <p className="text-sm text-grey-500">{label}:</p>
     <p className="text-vuka-text font-medium">{value || 'N/A'}</p>
   </div>
 );

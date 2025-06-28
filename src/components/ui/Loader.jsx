@@ -11,7 +11,7 @@ const Loader = () => (
       className="animate-vspin w-16 h-16 mb-2"
       style={{ display: 'block' }}
     />
-    <span className="text-vuka-blue font-heading text-lg">Loading...</span>
+    <span className="text-blue-900  font-heading text-lg">Loading...</span>
   </div>
 );
 

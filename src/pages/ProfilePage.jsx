@@ -139,8 +139,8 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-vuka-grey-light flex flex-col items-center justify-center py-10">
-      <h1 className="text-4xl font-heading font-bold text-vuka-strong mb-8">Your Profile</h1>
+    <div className="min-h-screen text-grey-100 flex flex-col items-center justify-center py-10">
+      <h1 className="text-4xl font-heading font-bold text-boldmb-8">Your Profile</h1>
       <ProfileCard
         user={user}
         profile={profile}

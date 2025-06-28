@@ -2,19 +2,21 @@
 import React from 'react';
 // React Router DOM: Using BrowserRouter (as Router), Routes, Route, and Navigate.
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth';
+import { useAuth } from './hooks/useAuth'; // Assuming your useAuth hook is here
 
 // Import Pages: Organize imports for clarity.
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
-// Placeholder imports for future pages.
-// import HomePage from './pages/HomePage';
-// import ProfilePage from './pages/ProfilePage';
-// import OpportunitiesPage from './pages/OpportunitiesPage';
+import HomePage from './pages/HomePage'; // <-- NEW: Import HomePage
+import ProfilePage from './pages/ProfilePage';
+// import OpportunitiesPage from './pages/OpportunitiesPage'; // Keep if you use it later
 
 // Import Common Components:
-import Header from './components/common/Header';
-import ProfilePage from './pages/ProfilePage';
+// IMPORTANT: Adjust this path if you kept Header in src/components/common/
+import Header from './components/layout/Header'; // <-- ADJUSTED PATH for Header
+import MobileHeader from './components/dashboard/MobileHeader';
+import Footer from './components/layout/Footer'; // <-- NEW: Import Footer
+
 
 function App() {
   // AuthContext: Accessing global authentication state.
@@ -26,7 +28,7 @@ function App() {
     if (loading) {
       // Global Loading Indicator: Provides user feedback during auth check.
       return (
-        <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+        <div className="flex justify-center items-center min-h-screen text-blue-900  text-2xl font-heading">
           Loading App...
         </div>
       );
@@ -46,7 +48,17 @@ function App() {
             unless the user is already logged in (in which case they'll be redirected anyway).
             This prevents a momentary flash of the header before redirection.
         */}
-        {(window.location.pathname !== '/auth' || user) && <Header />}
+        {/* Show MobileHeader on mobile, Header on desktop */}
+        {(window.location.pathname !== '/auth' || user) && (
+          <>
+            <div className="block sm:hidden">
+              <MobileHeader user={user} />
+            </div>
+            <div className="hidden sm:block">
+              <Header />
+            </div>
+          </>
+        )}
 
         {/* Main Content Area: Takes up remaining vertical space. */}
         <main className="flex-grow">
@@ -54,7 +66,9 @@ function App() {
           <Routes>
             {/* Public Routes: Accessible to all users. */}
             <Route path="/auth" element={<AuthPage />} />
-            {/* Example: <Route path="/" element={<HomePage />} /> */}
+            {/* NEW: HomePage route - will be displayed when user is not logged in */}
+            <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <HomePage />} />
+
 
             {/* Protected Routes: Wrapped by PrivateRoute for authentication check. */}
             <Route
@@ -71,7 +85,7 @@ function App() {
                 <PrivateRoute>
                   {/* Placeholder Content: Good for showing progress before full implementation. */}
                   <div className="min-h-screen flex items-center justify-center bg-vuka-background">
-                    <h1 className="text-3xl font-heading text-vuka-blue">Opportunities Page (Coming Soon!)</h1>
+                    <h1 className="text-3xl font-heading text-blue-900 ">Opportunities Page (Coming Soon!)</h1>
                   </div>
                 </PrivateRoute>
               }
@@ -85,8 +99,14 @@ function App() {
               }
             />
 
-            {/* Root Path Redirection: Directs users based on their authentication status. */}
-            <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/auth" replace />} />
+            {/* Other specific public routes if any (e.g., /about, /faq from Header) */}
+            <Route path="/about" element={<div className="min-h-screen flex items-center justify-center">About Us Page</div>} />
+            <Route path="/faq" element={<div className="min-h-screen flex items-center justify-center">FAQ Page</div>} />
+            <Route path="/contact" element={<div className="min-h-screen flex items-center justify-center">Contact Page</div>} />
+            <Route path="/register-student" element={<AuthPage />} /> {/* Assuming AuthPage handles both login/register forms */}
+            <Route path="/register-company" element={<AuthPage />} /> {/* Assuming AuthPage handles both login/register forms */}
+            {/* Add more routes for /applications, /saved, /messages, /resources etc. for logged-in header as needed */}
+
 
             {/* Catch-all Route: Handles unmatched paths (404 Not Found).
                 Best Practice: Place as the last route to ensure other routes are matched first.
@@ -100,7 +120,8 @@ function App() {
         </main>
 
         {/* Optional: Add your Footer component here if it's global */}
-        {/* <Footer /> */}
+        {/* The Footer will always be visible unless you add conditional rendering for it */}
+        <Footer /> {/* <-- NEW: Footer added globally */}
       </div>
     </Router>
   );

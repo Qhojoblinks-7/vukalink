@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     // Semantic HTML: Using <header> for page header.
-    <header className="bg-vuka-white shadow-sm py-4 px-6 md:px-8 flex items-center justify-between">
+    <header className="bg-white  shadow-sm py-4 px-6 md:px-8 flex items-center justify-between">
       {/* Logo - links to dashboard if logged in, or auth page */}
       <div className="flex items-center space-x-4">
         {/* Conditional Link Target: Directs users based on auth status. */}
@@ -53,7 +53,7 @@ const Header = () => {
           />
         </Link>
         {/* Responsive Design: `hidden sm:block` for mobile-first approach. */}
-        <h1 className="text-xl sm:text-2xl font-heading font-bold text-vuka-blue hidden sm:block">
+        <h1 className="text-xl sm:text-2xl font-heading font-bold text-blue-900  hidden sm:block">
           VukaLink
         </h1>
       </div>
@@ -65,13 +65,13 @@ const Header = () => {
         {user && (
           <>
             {/* Link Components: Using React Router's Link for client-side navigation. */}
-            <Link to="/dashboard" className="text-vuka-text hover:text-vuka-blue font-medium transition-colors duration-200">
+            <Link to="/dashboard" className="text-vuka-text hover:text-blue-700 font-medium transition-colors duration-200">
               Dashboard
             </Link>
-            <Link to="/opportunities" className="text-vuka-text hover:text-vuka-blue font-medium transition-colors duration-200">
+            <Link to="/opportunities" className="text-vuka-text hover:text-blue-900  font-medium transition-colors duration-200">
               Opportunities
             </Link>
-            <Link to="/profile" className="text-vuka-text hover:text-vuka-blue font-medium transition-colors duration-200">
+            <Link to="/profile" className="text-vuka-text hover:text-blue-700 font-medium transition-colors duration-200">
               Profile
             </Link>
           </>
@@ -81,7 +81,7 @@ const Header = () => {
         {user ? (
           <div className="flex items-center space-x-3">
             {/* Conditional Display: Hide email on smaller screens. */}
-            <span className="text-vuka-medium-grey text-sm hidden md:block">
+            <span className="text-grey-500 text-sm hidden md:block">
               {user.email}
             </span>
             {/* Button Component: Reusing the `Button` component for consistency. */}

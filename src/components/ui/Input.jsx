@@ -18,7 +18,7 @@ const Input = ({
   `;
 
   // Conditional border styles for error state
-  const defaultBorder = 'border-vuka-light-grey focus:border-vuka-blue focus:ring-vuka-blue/50';
+  const defaultBorder = 'border-vuka-light-grey focus:border-blue-900  focus:ring-blue-900 /50';
   const errorBorder = 'border-vuka-danger focus:border-vuka-danger focus:ring-vuka-danger/50';
 
   return (

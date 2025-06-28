@@ -23,7 +23,7 @@ const AuthPage = () => {
   // Conditional Rendering for Loading State: Show a clear message while authenticating.
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-900  text-2xl font-heading">
         Loading VukaLink...
       </div>
     );
@@ -36,9 +36,9 @@ const AuthPage = () => {
     // Main Container Styling: Centered content, background.
     <div className="min-h-screen flex items-center justify-center bg-vuka-background p-4">
       {/* Form Card Styling: Responsive width, shadow, rounded corners. */}
-      <div className="bg-vuka-white rounded-lg shadow-xl p-8 w-full max-w-md">
+      <div className="bg-white  rounded-lg shadow-xl p-8 w-full max-w-md">
         {/* Dynamic Heading: Changes based on form mode. */}
-        <h1 className="text-3xl font-heading font-extrabold text-vuka-blue text-center mb-6">
+        <h1 className="text-3xl font-heading font-extrabold text-blue-900  text-center mb-6">
           {isLogin ? 'Welcome Back!' : 'Join VukaLink Today!'}
         </h1>
 
@@ -47,7 +47,7 @@ const AuthPage = () => {
 
         {/* Toggle between Login/Register */}
         <div className="text-center mt-6">
-          <p className="text-vuka-medium-grey">
+          <p className="text-grey-500">
             {isLogin ? "Don't have an account?" : "Already have an account?"}
             {' '}
             {/* Button Component: Reusing `Button` for consistency. */}

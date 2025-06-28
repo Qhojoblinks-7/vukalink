@@ -42,14 +42,14 @@ const Button = ({
       break;
     case 'outline':
       // Best Practice: Ensure accessible color contrast for outlines.
-      baseStyles += ' border-2 border-vuka-blue text-vuka-blue hover:bg-vuka-blue hover:text-vuka-white focus:ring-vuka-blue';
+      baseStyles += ' border-2 border-blue-900  text-blue-900  hover:bg-blue-900  hover:text-vuka-white focus:ring-blue-900 ';
       break;
     case 'ghost':
-      baseStyles += ' text-vuka-blue hover:bg-vuka-blue-lightest focus:ring-vuka-blue';
+      baseStyles += ' text-blue-900  hover:bg-blue-900 -lightest focus:ring-blue-900 ';
       break;
     case 'primary':
     default:
-      baseStyles += ' bg-vuka-blue text-vuka-white hover:bg-vuka-strong focus:ring-vuka-blue';
+      baseStyles += ' bg-blue-900  text-vuka-white hover:bg-vuka-bold  focus:ring-blue-900 ';
       break;
   }
 

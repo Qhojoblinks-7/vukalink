@@ -26,7 +26,7 @@ body {
 /* Optionally apply the heading font to default HTML heading tags for quick styling */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Plus Jakarta Sans", sans-serif; /* Your chosen heading font */
-  color: #2D72F3; /* vuka-blue (DEFAULT) from tailwind.config.js */
+  color: #2D72F3; /* blue-900  (DEFAULT) from tailwind.config.js */
   font-weight: 700; /* A good default bold for headings */
 }
 

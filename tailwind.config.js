@@ -45,7 +45,7 @@ export default {
         'vuka-white': '#FFFFFF',      // Pure white, for clean backgrounds
         'vuka-off-white': '#F8F9FA',  // Very light grey
         'vuka-light-grey': '#E9ECEF', // Light grey for borders, subtle backgrounds
-        'vuka-medium-grey': '#ADB5BD', // Medium grey for secondary text
+        'grey-500 ': '#ADB5BD', // Medium grey for secondary text
         'vuka-dark-grey': '#343A40',   // Default text color
         'vuka-text': '#212529',       // Main body text, a rich dark grey
         'vuka-black': '#0B0B0B',      // Near black for strong headings/elements

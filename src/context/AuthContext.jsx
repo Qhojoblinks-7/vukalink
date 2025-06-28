@@ -2,10 +2,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { supabase } from '../services/supabaseClient'; // Import our initialized Supabase client
 
-// 1. Create the Auth Context
-const AuthContext = createContext(null);
-
-
+// 1. Create the Auth Context (now a named export)
+export const AuthContext = createContext(null); // <-- Changed: 'export const'
 
 // 3. Create the Auth Provider Component
 export function AuthProvider({ children }) {
@@ -56,7 +54,7 @@ export function AuthProvider({ children }) {
   if (loading) {
     // You might want a full-page loading spinner here
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-900 text-2xl font-heading">
         Loading VukaLink...
       </div>
     );
@@ -69,4 +67,4 @@ export function AuthProvider({ children }) {
   );
 }
 
-export default AuthContext;
+// REMOVED: export default AuthContext; // <-- No longer default exporting AuthContext

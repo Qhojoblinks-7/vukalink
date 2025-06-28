@@ -1,17 +1,25 @@
-// HomePage.jsx
-
+// src/pages/HomePage.jsx
 import React from 'react';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import Header from '../components/layout/Header'; // Universal Header
+import HeroSection from '../components/home/HeroSection';
+import HowItWorks from '../components/home/HowItWorks';
+import PopularOpportunities from '../components/home/PopularOpportunities';
+import Testimonials from '../components/home/Testimonials';
+import CallToAction from '../components/home/CallToAction';
+import Footer from '../components/layout/Footer'; // Footer
 
-const HomePage = () => (
-  <div className="flex flex-col min-h-screen">
-    <Header />
-    <main className="flex-1 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600">Welcome to VukaLink!</h1>
-    </main>
-    <Footer />
-  </div>
-);
+const HomePage = () => {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow">
+        <HeroSection />
+        <HowItWorks />
+        <PopularOpportunities />
+        <Testimonials />
+        <CallToAction />
+      </main>
+    </div>
+  );
+};
 
 export default HomePage;
