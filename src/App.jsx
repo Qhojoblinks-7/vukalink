@@ -2,7 +2,7 @@
 import React from 'react';
 // React Router DOM: Using BrowserRouter (as Router), Routes, Route, and Navigate.
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './hooks/useAuth';
 
 // Import Pages: Organize imports for clarity.
 import AuthPage from './pages/AuthPage';
@@ -14,6 +14,7 @@ import DashboardPage from './pages/DashboardPage';
 
 // Import Common Components:
 import Header from './components/common/Header';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   // AuthContext: Accessing global authentication state.
@@ -79,9 +80,7 @@ function App() {
               path="/profile"
               element={
                 <PrivateRoute>
-                  <div className="min-h-screen flex items-center justify-center bg-vuka-background">
-                    <h1 className="text-3xl font-heading text-vuka-blue">Profile Page (Coming Soon!)</h1>
-                  </div>
+                  <ProfilePage />
                 </PrivateRoute>
               }
             />

@@ -1,9 +1,10 @@
 // src/components/common/Header.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { signOut } from '../../services/auth';
 import Button from '../ui/Button';
+import Logo from '../../assets/logo.svg'; // Importing logo for bundler compatibility
 
 // Functional Component: Using a functional component with React Hooks.
 // Best Practice: Prefer functional components for new React development.
@@ -46,7 +47,7 @@ const Header = () => {
           {/* Image Optimization & Accessibility: Using `alt` text for screen readers. */}
           {/* Static Asset Reference: Using absolute path for images in `public` folder. */}
           <img
-            src="/logo.svg"
+            src={Logo}
             alt="VukaLink Logo"
             className="h-10 sm:h-12 w-auto"
           />

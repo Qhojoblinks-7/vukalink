@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.jsx
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { signOut } from '../services/auth';
 import Button from '../components/ui/Button';
 

@@ -6,6 +6,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        vspin: {
+          '0%': { transform: 'rotateX(0deg)' },
+          '100%': { transform: 'rotateX(360deg)' },
+        },
+      },
+      animation: {
+        vspin: 'vspin 1s linear infinite',
+      },
       fontFamily: {
         // Define custom font families
         heading: ['"Plus Jakarta Sans"', 'sans-serif'],
