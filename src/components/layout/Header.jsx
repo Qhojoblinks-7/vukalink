@@ -25,6 +25,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to={user ? '/dashboard' : '/'}>
           <img src={logo} alt="LinkUp Logo" className="h-10 w-auto" />
+          <h1 className="text-white text-2xl font-bold ">okaLink</h1>
         </Link>
       </div>
 
