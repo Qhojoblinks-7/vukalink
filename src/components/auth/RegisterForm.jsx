@@ -1,0 +1,93 @@
+// src/components/auth/RegisterForm.jsx
+import React, { useState } from 'react';
+import { signUp } from '../../services/auth'; // Import sign-up function
+import Input from '../ui/Input';
+import Button from '../ui/Button';
+
+const RegisterForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccessMessage('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    const { error: authError, needsConfirmation } = await signUp(email, password);
+
+    if (authError) {
+      setError(authError.message);
+    } else if (needsConfirmation) {
+      setSuccessMessage("Registration successful! Please check your email to verify your account.");
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } else {
+      // This path might be less common with email confirmation enabled by default in Supabase
+      setSuccessMessage("Registration successful! You are now logged in.");
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    }
+    setLoading(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <Input
+        id="regEmail"
+        label="Email Address"
+        type="email"
+        placeholder="your.email@example.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        error={error && error.includes('email') ? error : ''}
+      />
+      <Input
+        id="regPassword"
+        label="Password"
+        type="password"
+        placeholder="••••••••"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        error={error && error.includes('password') ? error : ''}
+      />
+      <Input
+        id="confirmPassword"
+        label="Confirm Password"
+        type="password"
+        placeholder="••••••••"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        required
+        error={error && error.includes('match') ? error : ''}
+      />
+
+      {error && !error.includes('email') && !error.includes('password') && !error.includes('match') && (
+        <p className="text-vuka-danger text-sm text-center">{error}</p>
+      )}
+
+      {successMessage && (
+        <p className="text-vuka-success text-sm text-center font-medium">{successMessage}</p>
+      )}
+
+      <Button type="submit" className="w-full" disabled={loading}>
+        {loading ? 'Registering...' : 'Register'}
+      </Button>
+    </form>
+  );
+};
+
+export default RegisterForm;

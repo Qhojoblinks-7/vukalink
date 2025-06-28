@@ -1,0 +1,33 @@
+/* 1. Google Fonts Import (Plus Jakarta Sans & Lexend Deca) */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+/* 2. Tailwind CSS Base, Components, and Utilities */
+@import "tailwindcss";
+
+/* 3. Global Base Styles for VukaLink */
+/* Apply global box-sizing for consistent layout calculations */
+* ,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set default font family, text color, and smooth font rendering for the entire body */
+body {
+  font-family: "Lexend Deca", sans-serif; /* Your chosen body font */
+  color: #212529; /* vuka-text from tailwind.config.js */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  line-height: 1.6;
+  background-color: #F8F9FA; /* vuka-background from tailwind.config.js */
+}
+
+/* Optionally apply the heading font to default HTML heading tags for quick styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", sans-serif; /* Your chosen heading font */
+  color: #2D72F3; /* vuka-blue (DEFAULT) from tailwind.config.js */
+  font-weight: 700; /* A good default bold for headings */
+}
+
+/* You can add any other global, non-Tailwind-specific styles here */
