@@ -16,7 +16,7 @@ export default defineConfig({
       
       // Workbox configuration for caching strategies
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm,json}'], // Cache these common asset types
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'], // Cache these common asset types
         // You can add more specific caching rules here if needed,
         // e.g., for API routes or external assets
         // runtimeCaching: [...]
