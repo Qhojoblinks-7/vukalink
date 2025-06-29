@@ -46,7 +46,7 @@ const CompanyMessagesPage = () => {
       setSubscription(sub);
       return () => sub.unsubscribe();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [selectedConversationId, subscription]);
 
   const handleSendMessage = async (text) => {

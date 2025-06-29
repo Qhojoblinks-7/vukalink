@@ -1,5 +1,6 @@
 // src/services/savedOpportunities.js
 import { supabase } from './supabaseClient';
+import { getUserOrganizationId } from './organization';
 
 // Fetch all saved opportunities for a student
 export async function fetchSavedOpportunities(student_id) {
@@ -11,11 +12,12 @@ export async function fetchSavedOpportunities(student_id) {
   return data;
 }
 
-// Save an opportunity
-export async function saveOpportunity(student_id, internship_id) {
+// Save an opportunity with org awareness (if needed)
+export async function saveOpportunity(student_id, internship_id, userId) {
+  const organization_id = await getUserOrganizationId(userId);
   const { data, error } = await supabase
     .from('saved_opportunities')
-    .insert([{ student_id, internship_id }]);
+    .insert([{ student_id, internship_id, organization_id }]);
   if (error) throw error;
   return data;
 }

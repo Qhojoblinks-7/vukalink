@@ -1,5 +1,5 @@
-
 import { supabase } from './supabaseClient';
+import { getUserOrganizationId } from './organization';
 
 // Fetch opportunities from Supabase with filters and search
 export const fetchOpportunities = async (filters = {}, page = 1, pageSize = 10, sortOrder = 'Newest') => {
@@ -63,4 +63,14 @@ export const fetchOpportunities = async (filters = {}, page = 1, pageSize = 10, 
   const { data, count, error } = await query;
   if (error) throw error;
   return { data, count };
+};
+
+// Create a new opportunity (internship) with org awareness
+export const createOpportunity = async (userId, opportunityData) => {
+  const organization_id = await getUserOrganizationId(userId);
+  const { data, error } = await supabase
+    .from('internships')
+    .insert([{ ...opportunityData, organization_id }]);
+  if (error) throw error;
+  return data;
 };

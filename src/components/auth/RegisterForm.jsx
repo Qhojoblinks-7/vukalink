@@ -1,6 +1,8 @@
 // src/components/auth/RegisterForm.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signUp } from '../../services/auth';
+import { fetchOrganizations, mapUserToOrganization } from '../../services/organization';
+import { supabase } from '../../services/supabaseClient';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
@@ -13,6 +15,13 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [orgId, setOrgId] = useState('');
+  const [orgOptions, setOrgOptions] = useState([]);
+
+  useEffect(() => {
+    // Fetch organizations for dropdown
+    fetchOrganizations().then(setOrgOptions).catch(() => setOrgOptions([]));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +32,7 @@ const RegisterForm = () => {
       return;
     }
     setLoading(true);
-    // Pass role to signUp
-    const { error: authError, needsConfirmation } = await signUp(email, password, role);
+    const { error: authError, needsConfirmation, user } = await signUp(email, password, role);
     if (authError) {
       setError(authError.message);
     } else if (needsConfirmation) {
@@ -37,6 +45,14 @@ const RegisterForm = () => {
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      // Map user to organization after registration
+      if (user && orgId) {
+        try {
+          await mapUserToOrganization(user.id, orgId);
+        } catch {
+          setError('Could not map user to organization.');
+        }
+      }
     }
     setLoading(false);
   };
@@ -63,6 +79,21 @@ const RegisterForm = () => {
         >
           <option value="student">Student</option>
           <option value="company">Company</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="register-org" className="block text-sm font-medium text-vuka-medium-grey mb-1">Organization</label>
+        <select
+          id="register-org"
+          value={orgId}
+          onChange={e => setOrgId(e.target.value)}
+          className="block w-full border border-gray-300 rounded-md shadow-sm p-2"
+          required
+        >
+          <option value="">Select Organization</option>
+          {orgOptions.map(org => (
+            <option key={org.id} value={org.id}>{org.name}</option>
+          ))}
         </select>
       </div>
       <Input

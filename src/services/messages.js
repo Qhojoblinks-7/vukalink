@@ -1,12 +1,14 @@
 // src/services/messages.js
 // Messaging API using Supabase JS client
 import { supabase } from './supabaseClient';
+import { getUserOrganizationId } from './organization';
 
-// Send a new message
-export async function sendMessage({ conversation_id, sender_id, sender_role, content }) {
+// Send a new message with org awareness
+export async function sendMessage({ conversation_id, sender_id, sender_role, content, userId }) {
+  const organization_id = await getUserOrganizationId(userId);
   const { data, error } = await supabase
     .from('messages')
-    .insert([{ conversation_id, sender_id, sender_role, content }]);
+    .insert([{ conversation_id, sender_id, sender_role, content, organization_id }]);
   if (error) throw error;
   return data;
 }

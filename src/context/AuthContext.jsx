@@ -51,10 +51,17 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
+  };
+
   const value = {
     user,
     session,
     loading,
+    logout, // <-- now available everywhere
   };
 
   if (loading) {
