@@ -68,7 +68,7 @@ function App() {
     <DarkModeProvider>
       <Router>
         <div className="min-h-screen flex flex-col font-body text-vuka-text bg-vuka-background dark:bg-gray-900 dark:text-gray-100">
-          {/* Show only LandingSplash on root, no header/footer/nav */}
+          {/* Show only LandingSplash on root, no header/footer/nav/mobile header */}
           {isSplash ? (
             <LandingSplash />
           ) : (
@@ -89,8 +89,8 @@ function App() {
                   </div>
                 </>
               )}
-              {/* Specific MobileHeader for auth page only */}
-              {window.location.pathname === '/auth' && (
+              {/* Specific MobileHeader for auth page only, but not on splash */}
+              {window.location.pathname === '/auth' && !isSplash && (
                 <div className="block md:hidden">
                   <MobileHeader user={null} />
                 </div>
