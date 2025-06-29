@@ -25,7 +25,16 @@ const Header = () => {
     <header className=" bg-white shadow-md py-4 px-6 md:px-10 flex justify-between items-center">
       {/* Logo Section */}
       <div className="flex items-center">
-        <Link to={user ? '/dashboard' : '/'} className="flex items-center space-x-2">
+        <Link
+          to={
+            user
+              ? user.role === 'student'
+                ? '/dashboard'
+                : '/company/dashboard'
+              : '/'
+          }
+          className="flex items-center space-x-2"
+        >
           <img src={logo} alt="VukaLink Logo" className="h-10 w-auto" />
           <h1 className="text-blue-900 text-2xl font-bold -ml-4 mt-4">ukaLink</h1>
         </Link>
@@ -51,7 +60,12 @@ const Header = () => {
                 <Link to="/saved" className="text-vuka-text hover:text-blue transition-colors font-medium">Saved</Link>
               </>
             )}
-            <Link to="/profile" className="text-vuka-text hover:text-blue transition-colors font-medium">Profile</Link>
+            <Link
+              to={user.role === 'student' ? '/profile/edit' : '/profile/edit'}
+              className="text-vuka-text hover:text-blue transition-colors font-medium"
+            >
+              Profile
+            </Link>
             <Link to="/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
             <Link to="/resources" className="text-vuka-text hover:text-blue transition-colors font-medium">Resources</Link>
             {/* Search Box for desktop */}
