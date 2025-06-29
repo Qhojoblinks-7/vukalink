@@ -24,8 +24,12 @@ CREATE TABLE public.students (
     bio TEXT,
     resume_url TEXT, -- URL to Supabase Storage or external storage
     academic_status TEXT DEFAULT 'Enrolled', -- e.g., 'Enrolled', 'Graduating', 'Alumni'
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID
 );
+COMMENT ON COLUMN public.students.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.students.updated_by IS 'User who last updated the record.';
 
 COMMENT ON TABLE public.students IS 'User profiles for students, linked to Supabase authentication.';
 
@@ -40,8 +44,12 @@ CREATE TABLE public.companies (
     contact_person TEXT,
     contact_email TEXT UNIQUE NOT NULL, -- Should match auth.users email for the company admin
     website_url TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID
 );
+COMMENT ON COLUMN public.companies.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.companies.updated_by IS 'User who last updated the record.';
 
 COMMENT ON TABLE public.companies IS 'Profiles for companies offering internships, linked to Supabase authentication.';
 
@@ -61,8 +69,12 @@ CREATE TABLE public.internships (
     academic_credit_eligible BOOLEAN DEFAULT FALSE,
     application_deadline DATE,
     status TEXT DEFAULT 'Open', -- e.g., 'Open', 'Closed', 'Filled'
-    posted_at TIMESTAMPTZ DEFAULT NOW()
+    posted_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID
 );
+COMMENT ON COLUMN public.internships.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.internships.updated_by IS 'User who last updated the record.';
 
 COMMENT ON TABLE public.internships IS 'Details of internship opportunities posted by companies.';
 
@@ -75,10 +87,133 @@ CREATE TABLE public.applications (
     cover_letter_text TEXT,
     status TEXT DEFAULT 'Submitted', -- e.g., 'Submitted', 'Viewed', 'Interviewing', 'Offer', 'Rejected'
     applied_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID,
     UNIQUE (student_id, internship_id) -- Ensures a student can apply to an internship only once
 );
+COMMENT ON COLUMN public.applications.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.applications.updated_by IS 'User who last updated the record.';
 
 COMMENT ON TABLE public.applications IS 'Records of student applications to internships.';
+
+
+-- -----------------------------------------------------------
+-- 1A. SAVED OPPORTUNITIES TABLE
+-- -----------------------------------------------------------
+CREATE TABLE public.saved_opportunities (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
+    internship_id UUID NOT NULL REFERENCES public.internships(id) ON DELETE CASCADE,
+    saved_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID,
+    UNIQUE (student_id, internship_id)
+);
+COMMENT ON COLUMN public.saved_opportunities.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.saved_opportunities.updated_by IS 'User who last updated the record.';
+
+COMMENT ON TABLE public.saved_opportunities IS 'Tracks internships bookmarked by students.';
+
+
+-- -----------------------------------------------------------
+-- 1B. CHATS & MESSAGES TABLES
+-- -----------------------------------------------------------
+CREATE TABLE public.chats (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
+    company_id UUID NOT NULL REFERENCES public.companies(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID,
+    last_message_at TIMESTAMPTZ
+);
+COMMENT ON COLUMN public.chats.updated_at IS 'Timestamp of last update.';
+COMMENT ON COLUMN public.chats.updated_by IS 'User who last updated the record.';
+-- -----------------------------------------------------------
+-- AUDIT LOG TABLE & TRIGGER
+-- -----------------------------------------------------------
+CREATE TABLE public.audit_log (
+    id BIGSERIAL PRIMARY KEY,
+    table_name TEXT NOT NULL,
+    record_id UUID NOT NULL,
+    action TEXT NOT NULL, -- 'INSERT', 'UPDATE', 'DELETE'
+    changed_data JSONB,
+    changed_by UUID,
+    changed_at TIMESTAMPTZ DEFAULT NOW()
+);
+COMMENT ON TABLE public.audit_log IS 'Tracks all changes to key tables for auditing.';
+
+CREATE OR REPLACE FUNCTION public.log_audit() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.audit_log (table_name, record_id, action, changed_data, changed_by)
+  VALUES (TG_TABLE_NAME, COALESCE(NEW.id, OLD.id), TG_OP, row_to_json(COALESCE(NEW, OLD)), COALESCE(NEW.updated_by, OLD.updated_by, auth.uid()));
+  RETURN COALESCE(NEW, OLD);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER audit_students
+  AFTER INSERT OR UPDATE OR DELETE ON public.students
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+CREATE TRIGGER audit_companies
+  AFTER INSERT OR UPDATE OR DELETE ON public.companies
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+CREATE TRIGGER audit_internships
+  AFTER INSERT OR UPDATE OR DELETE ON public.internships
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+CREATE TRIGGER audit_applications
+  AFTER INSERT OR UPDATE OR DELETE ON public.applications
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+CREATE TRIGGER audit_saved_opportunities
+  AFTER INSERT OR UPDATE OR DELETE ON public.saved_opportunities
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+CREATE TRIGGER audit_chats
+  AFTER INSERT OR UPDATE OR DELETE ON public.chats
+  FOR EACH ROW EXECUTE FUNCTION public.log_audit();
+
+COMMENT ON TABLE public.chats IS 'Chat sessions between students and companies.';
+
+CREATE TABLE public.messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    chat_id UUID NOT NULL REFERENCES public.chats(id) ON DELETE CASCADE,
+    sender_id UUID NOT NULL, -- Can be student or company user
+    sender_role TEXT NOT NULL CHECK (sender_role IN ('student', 'company')),
+    content TEXT NOT NULL,
+    sent_at TIMESTAMPTZ DEFAULT NOW(),
+    is_read BOOLEAN DEFAULT FALSE
+);
+
+COMMENT ON TABLE public.messages IS 'Messages exchanged in chats.';
+
+
+-- -----------------------------------------------------------
+-- 1C. NOTIFICATIONS TABLE
+-- -----------------------------------------------------------
+CREATE TABLE public.notifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL, -- Can be student or company user
+    user_role TEXT NOT NULL CHECK (user_role IN ('student', 'company')),
+    type TEXT NOT NULL, -- e.g., 'application_status', 'message', etc.
+    content TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+COMMENT ON TABLE public.notifications IS 'User notifications for various events.';
+
+
+-- -----------------------------------------------------------
+-- 1D. COMPANY TEAM MANAGEMENT TABLE
+-- -----------------------------------------------------------
+CREATE TABLE public.company_team_members (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID NOT NULL REFERENCES public.companies(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    role TEXT NOT NULL DEFAULT 'member', -- e.g., 'admin', 'member'
+    invited_at TIMESTAMPTZ DEFAULT NOW(),
+    accepted_at TIMESTAMPTZ
+);
+
+COMMENT ON TABLE public.company_team_members IS 'Links company users to companies for team management.';
 
 
 -- -----------------------------------------------------------
@@ -159,6 +294,11 @@ ALTER TABLE public.students ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.internships ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.saved_opportunities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.chats ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.company_team_members ENABLE ROW LEVEL SECURITY;
 
 --
 -- RLS Policies for public.students table
@@ -242,6 +382,79 @@ WITH CHECK (internship_id IN (SELECT id FROM public.internships WHERE company_id
 -- No DELETE policy for applications for now; status changes are preferred.
 
 
+--
+-- RLS Policies for public.saved_opportunities table
+--
+-- Students can view their saved opportunities
+CREATE POLICY "Students can view their saved opportunities" ON public.saved_opportunities
+  FOR SELECT TO authenticated
+  USING (student_id = auth.uid());
+
+-- Students can save opportunities
+CREATE POLICY "Students can save opportunities" ON public.saved_opportunities
+  FOR INSERT TO authenticated
+  WITH CHECK (student_id = auth.uid());
+
+-- Students can remove their saved opportunities
+CREATE POLICY "Students can remove their saved opportunities" ON public.saved_opportunities
+  FOR DELETE TO authenticated
+  USING (student_id = auth.uid());
+
+
+--
+-- RLS Policies for public.chats table
+--
+-- Participants can view their chats
+CREATE POLICY "Participants can view their chats" ON public.chats
+  FOR SELECT TO authenticated
+  USING (student_id = auth.uid() OR company_id = auth.uid());
+
+
+--
+-- RLS Policies for public.messages table
+--
+-- Participants can view messages in their chats
+CREATE POLICY "Participants can view messages in their chats" ON public.messages
+  FOR SELECT TO authenticated
+  USING (
+    chat_id IN (
+      SELECT id FROM public.chats WHERE student_id = auth.uid() OR company_id = auth.uid()
+    )
+  );
+
+-- Participants can send messages
+CREATE POLICY "Participants can send messages" ON public.messages
+  FOR INSERT TO authenticated
+  WITH CHECK (
+    (sender_role = 'student' AND sender_id = auth.uid()) OR
+    (sender_role = 'company' AND sender_id = auth.uid())
+  );
+
+
+--
+-- RLS Policies for public.notifications table
+--
+-- Users can view their notifications
+CREATE POLICY "Users can view their notifications" ON public.notifications
+  FOR SELECT TO authenticated
+  USING (user_id = auth.uid());
+
+-- Users can update their notifications
+CREATE POLICY "Users can update their notifications" ON public.notifications
+  FOR UPDATE TO authenticated
+  USING (user_id = auth.uid())
+  WITH CHECK (user_id = auth.uid());
+
+
+--
+-- RLS Policies for public.company_team_members table
+--
+-- Company members can view their own membership
+CREATE POLICY "Company members can view their own membership" ON public.company_team_members
+  FOR SELECT TO authenticated
+  USING (user_id = auth.uid());
+
+
 -- -----------------------------------------------------------
 -- 5. STORAGE BUCKETS
 --    - Public/private access handled by RLS policies in Supabase Dashboard -> Storage
@@ -291,8 +504,25 @@ CREATE INDEX idx_applications_student_id ON public.applications (student_id);
 CREATE INDEX idx_applications_internship_id ON public.applications (internship_id);
 CREATE INDEX idx_applications_status ON public.applications (status);
 
+-- Additional indexes for audit and analytics
+CREATE INDEX idx_students_updated_at ON public.students (updated_at);
+CREATE INDEX idx_companies_updated_at ON public.companies (updated_at);
+CREATE INDEX idx_internships_updated_at ON public.internships (updated_at);
+CREATE INDEX idx_applications_updated_at ON public.applications (updated_at);
+CREATE INDEX idx_audit_log_changed_at ON public.audit_log (changed_at);
+
 -- GIN indexes for JSONB columns if you're frequently querying within them
 -- e.g., to search for internships requiring a specific skill or student having a skill
 CREATE INDEX idx_internships_skills_required ON public.internships USING GIN (skills_required);
 CREATE INDEX idx_students_skills ON public.students USING GIN (skills);
 CREATE INDEX idx_students_interests ON public.students USING GIN (interests);
+
+-- Indexes for new tables
+CREATE INDEX idx_saved_opportunities_student_id ON public.saved_opportunities (student_id);
+CREATE INDEX idx_saved_opportunities_internship_id ON public.saved_opportunities (internship_id);
+CREATE INDEX idx_chats_student_id ON public.chats (student_id);
+CREATE INDEX idx_chats_company_id ON public.chats (company_id);
+CREATE INDEX idx_messages_chat_id ON public.messages (chat_id);
+CREATE INDEX idx_notifications_user_id ON public.notifications (user_id);
+CREATE INDEX idx_company_team_members_company_id ON public.company_team_members (company_id);
+CREATE INDEX idx_company_team_members_user_id ON public.company_team_members (user_id);

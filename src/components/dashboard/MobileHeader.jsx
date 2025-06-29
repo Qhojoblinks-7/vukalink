@@ -1,7 +1,8 @@
 // src/components/dashboard/MobileHeader.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import NotificationBell from '../common/NotificationBell';
+import SearchBox from '../common/SearchBox';
 import logo from '../../assets/logo.svg';
 import md5 from 'md5';
 
@@ -20,8 +21,10 @@ const MobileHeader = ({ user }) => {
             </Link>
             {/* Icons on Right */}
             <div className="flex items-center space-x-3 sm:space-x-4">
-                <BellIcon className="h-7 w-7 text-white cursor-pointer hover:text-blue-500 sm:h-6 sm:w-6" />
-                <MagnifyingGlassIcon className="h-7 w-7 text-white cursor-pointer hover:text-blue-500 sm:h-6 sm:w-6" />
+                <NotificationBell />
+                <div className="w-32 max-w-xs">
+                  <SearchBox placeholder="Search..." />
+                </div>
                 {/* User Avatar */}
                 <Link to="/profile">
                     <img

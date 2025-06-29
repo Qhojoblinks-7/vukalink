@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth'; // Adjust path as needed
 import Button from '../ui/Button'; // Assuming you have a Button component
 import logo from '../../assets/logo.svg'; // Path to your logo.svg
-import { BellIcon } from '@heroicons/react/24/outline'; // Install: npm install @heroicons/react
+
+import NotificationBell from '../common/NotificationBell';
+import SearchBox from '../common/SearchBox';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -34,39 +36,36 @@ const Header = () => {
           <>
             <Link to="/dashboard" className="text-vuka-text hover:text-blue transition-colors font-medium">Dashboard</Link>
             <Link to="/find-internships" className="text-vuka-text hover:text-blue transition-colors font-medium">Find Internships</Link>
-            <Link to="/applications" className="text-blue font-semibold">My Applications</Link> {/* Highlighted from image */}
+            <Link to="/applications" className="text-blue font-semibold">My Applications</Link>
             <Link to="/saved" className="text-vuka-text hover:text-blue transition-colors font-medium">Saved</Link>
             <Link to="/profile" className="text-vuka-text hover:text-blue transition-colors font-medium">Profile</Link>
             <Link to="/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
             <Link to="/resources" className="text-vuka-text hover:text-blue transition-colors font-medium">Resources</Link>
-            
-            <div className="flex items-center space-x-4 ml-6"> {/* Separate group for icons/avatar */}
-              <BellIcon className="h-6 w-6 text-gray-200 cursor-pointer hover:text-blue transition-colors" />
-              {/* Placeholder for User Avatar/Menu - You'd put the actual avatar image here */}
-              <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center text-sm font-semibold">
-                {user.email ? user.email[0].toUpperCase() : 'U'} {/* Fallback initial */}
-              </div>
-              {/* Or if you have a full avatar from profile, use:
-              <img src={profile?.avatar_url || getGravatarUrl(user.email)} alt="User Avatar" className="w-9 h-9 rounded-full object-cover" />
-              */}
+            {/* Search Box for desktop */}
+            <div className="ml-4">
+              <SearchBox />
             </div>
-            {/* If you still want a logout button here, add it, but it's often in a dropdown */}
-            {/* <Button onClick={handleLogout} variant="ghost" className="text-blue-900  hover:text-blue-900 -dark">Logout</Button> */}
+            <div className="flex items-center space-x-4 ml-6">
+              <NotificationBell />
+              {/* User Avatar/Menu */}
+              <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center text-sm font-semibold">
+                {user.email ? user.email[0].toUpperCase() : 'U'}
+              </div>
+            </div>
           </>
         ) : (
-          // Logged Out State Navigation (from image_3411ff.png)
+          // Logged Out State Navigation
           <>
             <Link to="/opportunities" className="text-vuka-text hover:text-blue transition-colors font-medium">Browse Opportunities</Link>
             <Link to="/about" className="text-vuka-text hover:text-blue transition-colors font-medium">About Us</Link>
             <Link to="/faq" className="text-vuka-text hover:text-blue transition-colors font-medium">FAQ</Link>
             <Link to="/contact" className="text-vuka-text hover:text-blue transition-colors font-medium">Contact Us</Link>
-
-            <div className="flex items-center space-x-4 ml-6"> {/* Separate group for auth buttons */}
+            <div className="flex items-center space-x-4 ml-6">
               <Link to="/login">
                 <Button variant="ghost">Login</Button>
               </Link>
               <Link to="/register-student">
-                <Button>Sign Up</Button> {/* Changed from Register to Sign Up as per image */}
+                <Button>Sign Up</Button>
               </Link>
             </div>
           </>

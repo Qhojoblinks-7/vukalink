@@ -1,10 +1,12 @@
 // src/components/opportunities/DesktopOpportunitiesLayout.jsx
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import OpportunityFilters from './OpportunityFilters';
 import OpportunityList from './OpportunityList';
+import { fetchOpportunities } from '../../services/opportunities';
 
-const DesktopOpportunitiesLayout = ({ opportunities, onBookmarkToggle }) => {
-  // In a real app, filters would be managed here and passed down to OpportunityList
+
+const DesktopOpportunitiesLayout = ({ onBookmarkToggle }) => {
   const [currentFilters, setCurrentFilters] = useState({
     keyword: '',
     location: [],
@@ -17,31 +19,29 @@ const DesktopOpportunitiesLayout = ({ opportunities, onBookmarkToggle }) => {
   });
   const [sortOrder, setSortOrder] = useState('Newest');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Example: 6 items per page for desktop
+  const itemsPerPage = 6;
+  const [opportunities, setOpportunities] = useState([]);
+  const [totalOpportunities, setTotalOpportunities] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const filteredOpportunities = opportunities.filter(opp => {
-    // Basic filtering logic (can be expanded)
-    const matchesKeyword = currentFilters.keyword ?
-      (opp.title.toLowerCase().includes(currentFilters.keyword.toLowerCase()) ||
-       opp.company.toLowerCase().includes(currentFilters.keyword.toLowerCase()) ||
-       opp.description.toLowerCase().includes(currentFilters.keyword.toLowerCase())) : true;
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data, count } = await fetchOpportunities(currentFilters, currentPage, itemsPerPage, sortOrder);
+        setOpportunities(data);
+        setTotalOpportunities(count);
+      } catch (err) {
+        setError('Failed to load opportunities.');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [currentFilters, currentPage, sortOrder]);
 
-    const matchesLocation = currentFilters.location.length > 0 ?
-      currentFilters.location.some(loc => opp.location.toLowerCase().includes(loc.toLowerCase())) : true;
-
-    const matchesSkill = currentFilters.skills.length > 0 ?
-      currentFilters.skills.every(skill => opp.skills.map(s => s.toLowerCase()).includes(skill.toLowerCase())) : true;
-
-    // Add other filter logic here (industry, duration, stipend, attachmentType, academicProgram)
-
-    return matchesKeyword && matchesLocation && matchesSkill;
-  });
-
-  const totalPages = Math.ceil(filteredOpportunities.length / itemsPerPage);
-  const paginatedOpportunities = filteredOpportunities.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const totalPages = Math.ceil(totalOpportunities / itemsPerPage);
 
   return (
     <div className="flex flex-1 p-4 lg:p-8 space-x-6">
@@ -50,7 +50,7 @@ const DesktopOpportunitiesLayout = ({ opportunities, onBookmarkToggle }) => {
         <OpportunityFilters
           filters={currentFilters}
           setFilters={setCurrentFilters}
-          onApply={() => setCurrentPage(1)} // Reset page on apply filters
+          onApply={() => setCurrentPage(1)}
           onClear={() => {
             setCurrentFilters({
               keyword: '', location: [], industry: [], skills: [],
@@ -60,19 +60,24 @@ const DesktopOpportunitiesLayout = ({ opportunities, onBookmarkToggle }) => {
           }}
         />
       </div>
-
       {/* Right Content - Opportunity List */}
       <div className="flex-1 overflow-auto">
-        <OpportunityList
-          opportunities={paginatedOpportunities}
-          totalOpportunities={filteredOpportunities.length}
-          sortOrder={sortOrder}
-          setSortOrder={setSortOrder}
-          onBookmarkToggle={onBookmarkToggle}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {loading ? (
+          <div className="flex justify-center items-center h-64">Loading...</div>
+        ) : error ? (
+          <div className="flex justify-center items-center h-64 text-red-500">{error}</div>
+        ) : (
+          <OpportunityList
+            opportunities={opportunities}
+            totalOpportunities={totalOpportunities}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+            onBookmarkToggle={onBookmarkToggle}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );
