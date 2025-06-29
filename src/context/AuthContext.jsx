@@ -19,6 +19,10 @@ export function AuthProvider({ children }) {
     let role = userObj.user_metadata?.role;
     // fallback: if using app_metadata or other custom claims
     if (!role && userObj.app_metadata?.role) role = userObj.app_metadata.role;
+    // fallback: if role is set directly on user (rare, but for debugging)
+    if (!role && userObj.role) role = userObj.role;
+    // fallback: if company, check email domain or other logic (optional)
+    // console.log('DEBUG user object:', userObj); // Uncomment for debugging
     return { ...userObj, role };
   };
 
