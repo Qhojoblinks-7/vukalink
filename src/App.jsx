@@ -13,6 +13,7 @@ import OpportunitiesPage from './pages/OpportunitiesPage';
 import OpportunityDetailsPage from './pages/OpportunityDetailsPage';
 import MyApplicationsPage from './pages/MyApplicationsPage';
 import SavedOpportunitiesPage from './pages/SavedOpportunitiesPage';
+import LandingSplash from './pages/LandingSplash';
 
 // Import Company Pages
 import CompanyDashboardPage from './pages/CompanyDashboardPage'; // Placeholder for Company Dashboard
@@ -97,7 +98,7 @@ function App() {
             <Routes>
               {/* Public Routes */}
               <Route path="/auth" element={<AuthPage />} />
-              <Route path="/" element={user ? (user.role === 'company' ? <Navigate to="/company/dashboard" replace /> : <Navigate to="/dashboard" replace />) : <HomePage />} />
+              <Route path="/" element={user ? (user.role === 'company' ? <Navigate to="/company/dashboard" replace /> : <Navigate to="/dashboard" replace />) : <LandingSplash />} />
 
               {/* General Protected Routes (accessible by both student and company) */}
               <Route path="/messages" element={<PrivateRoute allowedRoles={['student', 'company']}><MessagesPage /></PrivateRoute>} />
