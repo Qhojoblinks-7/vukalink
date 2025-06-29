@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-md py-4 px-6 md:px-10 flex justify-between items-center">
+    <header className=" bg-white shadow-md py-4 px-6 md:px-10 flex justify-between items-center">
       {/* Logo Section */}
       <div className="flex items-center">
         <Link to={user ? '/dashboard' : '/'} className="flex items-center space-x-2">

@@ -4,10 +4,12 @@ import { signUp } from '../../services/auth';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
+
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('student'); // Default to student
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -15,29 +17,22 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccessMessage(''); // Clear messages on new submission
-
-    // Client-side Validation: Basic password matching before API call.
+    setSuccessMessage('');
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
-      return; // Early return if validation fails
+      return;
     }
-
     setLoading(true);
-    // Destructuring Response: Get specific values from the signup service.
-    const { error: authError, needsConfirmation } = await signUp(email, password);
-
+    // Pass role to signUp
+    const { error: authError, needsConfirmation } = await signUp(email, password, role);
     if (authError) {
       setError(authError.message);
     } else if (needsConfirmation) {
-      // User Feedback: Clear success message for email verification.
       setSuccessMessage("Registration successful! Please check your email for a verification link.");
-      // Clear form fields on successful submission.
       setEmail('');
       setPassword('');
       setConfirmPassword('');
     } else {
-      // Fallback for cases where no confirmation is needed (less common with default Supabase settings).
       setSuccessMessage("Registration successful! You are now logged in.");
       setEmail('');
       setPassword('');
@@ -58,6 +53,18 @@ const RegisterForm = () => {
         required
         error={error && error.includes('email') ? error : ''}
       />
+      <div>
+        <label htmlFor="register-role" className="block text-sm font-medium text-vuka-medium-grey mb-1">Register as</label>
+        <select
+          id="register-role"
+          value={role}
+          onChange={e => setRole(e.target.value)}
+          className="block w-full border border-gray-300 rounded-md shadow-sm p-2"
+        >
+          <option value="student">Student</option>
+          <option value="company">Company</option>
+        </select>
+      </div>
       <Input
         id="register-password" // Unique ID
         label="Password"

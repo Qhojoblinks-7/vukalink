@@ -1,116 +1,195 @@
 // src/App.jsx
 import React from 'react';
-// React Router DOM: Using BrowserRouter (as Router), Routes, Route, and Navigate.
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth'; // Assuming your useAuth hook is here
+import { useAuth } from './hooks/useAuth';
 
-// Import Pages: Organize imports for clarity.
+// Import Pages
 import AuthPage from './pages/AuthPage';
-import DashboardPage from './pages/DashboardPage';
-import HomePage from './pages/HomePage'; // <-- NEW: Import HomePage
-import ProfilePage from './pages/ProfilePage';
-// import OpportunitiesPage from './pages/OpportunitiesPage'; // Keep if you use it later
+import DashboardPage from './pages/DashboardPage'; // Student Dashboard
+import HomePage from './pages/HomePage';
+// import ProfilePage from './pages/ProfilePage'; // This old ProfilePage will be replaced by EditProfilePage for editing own, and PublicProfilePage for viewing others.
+import OpportunitiesPage from './pages/OpportunitiesPage';
+import OpportunityDetailsPage from './pages/OpportunityDetailsPage';
+import MyApplicationsPage from './pages/MyApplicationsPage';
+import SavedOpportunitiesPage from './pages/SavedOpportunitiesPage';
 
-// Import Common Components:
-// IMPORTANT: Adjust this path if you kept Header in src/components/common/
-import Header from './components/layout/Header'; // <-- ADJUSTED PATH for Header
-import MobileHeader from './components/dashboard/MobileHeader';
-import Footer from './components/layout/Footer'; // <-- NEW: Import Footer
+// Import Company Pages
+import CompanyDashboardPage from './pages/CompanyDashboardPage'; // Placeholder for Company Dashboard
+import CompanyManageOpportunitiesPage from './pages/CompanyManageOpportunitiesPage';
+import CompanyPostOpportunityPage from './pages/CompanyPostOpportunityPage';
+import CompanyApplicantsForOpportunityPage from './pages/CompanyApplicantsForOpportunityPage';
+
+// Import Common Components
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import MobileBottomNav from './components/dashboard/MobileBottomNav';
+import MobileHeader from './components/dashboard/MobileHeader'; // Used for mobile-specific header logic
+import MessagesPage from './pages/MessagesPage'; // Previously added MessagesPage
+import EditProfilePage from './pages/EditProfilePage';      // NEW: For editing own profile
+import PublicProfilePage from './pages/PublicProfilePage';  // NEW: For viewing others' profiles
 
 
 function App() {
-  // AuthContext: Accessing global authentication state.
   const { user, loading } = useAuth();
 
-  // PrivateRoute Component: Encapsulates protected route logic.
-  // Best Practice: Centralize authorization logic for routes.
-  const PrivateRoute = ({ children }) => {
+  // A more robust PrivateRoute that can also check user role
+  const PrivateRoute = ({ children, allowedRoles = [] }) => {
     if (loading) {
-      // Global Loading Indicator: Provides user feedback during auth check.
       return (
-        <div className="flex justify-center items-center min-h-screen text-blue-900  text-2xl font-heading">
+        <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
           Loading App...
         </div>
       );
     }
-    // Conditional Navigation: Redirect unauthenticated users.
-    return user ? children : <Navigate to="/auth" replace />;
+    if (!user) {
+      // If not logged in, redirect to auth page
+      return <Navigate to="/auth" replace />;
+    }
+    // If roles are specified and user's role is not among allowed roles, deny access
+    if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+      return (
+        <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+          Access Denied: You do not have permission to view this page.
+        </div>
+      );
+    }
+    return children;
   };
 
+  // Determine if the current path is a company path for header/footer logic
+  const isCompanyPath = window.location.pathname.startsWith('/company');
+  const isAuthOrHomePage = window.location.pathname === '/auth' || window.location.pathname === '/';
+
   return (
-    // Router Wrapper: Essential for React Router to function.
     <Router>
-      {/* Main App Container: Global styling and flex layout. */}
       <div className="min-h-screen flex flex-col font-body text-vuka-text bg-vuka-background">
 
-        {/* Conditional Header Rendering:
-            Best Practice: Avoid showing header on pages like AuthPage where it's not needed,
-            unless the user is already logged in (in which case they'll be redirected anyway).
-            This prevents a momentary flash of the header before redirection.
-        */}
-        {/* Show MobileHeader on mobile, Header on desktop */}
-        {(window.location.pathname !== '/auth' || user) && (
+        {/* Conditional Header Rendering */}
+        {!isAuthOrHomePage && (
           <>
-            <div className="block sm:hidden">
-              <MobileHeader user={user} />
-            </div>
-            <div className="hidden sm:block">
+            {/* Desktop Header */}
+            <div className="hidden md:block">
               <Header />
+            </div>
+            {/* Mobile Header for authenticated pages */}
+            <div className="md:hidden">
+              {/* MobileHeader on other pages will be handled by the page components themselves for dynamic titles */}
+              {/* e.g., EditProfilePage will render MobileHeader with "My Profile" */}
+              {/* PublicProfilePage will render MobileHeader with "<User/Company Name>'s Profile" */}
+              {/* If you need a generic mobile header here, you'd pass user prop to it. */}
             </div>
           </>
         )}
+        {/* Specific MobileHeader for auth page only (as per your original App.jsx) */}
+        {window.location.pathname === '/auth' && (
+          <div className="block md:hidden">
+            <MobileHeader user={null} /> {/* Assuming MobileHeader doesn't need user for auth page */}
+          </div>
+        )}
+        {/* Header for Home Page (if not logged in) - usually Header component includes logo etc. */}
+        {window.location.pathname === '/' && !user && <Header />}
 
-        {/* Main Content Area: Takes up remaining vertical space. */}
+
         <main className="flex-grow">
-          {/* Routes Definition: Centralized place for all application routes. */}
           <Routes>
-            {/* Public Routes: Accessible to all users. */}
+            {/* Public Routes */}
             <Route path="/auth" element={<AuthPage />} />
-            {/* NEW: HomePage route - will be displayed when user is not logged in */}
-            <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <HomePage />} />
+            <Route path="/" element={user ? (user.role === 'company' ? <Navigate to="/company/dashboard" replace /> : <Navigate to="/dashboard" replace />) : <HomePage />} />
+
+            {/* General Protected Routes (accessible by both student and company) */}
+            <Route path="/messages" element={<PrivateRoute allowedRoles={['student', 'company']}><MessagesPage /></PrivateRoute>} />
+            <Route path="/resources" element={<PrivateRoute allowedRoles={['student', 'company']}><div className="min-h-screen flex items-center justify-center">Resources Page (Both Roles)</div></PrivateRoute>} />
+            <Route path="/profile/edit" element={<PrivateRoute allowedRoles={['student', 'company']}><EditProfilePage /></PrivateRoute>} /> {/* NEW EDIT PROFILE ROUTE */}
+            <Route path="/profile/view/:userId" element={<PrivateRoute allowedRoles={['student', 'company']}><PublicProfilePage /></PrivateRoute>} /> {/* NEW PUBLIC PROFILE ROUTE */}
 
 
-            {/* Protected Routes: Wrapped by PrivateRoute for authentication check. */}
+            {/* Student Protected Routes */}
             <Route
               path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <DashboardPage />
-                </PrivateRoute>
-              }
+              element={<PrivateRoute allowedRoles={['student']}><DashboardPage /></PrivateRoute>}
             />
             <Route
               path="/opportunities"
+              element={<PrivateRoute allowedRoles={['student']}><OpportunitiesPage /></PrivateRoute>}
+            />
+            <Route
+              path="/opportunities/details/:id"
+              element={<PrivateRoute allowedRoles={['student']}><OpportunityDetailsPage /></PrivateRoute>}
+            />
+            <Route
+              path="/opportunities/:id/apply"
               element={
-                <PrivateRoute>
-                  {/* Placeholder Content: Good for showing progress before full implementation. */}
+                <PrivateRoute allowedRoles={['student']}>
                   <div className="min-h-screen flex items-center justify-center bg-vuka-background">
-                    <h1 className="text-3xl font-heading text-blue-900 ">Opportunities Page (Coming Soon!)</h1>
+                    <h1 className="text-3xl font-heading text-vuka-strong">Apply Page for ID: {/* Use useParams to get ID */} (Coming Soon!)</h1>
                   </div>
                 </PrivateRoute>
               }
             />
             <Route
-              path="/profile"
+              path="/applications"
+              element={<PrivateRoute allowedRoles={['student']}><MyApplicationsPage /></PrivateRoute>}
+            />
+            <Route
+              path="/applications/details/:id"
               element={
-                <PrivateRoute>
-                  <ProfilePage />
+                <PrivateRoute allowedRoles={['student']}>
+                  <div className="min-h-screen flex items-center justify-center bg-vuka-background">
+                    <h1 className="text-3xl font-heading text-vuka-strong">Application Details for ID: {/* Use useParams to get ID */} (Coming Soon!)</h1>
+                  </div>
                 </PrivateRoute>
               }
             />
+            <Route
+              path="/saved"
+              element={<PrivateRoute allowedRoles={['student']}><SavedOpportunitiesPage /></PrivateRoute>}
+            />
+            {/* The old /profile route is effectively replaced by /profile/edit for students */}
+            {/* <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} /> */}
 
-            {/* Other specific public routes if any (e.g., /about, /faq from Header) */}
+
+            {/* Company Protected Routes */}
+            <Route
+              path="/company/dashboard"
+              element={<PrivateRoute allowedRoles={['company']}><CompanyDashboardPage /></PrivateRoute>}
+            />
+            <Route
+              path="/company/post-opportunity"
+              element={<PrivateRoute allowedRoles={['company']}><CompanyPostOpportunityPage /></PrivateRoute>}
+            />
+            <Route
+              path="/company/manage-opportunities"
+              element={<PrivateRoute allowedRoles={['company']}><CompanyManageOpportunitiesPage /></PrivateRoute>}
+            />
+            <Route
+              path="/company/opportunities/:id/applicants"
+              element={<PrivateRoute allowedRoles={['company']}><CompanyApplicantsForOpportunityPage /></PrivateRoute>}
+            />
+            <Route
+              path="/company/opportunities/:id/edit"
+              element={
+                <PrivateRoute allowedRoles={['company']}>
+                  <div className="min-h-screen flex items-center justify-center bg-vuka-background">
+                    <h1 className="text-3xl font-heading text-vuka-strong">Edit Opportunity ID: {/* Use useParams to get ID */} (Coming Soon!)</h1>
+                  </div>
+                </PrivateRoute>
+              }
+            />
+            {/* Placeholder routes for company account settings if needed (as linked from CompanyEditProfileForm) */}
+            <Route path="/company/account-settings/password" element={<PrivateRoute allowedRoles={['company']}><div className="min-h-screen flex items-center justify-center">Company Password Settings</div></PrivateRoute>} />
+            <Route path="/company/account-settings/notifications" element={<PrivateRoute allowedRoles={['company']}><div className="min-h-screen flex items-center justify-center">Company Notification Settings</div></PrivateRoute>} />
+            <Route path="/company/account-settings/privacy" element={<PrivateRoute allowedRoles={['company']}><div className="min-h-screen flex items-center justify-center">Company Privacy Settings</div></PrivateRoute>} />
+            <Route path="/company/account-settings/team-management" element={<PrivateRoute allowedRoles={['company']}><div className="min-h-screen flex items-center justify-center">Company Team Management</div></PrivateRoute>} />
+
+
+            {/* Public Footer Pages */}
             <Route path="/about" element={<div className="min-h-screen flex items-center justify-center">About Us Page</div>} />
             <Route path="/faq" element={<div className="min-h-screen flex items-center justify-center">FAQ Page</div>} />
             <Route path="/contact" element={<div className="min-h-screen flex items-center justify-center">Contact Page</div>} />
-            <Route path="/register-student" element={<AuthPage />} /> {/* Assuming AuthPage handles both login/register forms */}
-            <Route path="/register-company" element={<AuthPage />} /> {/* Assuming AuthPage handles both login/register forms */}
-            {/* Add more routes for /applications, /saved, /messages, /resources etc. for logged-in header as needed */}
+            <Route path="/register-student" element={<AuthPage />} /> {/* Could potentially point to a specific registration form if AuthPage handles both */}
+            <Route path="/register-company" element={<AuthPage />} /> {/* Could potentially point to a specific registration form if AuthPage handles both */}
 
-
-            {/* Catch-all Route: Handles unmatched paths (404 Not Found).
-                Best Practice: Place as the last route to ensure other routes are matched first.
-            */}
+            {/* Catch-all route for 404 */}
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center bg-vuka-background">
                 <h1 className="text-3xl font-heading text-vuka-danger">404 - Page Not Found</h1>
@@ -119,9 +198,14 @@ function App() {
           </Routes>
         </main>
 
-        {/* Optional: Add your Footer component here if it's global */}
-        {/* The Footer will always be visible unless you add conditional rendering for it */}
-        <Footer /> {/* <-- NEW: Footer added globally */}
+        {/* Conditional MobileBottomNav Rendering */}
+        {/* Only show if user is logged in AND on mobile AND NOT on auth/home page */}
+        {user && !isAuthOrHomePage && (
+          <div className="block md:hidden"> {/* Only show on screens smaller than md */}
+            <MobileBottomNav isCompany={isCompanyPath} />
+          </div>
+        )}
+        <Footer />
       </div>
     </Router>
   );

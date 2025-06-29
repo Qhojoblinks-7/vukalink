@@ -7,20 +7,21 @@ import { supabase } from './supabaseClient';
  * @param {string} password
  * @returns {object} { user, session, error }
  */
-export async function signUp(email, password) {
+export async function signUp(email, password, role = 'student') {
+  // Store role in user_metadata
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: { role },
+    },
   });
 
-  // Supabase returns { user: null, session: null } if email confirmation is required,
-  // but `error` will be null. We might need to check data.user here.
   if (error) {
     console.error("Sign up error:", error.message);
     return { user: null, session: null, error };
   }
 
-  // Handle case where email confirmation is sent but no session is immediately created
   if (data.user && !data.session) {
     console.log("Sign up successful, please check your email for a verification link.");
     return { user: data.user, session: null, error: null, needsConfirmation: true };
