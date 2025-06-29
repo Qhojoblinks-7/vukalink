@@ -205,7 +205,10 @@ function App() {
             <MobileBottomNav isCompany={isCompanyPath} />
           </div>
         )}
-        <Footer />
+        {/* Footer only on public informational pages and home page */}
+        {['/', '/about', '/faq', '/contact', '/privacy', '/terms', '/cookies', '/blog'].includes(window.location.pathname) && (
+          <Footer />
+        )}
       </div>
     </Router>
   );

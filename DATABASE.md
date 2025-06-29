@@ -143,6 +143,19 @@ CREATE TABLE public.audit_log (
 );
 COMMENT ON TABLE public.audit_log IS 'Tracks all changes to key tables for auditing.';
 
+-- Enable RLS for audit_log table
+ALTER TABLE public.audit_log ENABLE ROW LEVEL SECURITY;
+
+-- Only allow access to the audit log for the service_role (backend only)
+CREATE POLICY "Allow service_role to read audit log"
+  ON public.audit_log
+  FOR SELECT
+  TO service_role
+  USING (true);
+
+-- No SELECT/INSERT/UPDATE/DELETE policies for authenticated/anon users
+-- This ensures audit logs are only accessible to backend/admins.
+
 CREATE OR REPLACE FUNCTION public.log_audit() RETURNS TRIGGER AS $$
 BEGIN
   INSERT INTO public.audit_log (table_name, record_id, action, changed_data, changed_by)
