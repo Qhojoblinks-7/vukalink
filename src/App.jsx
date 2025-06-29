@@ -8,7 +8,6 @@ import { DarkModeProvider } from './context/DarkModeContext';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage'; // Student Dashboard
 import HomePage from './pages/HomePage';
-// import ProfilePage from './pages/ProfilePage'; // This old ProfilePage will be replaced by EditProfilePage for editing own, and PublicProfilePage for viewing others.
 import OpportunitiesPage from './pages/OpportunitiesPage';
 import OpportunityDetailsPage from './pages/OpportunityDetailsPage';
 import MyApplicationsPage from './pages/MyApplicationsPage';
@@ -64,13 +63,16 @@ function App() {
   const isAuthOrHomePage = window.location.pathname === '/auth' || window.location.pathname === '/';
   const isSplash = window.location.pathname === '/';
 
+  // Detect if mobile (simple check)
+  const isMobile = window.innerWidth < 768;
+
   return (
     <DarkModeProvider>
       <Router>
         <div className="min-h-screen flex flex-col font-body text-vuka-text bg-vuka-background dark:bg-gray-900 dark:text-gray-100">
-          {/* Show only LandingSplash on root, no header/footer/nav/mobile header */}
+          {/* Show LandingSplash only on mobile root, HomePage on desktop root */}
           {isSplash ? (
-            <LandingSplash />
+            isMobile ? <LandingSplash /> : <HomePage />
           ) : (
             <>
               {/* Conditional Header Rendering */}
@@ -83,9 +85,6 @@ function App() {
                   {/* Mobile Header for authenticated pages */}
                   <div className="md:hidden">
                     {/* MobileHeader on other pages will be handled by the page components themselves for dynamic titles */}
-                    {/* e.g., EditProfilePage will render MobileHeader with "My Profile" */}
-                    {/* PublicProfilePage will render MobileHeader with "<User/Company Name>'s Profile" */}
-                    {/* If you need a generic mobile header here, you'd pass user prop to it. */}
                   </div>
                 </>
               )}
@@ -102,7 +101,7 @@ function App() {
                 <Routes>
                   {/* Public Routes */}
                   <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/" element={user ? (user.role === 'company' ? <Navigate to="/company/dashboard" replace /> : <Navigate to="/dashboard" replace />) : <LandingSplash />} />
+                  <Route path="/" element={isMobile ? <LandingSplash /> : <HomePage />} />
 
                   {/* General Protected Routes (accessible by both student and company) */}
                   <Route path="/messages" element={<PrivateRoute allowedRoles={['student', 'company']}><MessagesPage /></PrivateRoute>} />
