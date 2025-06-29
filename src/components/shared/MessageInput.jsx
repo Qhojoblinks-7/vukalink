@@ -2,14 +2,29 @@
 import React, { useState } from 'react';
 import Button from '../ui/Button';
 import { PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from '@heroicons/react/24/solid'; // For send icon
+import { uploadFile, getPublicUrl } from '../../services/upload';
 
 const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState('');
   const [attachment, setAttachment] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
-  const handleSend = () => {
-    if (message.trim() || attachment) {
-      onSendMessage(message.trim(), attachment);
+  const handleSend = async () => {
+    let attachmentUrl = null;
+    if (attachment && attachment.file) {
+      setUploading(true);
+      try {
+        const filePath = `messages/${Date.now()}_${attachment.file.name}`;
+        await uploadFile('message-attachments', filePath, attachment.file);
+        attachmentUrl = getPublicUrl('message-attachments', filePath);
+      } catch (e) {
+        alert('Attachment upload failed!');
+      } finally {
+        setUploading(false);
+      }
+    }
+    if (message.trim() || attachmentUrl) {
+      onSendMessage(message.trim(), attachmentUrl);
       setMessage('');
       setAttachment(null);
     }
@@ -19,8 +34,9 @@ const MessageInput = ({ onSendMessage }) => {
     const file = e.target.files[0];
     if (file) {
       setAttachment({
+        file,
         fileName: file.name,
-        url: URL.createObjectURL(file), // For preview, in real app, upload to server
+        url: URL.createObjectURL(file),
         type: file.type,
       });
     }
@@ -58,9 +74,9 @@ const MessageInput = ({ onSendMessage }) => {
       <Button
         className="bg-vuka-orange hover:bg-vuka-orange-dark text-white p-2 rounded-full flex items-center justify-center"
         onClick={handleSend}
-        disabled={!message.trim() && !attachment}
+        disabled={(!message.trim() && !attachment) || uploading}
       >
-        <PaperAirplaneIcon className="h-5 w-5 rotate-90" />
+        {uploading ? 'Uploading...' : <PaperAirplaneIcon className="h-5 w-5 rotate-90" />}
       </Button>
     </div>
   );
