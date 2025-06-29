@@ -66,7 +66,12 @@ const Header = () => {
             >
               Profile
             </Link>
-            <Link to="/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
+            {/* Messages: role-based navigation */}
+            {user.role === 'student' ? (
+              <Link to="/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
+            ) : (
+              <Link to="/company/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
+            )}
             <Link to="/resources" className="text-vuka-text hover:text-blue transition-colors font-medium">Resources</Link>
             {/* Search Box for desktop */}
             <div className="ml-4">

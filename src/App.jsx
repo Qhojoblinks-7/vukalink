@@ -18,6 +18,7 @@ import CompanyDashboardPage from './pages/CompanyDashboardPage'; // Placeholder 
 import CompanyManageOpportunitiesPage from './pages/CompanyManageOpportunitiesPage';
 import CompanyPostOpportunityPage from './pages/CompanyPostOpportunityPage';
 import CompanyApplicantsForOpportunityPage from './pages/CompanyApplicantsForOpportunityPage';
+import CompanyMessagesPage from './pages/CompanyMessagesPage';
 
 // Import Common Components
 import Header from './components/layout/Header';
@@ -98,6 +99,7 @@ function App() {
 
             {/* General Protected Routes (accessible by both student and company) */}
             <Route path="/messages" element={<PrivateRoute allowedRoles={['student', 'company']}><MessagesPage /></PrivateRoute>} />
+            <Route path="/company/messages" element={<PrivateRoute allowedRoles={['company']}><CompanyMessagesPage /></PrivateRoute>} />
             <Route path="/resources" element={<PrivateRoute allowedRoles={['student', 'company']}><div className="min-h-screen flex items-center justify-center">Resources Page (Both Roles)</div></PrivateRoute>} />
             <Route path="/profile/edit" element={<PrivateRoute allowedRoles={['student', 'company']}><EditProfilePage /></PrivateRoute>} /> {/* NEW EDIT PROFILE ROUTE */}
             <Route path="/profile/view/:userId" element={<PrivateRoute allowedRoles={['student', 'company']}><PublicProfilePage /></PrivateRoute>} /> {/* NEW PUBLIC PROFILE ROUTE */}
