@@ -34,9 +34,17 @@ const Header = () => {
         {user ? (
           // Logged In State Navigation
           <>
-            <Link to="/dashboard" className="text-vuka-text hover:text-blue transition-colors font-medium">Dashboard</Link>
-            <Link to="/find-internships" className="text-vuka-text hover:text-blue transition-colors font-medium">Find Internships</Link>
-            {/* Only show for students */}
+            {/* Dashboard link changes based on role */}
+            {user.role === 'student' ? (
+              <Link to="/dashboard" className="text-vuka-text hover:text-blue transition-colors font-medium">Dashboard</Link>
+            ) : (
+              <Link to="/company/dashboard" className="text-vuka-text hover:text-blue transition-colors font-medium">Dashboard</Link>
+            )}
+            {/* Only students see Find Internships */}
+            {user.role === 'student' && (
+              <Link to="/find-internships" className="text-vuka-text hover:text-blue transition-colors font-medium">Find Internships</Link>
+            )}
+            {/* Only students see My Applications and Saved */}
             {user.role === 'student' && (
               <>
                 <Link to="/applications" className="text-blue font-semibold">My Applications</Link>
