@@ -36,8 +36,13 @@ const Header = () => {
           <>
             <Link to="/dashboard" className="text-vuka-text hover:text-blue transition-colors font-medium">Dashboard</Link>
             <Link to="/find-internships" className="text-vuka-text hover:text-blue transition-colors font-medium">Find Internships</Link>
-            <Link to="/applications" className="text-blue font-semibold">My Applications</Link>
-            <Link to="/saved" className="text-vuka-text hover:text-blue transition-colors font-medium">Saved</Link>
+            {/* Only show for students */}
+            {user.role === 'student' && (
+              <>
+                <Link to="/applications" className="text-blue font-semibold">My Applications</Link>
+                <Link to="/saved" className="text-vuka-text hover:text-blue transition-colors font-medium">Saved</Link>
+              </>
+            )}
             <Link to="/profile" className="text-vuka-text hover:text-blue transition-colors font-medium">Profile</Link>
             <Link to="/messages" className="text-vuka-text hover:text-blue transition-colors font-medium">Messages</Link>
             <Link to="/resources" className="text-vuka-text hover:text-blue transition-colors font-medium">Resources</Link>
