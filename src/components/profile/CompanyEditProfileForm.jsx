@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 import ProfileSection from '../shared/ProfileSection'; // Reusable section component
 import {
   UserCircleIcon, BookOpenIcon, AcademicCapIcon, BriefcaseIcon,
-  LinkIcon, ShieldCheckIcon, KeyIcon, BellIcon, Cog8Icon, TrashIcon
+  LinkIcon, ShieldCheckIcon, KeyIcon, BellIcon, Cog6ToothIcon, TrashIcon
 } from '@heroicons/react/24/outline'; // Icons for sections
 
 const CompanyEditProfileForm = ({ user, onSave }) => {
@@ -262,7 +262,7 @@ const CompanyEditProfileForm = ({ user, onSave }) => {
         </p>
       </ProfileSection>
 
-      <ProfileSection title="Account Settings" icon={<Cog8Icon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Account Settings" icon={<Cog6ToothIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
         <ul className="space-y-2">
           <li>
             <a href="/account-settings/password" className="text-vuka-blue hover:underline flex items-center">
