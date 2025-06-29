@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 import ProfileSection from '../shared/ProfileSection'; // Reusable section component
 import {
   UserCircleIcon, BookOpenIcon, AcademicCapIcon, BriefcaseIcon,
-  LinkIcon, ShieldCheckIcon, KeyIcon, BellIcon, UserGroupIcon, TrashIcon
+  LinkIcon, ShieldCheckIcon, KeyIcon, BellIcon, Cog8Icon, TrashIcon
 } from '@heroicons/react/24/outline'; // Icons for sections
 
 const CompanyEditProfileForm = ({ user, onSave }) => {
