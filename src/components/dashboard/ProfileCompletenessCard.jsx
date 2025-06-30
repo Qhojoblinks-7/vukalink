@@ -10,10 +10,10 @@ const ProfileCompletenessCard = ({ completenessPercentage = 75 }) => {
     const progress = circumference * (1 - completenessPercentage / 100);
 
     return (
-        <div className="flex-col bg-white  p-4 rounded-lg shadow-md  justify-between sm:p-6">
+        <div className="flex-col bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md  justify-between sm:p-6">
             <div className="flex justify-between items-center mb-3 sm:mb-4">
-                <h3 className="text-lg font-semibold text-bold sm:text-xl">Profile Completeness</h3>
-                <ArrowTopRightOnSquareIcon className="h-5 w-5 text-grey-500 cursor-pointer hover:text-blue-900" />
+                <h3 className="text-lg font-semibold text-bold sm:text-xl dark:text-gray-100">Profile Completeness</h3>
+                <ArrowTopRightOnSquareIcon className="h-5 w-5 text-grey-600 cursor-pointer hover:text-blue-900" />
             </div>
 
             <div className="flex flex-col items-center space-y-4 mb-4 sm:flex-row sm:items-center  sm:space-x-6 sm:space-y-0 sm:mb-6">
@@ -41,20 +41,20 @@ const ProfileCompletenessCard = ({ completenessPercentage = 75 }) => {
                             className="transition-all duration-500 ease-out"
                         />
                     </svg>
-                    <div className="absolute inset-0 flex items-center justify-center text-blue-900 font-bold text-xl sm:text-2xl">
+                    <div className="absolute inset-0 flex items-center justify-center text-blue-900 dark:text-gray-100 font-bold text-xl sm:text-2xl">
                         {completenessPercentage}%
                     </div>
                 </div>
 
                 <div className="w-full flex flex-col items-center sm:items-start">
-                    <p className="text-vuka-bold font-medium mb-2 text-center sm:text-left text-sm sm:text-base">
+                    <p className="text-blue-900 dark:text-gray-100 font-medium mb-2 text-center sm:text-left text-sm sm:text-base">
                         Great job! Complete your profile for better matches.
                     </p>
                     <div className="flex-1 flex-col  gap-2 w-full sm:flex-row sm:space-x-2 sm:gap-0">
                         <Link to="/profile/add-resume" className="w-full sm:w-auto">
                             <Button
                                 variant="ghost"
-                                className="w-full  sm:w-auto text-blue-100 border border-blue-900 hover:bg-blue-900 hover:text-blue-100 text-sm"
+                                className="w-full  sm:w-auto text-blue-100 border border-blue-900 hover:bg-blue-900   hover:text-blue-100 text-sm"
                             >
                                 Add Resume
                             </Button>
@@ -62,7 +62,7 @@ const ProfileCompletenessCard = ({ completenessPercentage = 75 }) => {
                         <Link to="/profile/skills" className="w-full sm:w-auto">
                             <Button
                                 variant="ghost"
-                                className="w-full sm:w-auto text-blue-100 border  border-blue-900 hover:bg-blue-900 hover:text-blue-100 text-sm"
+                                className="w-full sm:w-auto text-blue-100 border  border-blue-900 hover:bg-blue-900   hover:text-blue-100 text-sm"
                             >
                                 Update Skills
                             </Button>

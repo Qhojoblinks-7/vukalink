@@ -140,39 +140,39 @@ const CompanyEditProfileForm = ({ user, onSave }) => {
         <img
           src={user.profileImage || '/images/default-avatar.png'} // Placeholder for user profile image
           alt="Profile"
-          className="w-24 h-24 rounded-full object-cover border-4 border-vuka-orange shadow-md"
+          className="w-24 h-24 rounded-full object-cover border-4 border-yellow-500 shadow-md"
         />
-        <h2 className="text-xl font-semibold mt-3 text-vuka-strong">{user.name || `${formData.firstName} ${formData.lastName}`}</h2>
-        <p className="text-sm text-vuka-medium-grey">{user.academicInfo?.university || 'University of Innovation'}</p>
-        <Button className="mt-4 bg-vuka-blue text-white py-2 px-4 rounded-lg text-sm">
+        <h2 className="text-xl font-semibold mt-3 text-blue-900">{user.name || `${formData.firstName} ${formData.lastName}`}</h2>
+        <p className="text-sm text-grey-600 -600 0">{user.academicInfo?.university || 'University of Innovation'}</p>
+        <Button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm">
           Change Profile Photo
         </Button>
       </div>
 
-      <ProfileSection title="Profile Details" icon={<UserCircleIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Profile Details" icon={<UserCircleIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-vuka-medium-grey">First Name</label>
+            <label htmlFor="firstName" className="block text-sm font-medium text-grey-600 -600 0">First Name</label>
             <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-vuka-medium-grey">Last Name</label>
+            <label htmlFor="lastName" className="block text-sm font-medium text-grey-600 -600 0">Last Name</label>
             <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-vuka-medium-grey">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-grey-600 -600 0">Email</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" readOnly /> {/* Email usually read-only */}
           </div>
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-vuka-medium-grey">Phone</label>
+            <label htmlFor="phone" className="block text-sm font-medium text-grey-600 -600 0">Phone</label>
             <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="location" className="block text-sm font-medium text-vuka-medium-grey">Location</label>
+            <label htmlFor="location" className="block text-sm font-medium text-grey-600 -600 0">Location</label>
             <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="gender" className="block text-sm font-medium text-vuka-medium-grey">Gender</label>
+            <label htmlFor="gender" className="block text-sm font-medium text-grey-600 -600 0">Gender</label>
             <select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
               <option value="">Select</option>
               <option value="Male">Male</option>
@@ -183,51 +183,51 @@ const CompanyEditProfileForm = ({ user, onSave }) => {
           </div>
         </div>
         <div className="mt-4">
-          <label htmlFor="bio" className="block text-sm font-medium text-vuka-medium-grey">Bio</label>
+          <label htmlFor="bio" className="block text-sm font-medium text-grey-600 -600 0">Bio</label>
           <textarea id="bio" name="bio" rows="3" value={formData.bio} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"></textarea>
         </div>
       </ProfileSection>
 
-      <ProfileSection title="Academic Information" icon={<AcademicCapIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Academic Information" icon={<AcademicCapIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="university" className="block text-sm font-medium text-vuka-medium-grey">University</label>
+            <label htmlFor="university" className="block text-sm font-medium text-grey-600 -600 0">University</label>
             <input type="text" id="university" name="university" value={formData.academicInfo.university} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="program" className="block text-sm font-medium text-vuka-medium-grey">Program</label>
+            <label htmlFor="program" className="block text-sm font-medium text-grey-600 -600 0">Program</label>
             <input type="text" id="program" name="program" value={formData.academicInfo.program} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="graduationYear" className="block text-sm font-medium text-vuka-medium-grey">Graduation Year</label>
+            <label htmlFor="graduationYear" className="block text-sm font-medium text-grey-600 -600 0">Graduation Year</label>
             <input type="number" id="graduationYear" name="graduationYear" value={formData.academicInfo.graduationYear} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
         </div>
       </ProfileSection>
 
-      <ProfileSection title="Skills & Interests" icon={<BriefcaseIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Skills & Interests" icon={<BriefcaseIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         <div className="mb-4">
-          <label htmlFor="skills" className="block text-sm font-medium text-vuka-medium-grey">Skills (comma-separated)</label>
+          <label htmlFor="skills" className="block text-sm font-medium text-grey-600 -600 0">Skills (comma-separated)</label>
           <input type="text" id="skills" name="skills" value={formData.skillsInterests.skills.join(', ')} onChange={(e) => handleArrayChange(e, 'skills')} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
         </div>
         <div>
-          <label htmlFor="interests" className="block text-sm font-medium text-vuka-medium-grey">Interests (comma-separated)</label>
+          <label htmlFor="interests" className="block text-sm font-medium text-grey-600 -600 0">Interests (comma-separated)</label>
           <input type="text" id="interests" name="interests" value={formData.skillsInterests.interests.join(', ')} onChange={(e) => handleArrayChange(e, 'interests')} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
         </div>
       </ProfileSection>
 
-      <ProfileSection title="Resume / CV" icon={<BookOpenIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Resume / CV" icon={<BookOpenIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         <div className="flex items-center space-x-4">
-          <input type="file" id="resumeCV" name="resumeCV" onChange={handleResumeCVChange} className="block w-full text-sm text-vuka-medium-grey file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-vuka-blue-light file:text-vuka-blue hover:file:bg-vuka-blue-light/80" />
+          <input type="file" id="resumeCV" name="resumeCV" onChange={handleResumeCVChange} className="block w-full text-sm text-grey-600 -600 0 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200" />
           {formData.resumeCV.fileName && (
-            <a href={formData.resumeCV.url} target="_blank" rel="noopener noreferrer" className="text-vuka-blue hover:underline">
+            <a href={formData.resumeCV.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
               {formData.resumeCV.fileName}
             </a>
           )}
         </div>
       </ProfileSection>
 
-      <ProfileSection title="Portfolio / Project Links" icon={<LinkIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Portfolio / Project Links" icon={<LinkIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         {formData.portfolioProjectLinks.map((link, index) => (
           <div key={index} className="flex items-center space-x-2 mb-2">
             <input
@@ -249,33 +249,33 @@ const CompanyEditProfileForm = ({ user, onSave }) => {
             </Button>
           </div>
         ))}
-        <Button type="button" onClick={handleAddLink} className="bg-vuka-blue hover:bg-vuka-blue-dark text-white py-2 px-4 rounded-lg mt-2">
+        <Button type="button" onClick={handleAddLink} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg mt-2">
           Add Link
         </Button>
       </ProfileSection>
 
       {/* Account Settings sections (read-only for general info, but can link to dedicated pages) */}
-      <ProfileSection title="Verification Status" icon={<ShieldCheckIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
-        <p className="text-sm text-vuka-medium-grey">Status: <span className="font-semibold text-vuka-green">Verified</span> (Simulated)</p>
-        <p className="text-xs text-vuka-medium-grey mt-1">
+      <ProfileSection title="Verification Status" icon={<ShieldCheckIcon className="h-5 w-5 mr-2 text-blue-600" />}>
+        <p className="text-sm text-grey-600 -600 0">Status: <span className="font-semibold text-green-600">Verified</span> (Simulated)</p>
+        <p className="text-xs text-grey-600 -600 0 mt-1">
           Verification helps build trust with employers.
         </p>
       </ProfileSection>
 
-      <ProfileSection title="Account Settings" icon={<Cog6ToothIcon className="h-5 w-5 mr-2 text-vuka-blue" />}>
+      <ProfileSection title="Account Settings" icon={<Cog6ToothIcon className="h-5 w-5 mr-2 text-blue-600" />}>
         <ul className="space-y-2">
           <li>
-            <a href="/account-settings/password" className="text-vuka-blue hover:underline flex items-center">
+            <a href="/account-settings/password" className="text-blue-600 hover:underline flex items-center">
               <KeyIcon className="h-5 w-5 mr-2" /> Password
             </a>
           </li>
           <li>
-            <a href="/account-settings/notifications" className="text-vuka-blue hover:underline flex items-center">
+            <a href="/account-settings/notifications" className="text-blue-600 hover:underline flex items-center">
               <BellIcon className="h-5 w-5 mr-2" /> Notifications
             </a>
           </li>
           <li>
-            <a href="/account-settings/privacy" className="text-vuka-blue hover:underline flex items-center">
+            <a href="/account-settings/privacy" className="text-blue-600 hover:underline flex items-center">
               <UserCircleIcon className="h-5 w-5 mr-2" /> Privacy
             </a>
           </li>
@@ -290,7 +290,7 @@ const CompanyEditProfileForm = ({ user, onSave }) => {
 
 
       <div className="mt-8 text-right">
-        <Button type="submit" className="bg-vuka-orange hover:bg-vuka-orange-dark text-white py-3 px-6 rounded-lg text-lg font-semibold">
+        <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg text-lg font-semibold">
           Save Changes
         </Button>
       </div>

@@ -10,7 +10,7 @@ const ActionButton = ({ icon: Icon, label, to }) => (
     <Link to={to} className="w-full">
         <Button
             variant="outline"
-            className="w-full flex items-center justify-center py-3 text-base border-gray-300 font-semibold hover:bg-gray-100
+            className="w-full flex items-center justify-center py-3 text-base border-gray-300 font-semibold hover:bg-gray-100    
                 sm:text-lg"
         >
             <Icon className="h-6 w-6 mr-2 sm:mr-3" />

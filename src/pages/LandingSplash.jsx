@@ -7,7 +7,7 @@ export default function LandingSplash() {
 
   // Only render on mobile (hide everything on md and up)
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-vuka-background dark:bg-gray-900 mobile-only">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 mobile-only">
       <img
         src={logo}
         alt="Logo"
@@ -20,7 +20,7 @@ export default function LandingSplash() {
           e.preventDefault();
           navigate('/dashboard', { replace: true });
         }}
-        className="w-11/12 max-w-xs px-6 py-4 rounded-xl bg-vuka-blue text-white font-bold shadow-lg text-lg tracking-wide hover:bg-vuka-strong transition block text-center"
+        className="w-11/12 max-w-xs px-6 py-4 rounded-xl bg-blue-600 text-white font-bold shadow-lg text-lg tracking-wide hover:bg-blue-800 transition block text-center"
         role="button"
       >
         Go to Dashboard

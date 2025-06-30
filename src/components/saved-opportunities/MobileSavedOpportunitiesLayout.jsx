@@ -57,16 +57,16 @@ const MobileSavedOpportunitiesLayout = ({ savedOpportunities }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-vuka-grey-light">
+    <div className="flex flex-col h-full bg-gray-100    ">
       {/* Custom Mobile Header for Saved Opportunities */}
-      <div className="bg-vuka-dark-blue py-4 px-4 flex justify-between items-center shadow-md">
-        <button onClick={() => navigate(-1)} className="text-vuka-white hover:text-vuka-blue">
+      <div className="bg-blue-900   py-4 px-4 flex justify-between items-center shadow-md">
+        <button onClick={() => navigate(-1)} className="text-white hover:text-blue-400">
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
-        <span className="text-vuka-white text-lg font-semibold">Saved Opportunities</span>
+        <span className="text-white text-lg font-semibold">Saved Opportunities</span>
         <div className="flex items-center space-x-4">
           {/* Notifications icon, re-using from MobileHeader if applicable */}
-          {/* <BellIcon className="h-6 w-6 text-vuka-white cursor-pointer hover:text-vuka-blue" /> */}
+          {/* <BellIcon className="h-6 w-6 text-white cursor-pointer hover:text-blue-600" /> */}
         </div>
       </div>
 
@@ -80,8 +80,8 @@ const MobileSavedOpportunitiesLayout = ({ savedOpportunities }) => {
                 onClick={() => setActiveStatusTab(status)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
                   ${activeStatusTab === status
-                    ? 'bg-vuka-blue text-white'
-                    : 'bg-gray-100 text-vuka-text hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100     text-grey-600 -900 hover:bg-gray-200'
                   }`}
               >
                 {status}
@@ -89,7 +89,7 @@ const MobileSavedOpportunitiesLayout = ({ savedOpportunities }) => {
             ))}
           </div>
           <select
-            className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue text-sm ml-2"
+            className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600 text-sm ml-2"
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
           >
@@ -108,14 +108,14 @@ const MobileSavedOpportunitiesLayout = ({ savedOpportunities }) => {
               <MobileSavedOpportunityCard key={opportunity.id} opportunity={opportunity} />
             ))
           ) : (
-            <p className="text-vuka-medium-grey text-center py-8">No saved opportunities found matching your criteria.</p>
+            <p className="text-grey-600 -600 0 text-center py-8">No saved opportunities found matching your criteria.</p>
           )}
         </div>
 
         {filteredOpportunities.length > displayCount && (
           <Button
             onClick={handleLoadMore}
-            className="w-full bg-vuka-dark-blue hover:bg-vuka-dark-blue-light text-white mt-6"
+            className="w-full bg-blue-900   hover:bg-blue-700 text-white mt-6"
           >
             Load More
           </Button>

@@ -28,7 +28,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
       case 'Active': return 'bg-green-100 text-green-700';
       case 'Draft': return 'bg-yellow-100 text-yellow-700';
       case 'Closed': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100     text-grey-600 -700';
     }
   };
 
@@ -38,9 +38,9 @@ const ManageOpportunityTable = ({ opportunities }) => {
     const diffTime = deadline.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diffDays <= 0) return { text: 'Expired', classes: 'text-vuka-danger' };
-    if (diffDays <= 7) return { text: `${diffDays} days left`, classes: 'text-vuka-orange' }; // Orange for expiring soon
-    return { text: deadline.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }), classes: 'text-vuka-medium-grey' };
+    if (diffDays <= 0) return { text: 'Expired', classes: 'text-red-600' };
+    if (diffDays <= 7) return { text: `${diffDays} days left`, classes: 'text-orange-500' };
+    return { text: deadline.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }), classes: 'text-grey-600 -600 0 dark:text-grey-600 -400' };
   };
 
   return (
@@ -48,33 +48,33 @@ const ManageOpportunityTable = ({ opportunities }) => {
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               <input
                 type="checkbox"
                 onChange={handleSelectAll}
                 checked={selectedOpportunities.length === opportunities.length && opportunities.length > 0}
-                className="rounded text-vuka-blue focus:ring-vuka-blue"
+                className="rounded text-vuka-blue focus:ring-blue-600"
               />
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Job Title
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Status
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Applicants
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Views
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Date Posted
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               App. Deadline
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-600 -600 0 uppercase tracking-wider">
               Actions
             </th>
           </tr>
@@ -90,26 +90,26 @@ const ManageOpportunityTable = ({ opportunities }) => {
                       type="checkbox"
                       checked={selectedOpportunities.includes(opp.id)}
                       onChange={(e) => handleSelectOne(e, opp.id)}
-                      className="rounded text-vuka-blue focus:ring-vuka-blue"
+                      className="rounded text-blue-600 focus:ring-blue-600"
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-vuka-strong">{opp.jobTitle}</div>
+                    <div className="text-sm font-medium text-grey-600 -900 dark:text-grey-600 -100">{opp.jobTitle}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClasses(opp.status)}`}>
                       {opp.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-vuka-medium-grey">
-                    <Link to={`/company/opportunities/${opp.id}/applicants`} className="text-vuka-blue hover:underline">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
+                    <Link to={`/company/opportunities/${opp.id}/applicants`} className="text-blue-600 hover:underline">
                       {opp.applicants}
                     </Link>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-vuka-medium-grey">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
                     {opp.views}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-vuka-medium-grey">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
                     {new Date(opp.datePosted).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -120,12 +120,12 @@ const ManageOpportunityTable = ({ opportunities }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center space-x-2">
                       <Link to={`/company/opportunities/${opp.id}/applicants`}>
-                        <Button className="px-3 py-1 bg-vuka-blue-light hover:bg-vuka-blue text-white flex items-center text-sm">
+                        <Button className="px-3 py-1 bg-blue-100 hover:bg-blue-600 text-blue-700 hover:text-white flex items-center text-sm">
                           <UsersIcon className="h-4 w-4 mr-1" />Applicants
                         </Button>
                       </Link>
                       <Link to={`/company/opportunities/${opp.id}/edit`}>
-                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-vuka-text hover:bg-gray-100 flex items-center text-sm">
+                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700 flex items-center text-sm">
                           Edit
                         </Button>
                       </Link>
@@ -139,7 +139,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
                           Activate
                         </Button>
                       )}
-                      <button className="text-vuka-medium-grey hover:text-vuka-strong">
+                      <button className="text-grey-600 -600 0 dark:text-grey-600 -600 hover:text-grey-600 -900 dark:hover:text-grey-600 -100">
                         <EllipsisVerticalIcon className="h-5 w-5" />
                       </button>
                     </div>
@@ -149,7 +149,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
             })
           ) : (
             <tr>
-              <td colSpan="8" className="px-6 py-12 text-center text-vuka-medium-grey">
+              <td colSpan="8" className="px-6 py-12 text-center text-grey-600 -600 0 dark:text-grey-600 -400">
                 No opportunities found.
               </td>
             </tr>

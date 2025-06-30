@@ -36,7 +36,7 @@ const CompanyPostOpportunityPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-600 text-2xl font-heading">
         Loading...
       </div>
     );
@@ -44,7 +44,7 @@ const CompanyPostOpportunityPage = () => {
 
   if (!user || user.role !== 'company') {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
         Access Denied: This page is for companies only.
       </div>
     );
@@ -162,7 +162,7 @@ const CompanyPostOpportunityPage = () => {
   ];
 
   return (
-    <div className="bg-vuka-grey-light min-h-screen flex flex-col md:flex-row">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col md:flex-row">
       <div className="md:hidden">
         <MobileHeader
           title="Post New Opportunity"
@@ -177,17 +177,17 @@ const CompanyPostOpportunityPage = () => {
 
       <div className="flex-grow p-4 md:p-8 md:ml-64 transition-all duration-300">
         <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 w-full">
-          <h1 className="text-2xl md:text-3xl font-heading text-vuka-strong mb-6 border-b pb-4">
+          <h1 className="text-2xl md:text-3xl font-heading text-blue-900 mb-6 border-b pb-4">
             Post a New Opportunity
           </h1>
 
-          <p className="text-vuka-text mb-8">
+          <p className="text-grey-600 -900 mb-8">
             Fill in the details below to create a new opportunity listing for students.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Opportunity Details */}
-            <h2 className="text-xl font-heading text-vuka-blue border-b pb-2">Opportunity Details</h2>
+            <h2 className="text-xl font-heading text-blue-600 border-b pb-2">Opportunity Details</h2>
             <InputField
               label="Opportunity Title"
               id="title"
@@ -266,9 +266,9 @@ const CompanyPostOpportunityPage = () => {
             />
 
             {/* Application Details */}
-            <h2 className="text-xl font-heading text-vuka-blue border-b pb-2 pt-6">Application Details</h2>
+            <h2 className="text-xl font-heading text-blue-600 border-b pb-2 pt-6">Application Details</h2>
             <div>
-              <label htmlFor="applicationDeadline" className="block text-sm font-medium text-vuka-text mb-1">
+              <label htmlFor="applicationDeadline" className="block text-sm font-medium text-grey-600 -900 mb-1">
                 Application Deadline <span className="text-red-500">*</span>
               </label>
               <DatePicker
@@ -277,7 +277,7 @@ const CompanyPostOpportunityPage = () => {
                 onChange={handleDateChange}
                 dateFormat="yyyy/MM/dd"
                 minDate={new Date()} // Can only select dates from today onwards
-                className={`w-full p-3 border ${errors.applicationDeadline ? 'border-red-500' : 'border-vuka-grey-light'} rounded-md focus:ring-vuka-blue focus:border-vuka-blue`}
+                className={`w-full p-3 border ${errors.applicationDeadline ? 'border-red-500' : 'border-gray-300'} rounded-md focus:ring-blue-600 focus:border-blue-600`}
                 placeholderText="Select a date"
                 required
               />
@@ -316,7 +316,7 @@ const CompanyPostOpportunityPage = () => {
             <div className="flex justify-end pt-4">
               <Button
                 type="submit"
-                className="bg-vuka-blue text-white py-3 px-6 rounded-md hover:bg-vuka-dark-blue transition duration-200 disabled:opacity-50"
+                className="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition duration-200 disabled:opacity-50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Posting...' : 'Post Opportunity'}

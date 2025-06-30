@@ -4,8 +4,8 @@ import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 const MessageBubble = ({ message, isSender, profileImage }) => {
   const bubbleClasses = isSender
-    ? 'bg-vuka-blue text-white rounded-bl-lg rounded-t-lg self-end'
-    : 'bg-white text-vuka-text border border-gray-200 rounded-br-lg rounded-t-lg self-start';
+    ? 'bg-blue-600 text-white rounded-bl-lg rounded-t-lg self-end'
+    : 'bg-white text-grey-600 -700 border border-gray-200 rounded-br-lg rounded-t-lg self-start';
 
   const containerClasses = isSender
     ? 'flex items-end justify-end'
@@ -23,14 +23,14 @@ const MessageBubble = ({ message, isSender, profileImage }) => {
             href={message.attachment.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center text-vuka-blue underline mt-2 bg-white p-2 rounded-md shadow-sm"
+            className="flex items-center text-blue-600 underline mt-2 bg-white p-2 rounded-md shadow-sm"
             onClick={(e) => e.stopPropagation()} // Prevent bubble click
           >
             <ArrowDownTrayIcon className="h-4 w-4 mr-1" />
-            <span className="text-vuka-text">{message.attachment.fileName}</span>
+            <span className="text-grey-600 -700">{message.attachment.fileName}</span>
           </a>
         )}
-        <p className={`text-[0.65rem] mt-1 ${isSender ? 'text-blue-100' : 'text-gray-500'} text-right`}>
+        <p className={`text-[0.65rem] mt-1 ${isSender ? 'text-blue-100' : 'text-grey-600 -600 0'} text-right`}>
           {message.timestamp}
         </p>
       </div>

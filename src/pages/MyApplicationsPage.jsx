@@ -150,7 +150,7 @@ const MyApplicationsPage = () => {
 
   if (authLoading || loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-600 text-2xl font-heading">
         Loading My Applications...
       </div>
     );
@@ -158,7 +158,7 @@ const MyApplicationsPage = () => {
 
   if (authError) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
         Authentication error: {authError.message}
       </div>
     );
@@ -166,14 +166,14 @@ const MyApplicationsPage = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
         Error loading applications: {error.message}
       </div>
     );
   }
 
   return (
-    <div className="bg-vuka-grey-light min-h-screen flex flex-col">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
       {/* Desktop View */}
       <div className="hidden md:flex flex-grow">
         <DesktopApplicationsLayout applications={applications} />

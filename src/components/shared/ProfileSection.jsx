@@ -11,13 +11,13 @@ const ProfileSection = ({ title, icon, children, defaultOpen = false }) => {
         className="flex justify-between items-center p-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h3 className="flex items-center text-lg font-semibold text-vuka-strong">
+        <h3 className="flex items-center text-lg font-semibold text-blue-900">
           {icon} {title}
         </h3>
         {isOpen ? (
-          <ChevronUpIcon className="h-6 w-6 text-vuka-medium-grey" />
+          <ChevronUpIcon className="h-6 w-6 text-grey-600 -600 0" />
         ) : (
-          <ChevronDownIcon className="h-6 w-6 text-vuka-medium-grey" />
+          <ChevronDownIcon className="h-6 w-6 text-grey-600 -600 0" />
         )}
       </div>
       {isOpen && (

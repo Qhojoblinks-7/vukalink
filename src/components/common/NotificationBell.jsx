@@ -40,7 +40,7 @@ function NotificationBell() {
   return (
     <div className="relative">
       <button onClick={handleOpen} className="relative">
-        <BellIcon className="h-6 w-6 text-gray-700" />
+        <BellIcon className="h-6 w-6 text-grey-600 -700" />
         {unreadCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs px-1">
             {unreadCount}
@@ -50,11 +50,11 @@ function NotificationBell() {
       {open && (
         <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-lg z-50 max-h-96 overflow-y-auto">
           <ul>
-            {notifications.length === 0 && <li className="p-4 text-gray-500">No notifications</li>}
+            {notifications.length === 0 && <li className="p-4 text-grey-600 -600 0">No notifications</li>}
             {notifications.map(n => (
-              <li key={n.id} className={`p-4 border-b ${n.is_read ? '' : 'bg-gray-100'}`}>
+              <li key={n.id} className={`p-4 border-b ${n.is_read ? '' : 'bg-gray-100    '}`}>
                 {n.content}
-                <span className="block text-xs text-gray-400">{new Date(n.created_at).toLocaleString()}</span>
+                <span className="block text-xs text-grey-600 -400">{new Date(n.created_at).toLocaleString()}</span>
               </li>
             ))}
           </ul>

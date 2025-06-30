@@ -50,7 +50,7 @@ const MobileBottomNav = ({ isCompany = false }) => { // Add isCompany prop, defa
           if (item.headerOnly && currentPath === item.path) {
             // Show a "Back" button or similar for header-only pages
             return (
-              <button key="back" onClick={() => window.history.back()} className="flex flex-col items-center justify-center text-xs font-medium px-2 py-1 text-vuka-orange">
+              <button key="back" onClick={() => window.history.back()} className="flex flex-col items-center justify-center text-xs font-medium px-2 py-1 text-orange-500">
                 <svg className="h-6 w-6 mb-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 <span>Back</span>
               </button>
@@ -63,7 +63,7 @@ const MobileBottomNav = ({ isCompany = false }) => { // Add isCompany prop, defa
               to={item.path}
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center text-xs font-medium px-2 py-1
-                ${isActive ? 'text-vuka-orange' : 'text-gray-500 hover:text-vuka-orange-dark'}`
+                ${isActive ? 'text-orange-500' : 'text-grey-600 -600 0 hover:text-orange-600'}`
               }
             >
               <item.icon className="h-6 w-6 mb-1" />

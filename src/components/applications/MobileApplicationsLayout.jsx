@@ -40,13 +40,13 @@ const MobileApplicationsLayout = ({ applications }) => {
 
 
   return (
-    <div className="flex flex-col h-full bg-vuka-grey-light">
+    <div className="flex flex-col h-full bg-gray-100    ">
       <MobileHeader /> {/* Reusing the mobile header */}
 
       <div className="flex-1 overflow-y-auto p-4 pb-20"> {/* pb-20 for bottom nav */}
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-xl font-heading font-bold text-vuka-strong">My Applications</h1>
-          <Button className="bg-vuka-orange hover:bg-vuka-orange-dark text-white px-4 py-2 text-sm">
+          <h1 className="text-xl font-heading font-bold text-blue-900">My Applications</h1>
+          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm">
             + New
           </Button>
         </div>
@@ -59,8 +59,8 @@ const MobileApplicationsLayout = ({ applications }) => {
                 onClick={() => setActiveStatusTab(status)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
                   ${activeStatusTab === status
-                    ? 'bg-vuka-blue text-white'
-                    : 'bg-gray-100 text-vuka-text hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100     text-grey-600 -900 hover:bg-gray-200'
                   }`}
               >
                 {status} {statusCounts[status] ? `(${statusCounts[status]})` : ''}
@@ -71,18 +71,18 @@ const MobileApplicationsLayout = ({ applications }) => {
         {/* Mobile Search and Date Filters */}
         <div className="flex space-x-2 mb-4">
           <div className="relative flex-1">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600 -400" />
             <input
               type="text"
               placeholder="Search by title or company"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-vuka-blue focus:border-vuka-blue"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-900 focus:border-blue-900"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <input
             type="date"
-            className="p-2 border border-gray-300 rounded-lg bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+            className="p-2 border border-gray-300 rounded-lg bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600"
             value={dateAppliedFilter}
             onChange={(e) => setDateAppliedFilter(e.target.value)}
           />
@@ -95,14 +95,14 @@ const MobileApplicationsLayout = ({ applications }) => {
               <MobileApplicationCard key={application.id} application={application} />
             ))
           ) : (
-            <p className="text-vuka-medium-grey text-center py-8">No applications found matching your criteria.</p>
+            <p className="text-grey-600 -600 0 text-center py-8">No applications found matching your criteria.</p>
           )}
         </div>
 
         {filteredApplications.length > displayCount && (
           <Button
             onClick={handleLoadMore}
-            className="w-full bg-vuka-dark-blue hover:bg-vuka-dark-blue-light text-white mt-6"
+            className="w-full bg-blue-900   hover:bg-blue-800 text-white mt-6"
           >
             Load More
           </Button>

@@ -11,7 +11,7 @@ const HeroSection = () => {
         <h1 className="text-5xl font-heading font-bold text-bold leading-tight mb-6">
           Tired of endless internship hunts? <span className="text-blue">LinkUp is your solution!</span>
         </h1>
-        <p className="text-vuka-text text-lg mb-8 max-w-xl mx-auto md:mx-0">
+        <p className="ttext-grey-600 -900 text-lg mb-8 max-w-xl mx-auto md:mx-0">
           LinkUp bridges the gap between students and companies, making it effortless to find, apply to, and manage meaningful internships or attachments. Start your confident career journey here.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">

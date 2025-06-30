@@ -14,14 +14,14 @@ const OpportunityList = ({
   onPageChange
 }) => {
   return (
-    <div className="bg-vuka-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-vuka-strong">Showing {totalOpportunities} opportunities</h2>
+        <h2 className="text-xl font-semibold text-grey-600 -900">Showing {totalOpportunities} opportunities</h2>
         <div className="flex items-center space-x-2">
-          <label htmlFor="sort-by" className="text-vuka-medium-grey text-sm">Sort by:</label>
+          <label htmlFor="sort-by" className="text-grey-600 -600 0 text-sm">Sort by:</label>
           <select
             id="sort-by"
-            className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+            className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -700 focus:ring-blue-600 focus:border-blue-600"
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
           >
@@ -44,7 +44,7 @@ const OpportunityList = ({
             />
           ))
         ) : (
-          <p className="text-vuka-medium-grey text-center py-8 col-span-full">No opportunities found matching your criteria.</p>
+          <p className="text-grey-600 -600 0 text-center py-8 col-span-full">No opportunities found matching your criteria.</p>
         )}
       </div>
 

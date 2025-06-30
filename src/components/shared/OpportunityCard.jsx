@@ -29,44 +29,44 @@ const OpportunityCard = ({
   };
 
   return (
-    <div className="bg-vuka-white p-6 rounded-lg shadow-md flex flex-col h-full relative border border-gray-200 hover:border-vuka-blue transition-all duration-200">
+    <div className="bg-white p-6 rounded-lg shadow-md flex flex-col h-full relative border border-gray-200 hover:border-blue-600 transition-all duration-200">
       {showBookmark && (
         <div className="absolute top-4 right-4 z-10">
           {isBookmarked ? (
             <SolidBookmarkIcon
-              className="h-6 w-6 text-vuka-blue cursor-pointer"
+              className="h-6 w-6 text-blue-600 cursor-pointer"
               onClick={handleBookmarkClick}
             />
           ) : (
             <OutlineBookmarkIcon
-              className="h-6 w-6 text-gray-400 hover:text-vuka-blue cursor-pointer"
+              className="h-6 w-6 text-grey-600 -600 hover:text-blue-600 cursor-pointer"
               onClick={handleBookmarkClick}
             />
           )}
         </div>
       )}
 
-      <h3 className="text-lg font-semibold text-vuka-strong mb-2 pr-10">{title}</h3> {/* Added pr-10 to make space for bookmark */}
-      <p className="text-vuka-medium-grey text-sm mb-3">{company}</p>
+      <h3 className="text-lg font-semibold text-grey-600 -900 mb-2 pr-10">{title}</h3> {/* Added pr-10 to make space for bookmark */}
+      <p className="text-grey-600 -600 0 text-sm mb-3">{company}</p>
 
-      <div className="flex items-center text-vuka-text text-sm mb-3 space-x-2">
+      <div className="flex items-center text-grey-600 -700 text-sm mb-3 space-x-2">
         {location && (
           <span className="flex items-center">
-            <span className="mr-1 inline-block w-2 h-2 rounded-full bg-vuka-blue-light"></span> {location}
+            <span className="mr-1 inline-block w-2 h-2 rounded-full bg-blue-100"></span> {location}
           </span>
         )}
         {duration && (
           <span className="flex items-center">
-            <span className="mr-1 inline-block w-2 h-2 rounded-full bg-vuka-blue-light"></span> {duration}
+            <span className="mr-1 inline-block w-2 h-2 rounded-full bg-blue-100"></span> {duration}
           </span>
         )}
       </div>
 
-      <p className="text-vuka-text text-sm mb-4 line-clamp-3 flex-grow">{description}</p>
+      <p className="text-grey-600 -700 text-sm mb-4 line-clamp-3 flex-grow">{description}</p>
 
       <div className="flex flex-wrap gap-2 mb-4 mt-auto">
         {skills.map((skill, index) => (
-          <span key={index} className="bg-vuka-grey-light text-vuka-medium-grey text-xs font-medium px-2.5 py-0.5 rounded-full">
+          <span key={index} className="bg-gray-100     text-grey-600 -600 0 text-xs font-medium px-2.5 py-0.5 rounded-full">
             {skill}
           </span>
         ))}
@@ -89,11 +89,11 @@ const OpportunityCard = ({
       <div className="flex space-x-2 mt-auto">
         {showApplyButton && (
           <Link to={`/opportunities/${id}/apply`} className="flex-1">
-            <Button className="w-full bg-vuka-orange hover:bg-vuka-orange-dark text-white">Apply</Button>
+            <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Apply</Button>
           </Link>
         )}
         <Link to={`/opportunities/details/${id}`} className="flex-1">
-          <Button variant="outline" className="w-full border-gray-300 text-vuka-text hover:bg-gray-100">
+          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 hover:bg-gray-100    ">
             View Details
           </Button>
         </Link>

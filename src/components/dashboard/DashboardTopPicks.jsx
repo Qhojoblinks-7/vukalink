@@ -40,7 +40,7 @@ const DashboardTopPicks = () => {
     return (
         <section className="mb-8 px-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center mb-6">
-                <h2 className="text-xl sm:text-2xl font-heading font-bold text-vuka-bold">Top Picks for You</h2>
+                <h2 className="text-xl sm:text-2xl font-heading font-bold text-blue-900">Top Picks for You</h2>
                 <Link to="/opportunities" className="text-blue-100 font-semibold hover:underline text-base sm:text-lg">
                     Find More Internships &rarr;
                 </Link>

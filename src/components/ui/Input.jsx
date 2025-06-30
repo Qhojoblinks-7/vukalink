@@ -18,8 +18,8 @@ const Input = ({
   `;
 
   // Conditional border styles for error state
-  const defaultBorder = 'border-vuka-light-grey focus:border-blue-900  focus:ring-blue-900 /50';
-  const errorBorder = 'border-vuka-danger focus:border-vuka-danger focus:ring-vuka-danger/50';
+  const defaultBorder = 'border-gray-300 focus:border-blue-900 focus:ring-blue-900/50';
+  const errorBorder = 'border-red-600 focus:border-red-600 focus:ring-red-600/50';
 
   return (
     // Container for grouping label, input, and error message
@@ -27,7 +27,7 @@ const Input = ({
       {label && (
         // Accessibility Best Practice: Use <label> for form elements.
         // `htmlFor` links the label to the input via its `id`.
-        <label htmlFor={id} className="block text-vuka-text text-sm font-medium mb-1">
+        <label htmlFor={id} className="block text-grey-600 -900 text-sm font-medium mb-1">
           {label}
         </label>
       )}
@@ -41,7 +41,7 @@ const Input = ({
       />
       {/* Error Message Display: Conditional rendering of error message. */}
       {error && (
-        <p className="text-vuka-danger text-sm mt-1">{error}</p>
+        <p className="text-red-600 text-sm mt-1">{error}</p>
       )}
     </div>
   );

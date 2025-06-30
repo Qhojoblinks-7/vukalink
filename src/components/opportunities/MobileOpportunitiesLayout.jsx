@@ -59,7 +59,7 @@ const MobileOpportunitiesLayout = ({ onBookmarkToggle }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-vuka-grey-light">
+    <div className="flex flex-col h-full bg-gray-50">
       <MobileHeader />
       <div className="flex-1 overflow-y-auto p-4 pb-20">
         <MobileSearchBar
@@ -69,7 +69,7 @@ const MobileOpportunitiesLayout = ({ onBookmarkToggle }) => {
         />
         {showFilterModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div className="bg-vuka-white w-full max-w-md rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+            <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
               <h2 className="text-xl font-heading font-bold mb-4">Filters</h2>
               <OpportunityFilters
                 filters={currentFilters}
@@ -101,7 +101,7 @@ const MobileOpportunitiesLayout = ({ onBookmarkToggle }) => {
                   />
                 ))
               ) : (
-                <p className="text-vuka-medium-grey text-center py-8">No opportunities found matching your criteria.</p>
+                <p className="text-grey-600 -600 0 text-center py-8">No opportunities found matching your criteria.</p>
               )}
             </div>
             {opportunities.length < totalOpportunities && totalOpportunities > 0 && (

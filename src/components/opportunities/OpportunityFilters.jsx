@@ -52,17 +52,17 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-2xl font-heading font-bold text-vuka-strong mb-6">Find Internships</h2>
+      <h2 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600 -600 mb-6">Find Internships</h2>
 
       {/* Keyword Search */}
       <div className="mb-6">
-        <label htmlFor="keyword" className="block text-vuka-strong text-sm font-medium mb-2">Keyword, company, role...</label>
+        <label htmlFor="keyword" className="block text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-2">Keyword, company, role...</label>
         <input
           type="text"
           id="keyword"
           name="keyword"
           placeholder="e.g., Software Engineer, Google"
-          className="w-full p-3 border border-gray-300 rounded-md focus:ring-vuka-blue focus:border-vuka-blue"
+          className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-600 focus:border-blue-600"
           value={localFilters.keyword}
           onChange={handleChange}
         />
@@ -70,17 +70,17 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Location Filter */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Location</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Location</h3>
         <div className="grid grid-cols-2 gap-2">
           {locations.map(loc => (
-            <label key={loc} className="flex items-center text-vuka-text">
+            <label key={loc} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
               <input
                 type="checkbox"
                 name="location"
                 value={loc}
                 checked={localFilters.location.includes(loc)}
                 onChange={handleChange}
-                className="mr-2 text-vuka-blue rounded focus:ring-vuka-blue"
+                className="mr-2 text-blue-600 rounded focus:ring-blue-600"
               />
               {loc}
             </label>
@@ -90,17 +90,17 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Industry Filter */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Industry</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Industry</h3>
         <div className="grid grid-cols-2 gap-2">
           {industries.map(ind => (
-            <label key={ind} className="flex items-center text-vuka-text">
+            <label key={ind} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
               <input
                 type="checkbox"
                 name="industry"
                 value={ind}
                 checked={localFilters.industry.includes(ind)}
                 onChange={handleChange}
-                className="mr-2 text-vuka-blue rounded focus:ring-vuka-blue"
+                className="mr-2 text-blue-600 rounded focus:ring-blue-600"
               />
               {ind}
             </label>
@@ -110,19 +110,19 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Skills Filter */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Skills</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Skills</h3>
         <input
           type="text"
           placeholder="Add skill"
           onKeyDown={handleSkillAdd}
-          className="w-full p-3 border border-gray-300 rounded-md focus:ring-vuka-blue focus:border-vuka-blue mb-2"
+          className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-600 focus:border-blue-600 mb-2"
         />
         <div className="flex flex-wrap gap-2">
           {localFilters.skills.map((skill) => (
-            <span key={skill} className="flex items-center bg-vuka-blue-light text-vuka-blue text-sm font-medium px-3 py-1 rounded-full">
+            <span key={skill} className="flex items-center bg-blue-100 text-blue-600 text-sm font-medium px-3 py-1 rounded-full">
               {skill}
               <XMarkIcon
-                className="ml-2 h-4 w-4 cursor-pointer text-vuka-blue hover:text-vuka-blue-dark"
+                className="ml-2 h-4 w-4 cursor-pointer text-blue-600 hover:text-blue-800"
                 onClick={() => handleSkillRemove(skill)}
               />
             </span>
@@ -132,15 +132,15 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Academic Program Filter (Radio) */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Academic Program</h3>
-        <label className="flex items-center text-vuka-text">
+        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Academic Program</h3>
+        <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
           <input
             type="radio"
             name="academicProgram"
             value="Any"
             checked={localFilters.academicProgram === 'Any'}
             onChange={handleChange}
-            className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+            className="mr-2 text-blue-600 focus:ring-blue-600"
           />
           Any
         </label>
@@ -149,17 +149,17 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Duration Filter (Radio) */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Duration</h3>
+        <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Duration</h3>
         <div className="grid grid-cols-2 gap-2">
           {durations.map(dur => (
-            <label key={dur} className="flex items-center text-vuka-text">
+            <label key={dur} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
               <input
                 type="radio"
                 name="duration"
                 value={dur}
                 checked={localFilters.duration === dur}
                 onChange={handleChange}
-                className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+                className="mr-2 text-blue-600 focus:ring-blue-600"
               />
               {dur}
             </label>
@@ -169,27 +169,27 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Stipend Filter (Radio) */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Stipend</h3>
+        <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Stipend</h3>
         <div className="flex space-x-4">
-          <label className="flex items-center text-vuka-text">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
             <input
               type="radio"
               name="stipend"
               value="paid"
               checked={localFilters.stipend === 'paid'}
               onChange={handleChange}
-              className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+              className="mr-2 text-blue-600 focus:ring-blue-600"
             />
             Paid
           </label>
-          <label className="flex items-center text-vuka-text">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
             <input
               type="radio"
               name="stipend"
               value="unpaid"
               checked={localFilters.stipend === 'unpaid'}
               onChange={handleChange}
-              className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+              className="mr-2 text-blue-600 focus:ring-blue-600"
             />
             Unpaid
           </label>
@@ -198,27 +198,27 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Attachment Type Filter (Radio) */}
       <div className="mb-6">
-        <h3 className="text-vuka-strong text-sm font-medium mb-3">Attachment Type</h3>
+        <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Attachment Type</h3>
         <div className="flex space-x-4">
-          <label className="flex items-center text-vuka-text">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
             <input
               type="radio"
               name="attachmentType"
               value="Part-time"
               checked={localFilters.attachmentType === 'Part-time'}
               onChange={handleChange}
-              className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+              className="mr-2 text-blue-600 focus:ring-blue-600"
             />
             Part-time
           </label>
-          <label className="flex items-center text-vuka-text">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
             <input
               type="radio"
               name="attachmentType"
               value="Full-time"
               checked={localFilters.attachmentType === 'Full-time'}
               onChange={handleChange}
-              className="mr-2 text-vuka-blue focus:ring-vuka-blue"
+              className="mr-2 text-blue-600 focus:ring-blue-600"
             />
             Full-time
           </label>
@@ -227,10 +227,10 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Action Buttons */}
       <div className="mt-auto pt-6 border-t border-gray-200 flex space-x-4">
-        <Button className="flex-1 bg-vuka-orange hover:bg-vuka-orange-dark text-white" onClick={() => onApply(localFilters)}>
+        <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white" onClick={() => onApply(localFilters)}>
           Apply Filters
         </Button>
-        <Button variant="ghost" className="flex-1 border border-gray-300 text-vuka-text hover:bg-gray-100" onClick={onClear}>
+        <Button variant="ghost" className="flex-1 border border-gray-300 text-grey-600 -900 hover:bg-gray-100    " onClick={onClear}>
           Clear All
         </Button>
       </div>

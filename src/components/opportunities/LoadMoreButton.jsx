@@ -6,7 +6,7 @@ const LoadMoreButton = ({ onClick, className }) => {
   return (
     <Button
       onClick={onClick}
-      className={`w-full bg-vuka-dark-blue hover:bg-vuka-dark-blue-light text-white ${className}`}
+      className={`w-full bg-blue-900   hover:bg-blue-800 text-white ${className}`}
     >
       Load More
     </Button>

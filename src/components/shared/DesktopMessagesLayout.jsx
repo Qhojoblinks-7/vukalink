@@ -11,21 +11,21 @@ const DesktopMessagesLayout = ({ conversations, selectedConversation, onSelectCo
   return (
     <div className="flex w-full min-h-screen">
       {isCompany && <CompanyDashboardSidebar />} {/* Conditionally render sidebar for company users */}
-      <div className={`flex-1 flex bg-vuka-white shadow-lg rounded-lg m-4 ${isCompany ? 'ml-0' : 'mx-auto max-w-7xl'}`}>
+      <div className={`flex-1 flex bg-white dark:bg-gray-900 shadow-lg rounded-lg m-4 ${isCompany ? 'ml-0' : 'mx-auto max-w-7xl'}`}>
         {/* Left Pane: Conversation List */}
         <div className="w-1/3 border-r border-gray-200 bg-white flex flex-col">
           <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="text-xl font-semibold text-vuka-strong">Messages</h2>
-            <Button className="bg-vuka-orange hover:bg-vuka-orange-dark text-white text-sm px-3 py-1 rounded-full">
+            <h2 className="text-xl font-semibold text-grey-600 -900">Messages</h2>
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm px-3 py-1 rounded-full">
               + New Message
             </Button>
           </div>
           <div className="p-4 border-b border-gray-200 relative">
-            <MagnifyingGlassIcon className="absolute left-7 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute left-7 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600 -400" />
             <input
               type="text"
               placeholder="Search conversations..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-vuka-blue focus:border-vuka-blue"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-600 focus:border-blue-600"
             />
           </div>
           <div className="flex-1 overflow-y-auto">
@@ -52,19 +52,19 @@ const DesktopMessagesLayout = ({ conversations, selectedConversation, onSelectCo
                     />
                   )}
                   <div>
-                    <h3 className="text-lg font-semibold text-vuka-strong">{selectedConversation.participant.name}</h3>
-                    <p className="text-sm text-vuka-medium-grey">{selectedConversation.participant.isCompany ? 'Company' : 'Student'}</p>
+                    <h3 className="text-lg font-semibold text-grey-600 -900">{selectedConversation.participant.name}</h3>
+                    <p className="text-sm text-grey-600 -600 0">{selectedConversation.participant.isCompany ? 'Company' : 'Student'}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   {/* Icons as per design */}
-                  <Bars3Icon className="h-6 w-6 text-gray-500 cursor-pointer hover:text-vuka-blue" />
-                  <EllipsisVerticalIcon className="h-6 w-6 text-gray-500 cursor-pointer hover:text-vuka-blue" />
+                  <Bars3Icon className="h-6 w-6 text-grey-600 -600 0 cursor-pointer hover:text-blue-600" />
+                  <EllipsisVerticalIcon className="h-6 w-6 text-grey-600 -600 0 cursor-pointer hover:text-blue-600" />
                 </div>
               </div>
 
               {/* Message Area */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-100">
+              <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-100    ">
                 {selectedConversation.messages.map((message) => (
                   <MessageBubble
                     key={message.id}
@@ -81,7 +81,7 @@ const DesktopMessagesLayout = ({ conversations, selectedConversation, onSelectCo
               </div>
             </>
           ) : (
-            <div className="flex-1 flex justify-center items-center text-vuka-medium-grey">
+            <div className="flex-1 flex justify-center items-center text-grey-600 -600 0">
               Select a conversation to start chatting.
             </div>
           )}

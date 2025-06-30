@@ -69,7 +69,7 @@ const CompanyMessagesPage = () => {
 
   if (authLoading || loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-600 text-2xl font-heading">
         Loading Messages...
       </div>
     );
@@ -77,14 +77,14 @@ const CompanyMessagesPage = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
         {`Error: ${error.message}`}
       </div>
     );
   }
 
   return (
-    <div className="bg-vuka-grey-light min-h-screen flex flex-col">
+    <div className="bg-gray-100     min-h-screen flex flex-col">
       {/* Desktop View */}
       <div className="hidden md:flex flex-grow">
         <DesktopMessagesLayout

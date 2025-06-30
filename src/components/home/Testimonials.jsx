@@ -5,11 +5,11 @@ import userAvatar1 from '../../assets/logo.svg'; // Placeholder image
 import userAvatar2 from '../../assets/logo.svg'; // Placeholder image
 
 const TestimonialCard = ({ quote, name, title, avatar }) => (
-  <div className="bg-white  p-8 rounded-lg shadow-md text-center flex flex-col items-center max-w-md mx-auto">
+  <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-md text-center flex flex-col items-center max-w-md mx-auto">
     <img src={avatar} alt={name} className="w-20 h-20 rounded-full object-cover mb-4 border-2 border-blue-900 -light" />
-    <p className="text-vuka-text text-lg italic mb-4">"{quote}"</p>
+    <p className="ttext-grey-600 -900 text-lg italic mb-4">"{quote}"</p>
     <p className="text-bold font-semibold">{name}</p>
-    <p className="text-grey-500 text-sm">{title}</p>
+    <p className="text-grey-600 text-sm">{title}</p>
   </div>
 );
 

@@ -91,7 +91,7 @@ const PublicProfilePage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-blue text-2xl font-heading">
+      <div className="flex justify-center items-center min-h-screen text-blue-600 text-2xl font-heading">
         Loading Profile...
       </div>
     );
@@ -99,7 +99,7 @@ const PublicProfilePage = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-danger text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
         Error: {error.message}
       </div>
     );
@@ -107,14 +107,14 @@ const PublicProfilePage = () => {
 
   if (!profileData) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-vuka-medium-grey text-xl font-body p-4">
+      <div className="flex justify-center items-center min-h-screen text-grey-600 -600 0 dark:text-grey-600 -600 text-xl font-body p-4">
         No profile data available.
       </div>
     );
   }
 
   return (
-    <div className="bg-vuka-grey-light min-h-screen flex flex-col">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
       {/* Mobile Header (can be passed dynamic title) */}
       <div className="md:hidden">
         <MobileHeader
@@ -127,7 +127,7 @@ const PublicProfilePage = () => {
 
       <div className="flex-grow md:flex md:justify-center md:items-start p-4 md:p-8">
         <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 w-full md:max-w-4xl">
-          <h1 className="text-2xl md:text-3xl font-heading text-vuka-strong mb-6 border-b pb-4">
+          <h1 className="text-2xl md:text-3xl font-heading text-grey-600 -900 dark:text-grey-600 -600 mb-6 border-b pb-4">
             {profileData.role === 'student' ? 'Student Profile' : 'Company Profile'}
           </h1>
           {profileData.role === 'student' ? (

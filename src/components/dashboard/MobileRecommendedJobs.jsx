@@ -40,7 +40,7 @@ const MobileRecommendedJobs = () => {
 
     return (
         <section className="mb-4 px-2">
-            <h2 className="text-lg font-heading font-bold text-vuka-bold mb-3">Recommended for You</h2>
+            <h2 className="text-lg font-heading font-bold text-blue-900 mb-3">Recommended for You</h2>
             <div className="flex overflow-x-auto snap-x snap-mandatory pb-3 space-x-3 -mx-2 px-2">
                 {recommendedJobs.map((job) => (
                     <div

@@ -15,12 +15,12 @@
 /* Set default font family, text color, and smooth font rendering for the entire body */
 body {
   font-family: "Lexend Deca", sans-serif; /* Your chosen body font */
-  color: #212529; /* vuka-text from tailwind.config.js */
+  color: #111827; /* Tailwind gray-900 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   line-height: 1.6;
-  background-color: #F8F9FA; /* vuka-background from tailwind.config.js */
+  background-color: #f3f4f6; /* Tailwind gray-100 */
 }
 
 /* Optionally apply the heading font to default HTML heading tags for quick styling */

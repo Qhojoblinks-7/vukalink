@@ -60,7 +60,7 @@ const LoginForm = () => {
 
       {/* General Error Message: Display if error doesn't pertain to specific input fields. */}
       {error && !error.includes('email') && !error.includes('password') && (
-        <p className="text-vuka-danger text-sm text-center">{error}</p>
+        <p className="text-red-600 text-sm text-center">{error}</p>
       )}
 
       {/* Button Component: Reusing `Button`, handling loading and disabled states. */}

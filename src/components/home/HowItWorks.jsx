@@ -3,7 +3,7 @@ import React from 'react';
 import { LightBulbIcon, RocketLaunchIcon, GlobeAltIcon, ChartBarIcon } from '@heroicons/react/24/outline'; // Install: npm install @heroicons/react
 
 const HowItWorksCard = ({ icon: Icon, title, description }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center">
+  <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md text-center flex flex-col items-center">
     <div className="p-4 bg-blue-50 rounded-full mb-4">
       <Icon className="h-8 w-8 text-blue" />
     </div>

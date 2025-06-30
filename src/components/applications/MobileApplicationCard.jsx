@@ -10,9 +10,9 @@ const MobileApplicationCard = ({ application }) => {
       case 'Applied': return 'bg-blue-100 text-blue-700';
       case 'Reviewed': return 'bg-purple-100 text-purple-700';
       case 'Interview': return 'bg-green-100 text-green-700';
-      case 'Offer': return 'bg-vuka-orange-light text-vuka-orange';
+      case 'Offer': return 'bg-yellow-100 text-yellow-700';
       case 'Rejected': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100     text-grey-600 -700';
     }
   };
 
@@ -40,23 +40,23 @@ const MobileApplicationCard = ({ application }) => {
 
 
   return (
-    <div className="bg-vuka-white p-4 rounded-lg shadow-md flex flex-col">
+    <div className="bg-white p-4 rounded-lg shadow-md flex flex-col">
       <div className="flex justify-between items-start mb-2">
-        <h3 className="text-lg font-semibold text-vuka-strong">{application.jobTitle}</h3>
+        <h3 className="text-lg font-semibold text-blue-900">{application.jobTitle}</h3>
         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClasses(application.currentStatus)}`}>
           {application.currentStatus}
         </span>
       </div>
 
-      <p className="text-vuka-medium-grey text-sm mb-3">{application.company}</p>
+      <p className="text-grey-600 -600 0 text-sm mb-3">{application.company}</p>
 
-      <div className="flex items-center text-vuka-text text-sm mb-3 space-x-4">
+      <div className="flex items-center text-grey-600 -900 text-sm mb-3 space-x-4">
         <span className="flex items-center">
-          <CalendarIcon className="h-4 w-4 mr-1 text-gray-500" />
+          <CalendarIcon className="h-4 w-4 mr-1 text-grey-600 -600 0" />
           {formatDate(application.dateApplied)}
         </span>
         <span className="flex items-center">
-          <ClockIcon className="h-4 w-4 mr-1 text-gray-500" />
+          <ClockIcon className="h-4 w-4 mr-1 text-grey-600 -600 0" />
           Last update: {getTimeAgo(application.lastStatusUpdate)}
         </span>
       </div>
@@ -64,9 +64,9 @@ const MobileApplicationCard = ({ application }) => {
       <div className="flex space-x-2 mt-auto">
         {/* Link to a hypothetical Application Details page or Opportunity Details page */}
         <Link to={`/applications/details/${application.id}`} className="flex-1">
-          <Button className="w-full bg-vuka-orange hover:bg-vuka-orange-dark text-white">View Details</Button>
+          <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">View Details</Button>
         </Link>
-        <Button variant="outline" className="flex-1 border-gray-300 text-vuka-text hover:bg-gray-100">
+        <Button variant="outline" className="flex-1 border-gray-300 text-grey-600 -900 hover:bg-gray-100    ">
           Withdraw
         </Button>
       </div>

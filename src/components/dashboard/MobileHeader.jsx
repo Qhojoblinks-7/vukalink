@@ -34,8 +34,17 @@ const MobileHeader = ({ user }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Toggle dark mode using context only
+    const handleToggleDarkMode = () => {
+        console.log('[MobileHeader] Toggling dark mode. Current:', darkMode);
+        setDarkMode(!darkMode);
+        setTimeout(() => {
+            console.log('[MobileHeader] After toggle. darkMode:', darkMode, 'DOM class:', document.documentElement.classList.contains('dark'));
+        }, 100);
+    };
+
     return (
-        <div className="bg-blue-900 py-3 px-3 fixed w-lvw flex justify-between items-center shadow-md">
+        <div className="bg-blue-900   py-3 px-3 fixed w-lvw flex justify-between items-center shadow-md">
             {/* Logo */}
             <Link to="/dashboard" className="flex items-center">
                 <img src={logo} alt="LinkUp Logo" className="h-8 w-auto sm:h-8" />
@@ -65,34 +74,34 @@ const MobileHeader = ({ user }) => {
                     <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
                       <Link
                         to="/profile/edit"
-                        className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700"
                         onClick={() => setDropdownOpen(false)}
                       >
                         Profile
                       </Link>
                       <Link
                         to={user?.role === 'student' ? '/messages' : '/company/messages'}
-                        className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700"
                         onClick={() => setDropdownOpen(false)}
                       >
                         Messages
                       </Link>
                       <Link
                         to="/resources"
-                        className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700"
                         onClick={() => setDropdownOpen(false)}
                       >
                         Resources
                       </Link>
                       <button
-                        onClick={() => setDarkMode((d) => !d)}
-                        className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        onClick={handleToggleDarkMode}
+                        className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-300 hover:bg-gray-100     dark:hover:bg-gray-700"
                       >
                         {darkMode ? 'Light Mode' : 'Dark Mode'}
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100     dark:hover:bg-gray-700"
                       >
                         Logout
                       </button>

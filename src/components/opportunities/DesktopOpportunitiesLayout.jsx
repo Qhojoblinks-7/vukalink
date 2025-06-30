@@ -46,7 +46,7 @@ const DesktopOpportunitiesLayout = ({ onBookmarkToggle }) => {
   return (
     <div className="flex flex-1 p-4 lg:p-8 space-x-6">
       {/* Left Sidebar - Filters */}
-      <div className="w-80 lg:w-96 bg-vuka-white rounded-lg shadow-md p-6 flex-shrink-0">
+      <div className="w-80 lg:w-96 bg-white rounded-lg shadow-md p-6 flex-shrink-0">
         <OpportunityFilters
           filters={currentFilters}
           setFilters={setCurrentFilters}

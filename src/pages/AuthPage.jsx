@@ -34,7 +34,7 @@ const AuthPage = () => {
 
   return (
     // Main Container Styling: Centered content, background.
-    <div className="min-h-screen flex items-center justify-center bg-vuka-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100     p-4">
       {/* Form Card Styling: Responsive width, shadow, rounded corners. */}
       <div className="bg-white  rounded-lg shadow-xl p-8 w-full max-w-md">
         {/* Dynamic Heading: Changes based on form mode. */}

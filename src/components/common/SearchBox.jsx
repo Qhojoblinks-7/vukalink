@@ -36,10 +36,10 @@ const SearchBox = ({ placeholder = 'Search internships, companies, skills...', o
 
   return (
     <div className="relative w-full max-w-xs">
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+      <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600 -400" />
       <input
         type="text"
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-vuka-blue focus:border-vuka-blue"
+        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-600 focus:border-blue-600"
         placeholder={placeholder}
         value={query}
         onChange={handleSearch}
@@ -49,16 +49,16 @@ const SearchBox = ({ placeholder = 'Search internships, companies, skills...', o
       {showDropdown && (
         <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
           {loading ? (
-            <div className="p-4 text-gray-500">Searching...</div>
+            <div className="p-4 text-grey-600 -600 0">Searching...</div>
           ) : results.length === 0 ? (
-            <div className="p-4 text-gray-500">No results found</div>
+            <div className="p-4 text-grey-600 -600 0">No results found</div>
           ) : (
             <ul>
               {results.map((item) => (
-                <li key={item.id} className="p-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0">
+                <li key={item.id} className="p-3 hover:bg-gray-100     cursor-pointer border-b last:border-b-0">
                   <div className="font-semibold">{item.title}</div>
-                  <div className="text-xs text-gray-500">{item.company} &middot; {item.location}</div>
-                  <div className="text-xs text-gray-400">{item.skills?.join(', ')}</div>
+                  <div className="text-xs text-grey-600 -600 0">{item.company} &middot; {item.location}</div>
+                  <div className="text-xs text-grey-600 -400">{item.skills?.join(', ')}</div>
                 </li>
               ))}
             </ul>

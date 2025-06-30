@@ -41,15 +41,15 @@ const MobileManageOpportunitiesLayout = ({ opportunities }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-vuka-grey-light">
+    <div className="flex flex-col h-full bg-gray-100    ">
       {/* Custom Mobile Header for My Opportunities (Company Side) */}
-      <div className="bg-vuka-dark-blue py-4 px-4 flex justify-between items-center shadow-md">
-        <button onClick={() => navigate(-1)} className="text-vuka-white hover:text-vuka-blue">
+      <div className="bg-blue-900   py-4 px-4 flex justify-between items-center shadow-md">
+        <button onClick={() => navigate(-1)} className="text-white hover:text-blue-600">
           <ArrowLeftIcon className="h-6 w-6" />
         </button>
-        <span className="text-vuka-white text-lg font-semibold">My Opportunities</span>
+        <span className="text-white text-lg font-semibold">My Opportunities</span>
         <div className="flex items-center space-x-4">
-          <BellIcon className="h-6 w-6 text-vuka-white cursor-pointer hover:text-vuka-blue" />
+          <BellIcon className="h-6 w-6 text-white cursor-pointer hover:text-blue-600" />
           <Link to="/company/post-opportunity"> {/* Link to post new opportunity */}
             <PlusIcon className="h-6 w-6 text-vuka-orange cursor-pointer hover:text-vuka-orange-dark" />
           </Link>
@@ -72,8 +72,8 @@ const MobileManageOpportunitiesLayout = ({ opportunities }) => {
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
                   ${activeStatusTab === status
-                    ? 'bg-vuka-blue text-white'
-                    : 'bg-gray-100 text-vuka-text hover:bg-gray-200'
+                    ? 'bg-blue-600   text-white'
+                    : 'bg-gray-100     ttext-grey-600 -900 hover:bg-gray-200'
                   }`}
               >
                 {status}
@@ -88,14 +88,14 @@ const MobileManageOpportunitiesLayout = ({ opportunities }) => {
               <MobileManageOpportunityCard key={opportunity.id} opportunity={opportunity} />
             ))
           ) : (
-            <p className="text-vuka-medium-grey text-center py-8">No opportunities found matching your criteria.</p>
+            <p className="text-grey-600 -600 0 text-center py-8">No opportunities found matching your criteria.</p>
           )}
         </div>
 
         {filteredOpportunities.length > displayCount && (
           <Button
             onClick={handleLoadMore}
-            className="w-full bg-vuka-dark-blue hover:bg-vuka-dark-blue-light text-white mt-6"
+            className="w-full bg-blue-900   hover:bg-blue-900  -light text-white mt-6"
           >
             Load More
           </Button>

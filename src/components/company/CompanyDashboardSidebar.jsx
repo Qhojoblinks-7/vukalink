@@ -30,7 +30,7 @@ const CompanyDashboardSidebar = () => {
   ];
 
   return (
-    <div className="w-64 bg-vuka-white shadow-md p-6 flex flex-col h-full sticky top-0 left-0">
+    <div className="w-64 bg-white  shadow-md p-6 flex flex-col h-full sticky top-0 left-0">
       <nav className="flex-1">
         <ul>
           {navItems.map((item) => (
@@ -38,11 +38,11 @@ const CompanyDashboardSidebar = () => {
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center p-3 rounded-lg text-vuka-text hover:bg-gray-100 transition-colors
-                  ${isActive ? 'bg-vuka-blue text-white font-semibold hover:bg-vuka-blue-dark' : ''}`
+                  `flex items-center p-3 rounded-lg ttext-grey-600 -900 hover:bg-gray-100     transition-colors
+                  ${isActive ? 'bg-blue-600   text-white font-semibold hover:bg-blue-600  -dark' : ''}`
                 }
               >
-                <item.icon className={`h-5 w-5 mr-3 ${({ isActive }) => isActive ? 'text-white' : 'text-gray-500'}`} />
+                <item.icon className={`h-5 w-5 mr-3 ${({ isActive }) => isActive ? 'text-white' : 'text-grey-600 -600 0'}`} />
                 <span>{item.name}</span>
               </NavLink>
             </li>
@@ -53,7 +53,7 @@ const CompanyDashboardSidebar = () => {
       <div className="mt-auto pt-4 border-t border-gray-200">
         <button
           onClick={handleLogout}
-          className="flex items-center p-3 rounded-lg text-vuka-danger hover:bg-red-50 w-full"
+          className="flex items-center p-3 rounded-lg text-red-600  hover:bg-red-50 w-full"
         >
           <ArrowLeftOnRectangleIcon className="h-5 w-5 mr-3" />
           <span>Logout</span>

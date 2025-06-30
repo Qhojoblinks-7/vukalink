@@ -120,10 +120,10 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
           </label>
         )}
         <h2 className="text-2xl font-heading font-bold text-boldtext-center">{profile?.full_name || user?.email}</h2>
-        <p className="text-grey-500 text-md">{user?.email}</p>
+        <p className="text-grey-600 text-md">{user?.email}</p>
       </div>
 
-      {formError && <p className="text-vuka-danger text-center mb-4">{formError}</p>}
+      {formError && <p className="text-red-600 text-center mb-4">{formError}</p>}
 
       {!isEditing ? (
         // View Mode
@@ -137,7 +137,7 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
           <ProfileDetail label="Interests" value={Array.isArray(profile?.interests) && profile.interests.length > 0 ? profile.interests.join(', ') : null} />
           <ProfileDetail label="Bio" value={profile?.bio} />
           {profile?.resume_url && (
-            <div className="border-b border-vuka-light-grey pb-4 last:border-b-0">
+            <div className="border-b border-gray-300 pb-4 last:border-b-0">
               <p className="text-sm text-grey-500">Resume:</p>
               <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-blue-900  hover:underline">
                 View Resume
@@ -260,9 +260,9 @@ const ProfileCard = ({ user, profile, onSave, onUploadAvatar, loading }) => { //
 
 // Helper component for consistent display of profile details
 const ProfileDetail = ({ label, value }) => (
-  <div className="border-b border-vuka-light-grey pb-4 last:border-b-0">
+    <div className="border-b border-gray-300 pb-4 last:border-b-0">
     <p className="text-sm text-grey-500">{label}:</p>
-    <p className="text-vuka-text font-medium">{value || 'N/A'}</p>
+    <p className="text-grey-600 -900 font-medium">{value || 'N/A'}</p>
   </div>
 );
 

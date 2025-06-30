@@ -5,9 +5,9 @@ import Button from '../ui/Button';
 
 const CallToAction = () => {
   return (
-    <section className="bg-white  py-20 px-6 md:px-10 text-center">
+    <section className="bg-white dark:bg-gray-900 py-20 px-6 md:px-10 text-center">
       <h2 className="text-4xl font-heading font-bold text-bold mb-6">Ready to LinkUp?</h2>
-      <p className="text-vuka-text text-lg mb-8 max-w-xl mx-auto">
+      <p className="ttext-grey-600 -900 text-lg mb-8 max-w-xl mx-auto">
         Don't miss your next opportunity. Join LinkUp and unlock your pathway to a thriving career or find your next great hire with ease.
       </p>
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">

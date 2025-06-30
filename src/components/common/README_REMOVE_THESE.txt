@@ -1,0 +1,1 @@
+This folder previously contained duplicate Header/Footer components. Please use only the layout/Header.jsx and layout/Footer.jsx versions for all site-wide layout. This file is a reminder to remove Header.jsx and Footer.jsx from this folder if not already deleted.

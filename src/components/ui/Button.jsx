@@ -32,24 +32,24 @@ const Button = ({
   // Consistent Hover/Focus States: Enhances user experience.
   switch (variant) {
     case 'success':
-      baseStyles += ' bg-vuka-success text-vuka-white hover:bg-green-600 focus:ring-vuka-success';
+      baseStyles += ' bg-green-600 text-white hover:bg-green-700 focus:ring-green-500';
       break;
     case 'warning':
-      baseStyles += ' bg-vuka-warning text-vuka-white hover:bg-orange-600 focus:ring-vuka-warning';
+      baseStyles += ' bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-400';
       break;
     case 'danger':
-      baseStyles += ' bg-vuka-danger text-vuka-white hover:bg-red-600 focus:ring-vuka-danger';
+      baseStyles += ' bg-red-600 text-white hover:bg-red-700 focus:ring-red-500';
       break;
     case 'outline':
       // Best Practice: Ensure accessible color contrast for outlines.
-      baseStyles += ' border-2 border-blue-900  text-blue-900  hover:bg-blue-900  hover:text-vuka-white focus:ring-blue-900 ';
+      baseStyles += ' border-2 border-blue-900 text-blue-900 hover:bg-blue-900   hover:text-white focus:ring-blue-900';
       break;
     case 'ghost':
-      baseStyles += ' text-blue-900  hover:bg-blue-900 -lightest focus:ring-blue-900 ';
+      baseStyles += ' text-blue-900 hover:bg-blue-50 focus:ring-blue-900';
       break;
     case 'primary':
     default:
-      baseStyles += ' bg-blue-900  text-vuka-white hover:bg-vuka-bold  focus:ring-blue-900 ';
+      baseStyles += ' bg-blue-900   text-white hover:bg-blue-800 focus:ring-blue-900';
       break;
   }
 

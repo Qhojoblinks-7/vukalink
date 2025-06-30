@@ -62,11 +62,11 @@ const DesktopSavedOpportunitiesLayout = ({ savedOpportunities }) => {
 
   return (
     <div className="container mx-auto px-4 py-8 lg:px-8">
-      <div className="bg-vuka-white p-8 rounded-lg shadow-md">
+      <div className="bg-white p-8 rounded-lg shadow-md">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-heading font-bold text-vuka-strong">Saved Opportunities</h1>
+          <h1 className="text-2xl font-heading font-bold text-blue-900">Saved Opportunities</h1>
           <Link to="/opportunities">
-            <Button className="bg-vuka-orange hover:bg-vuka-orange-dark text-white">Find Internships</Button>
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white">Find Internships</Button>
           </Link>
         </div>
 
@@ -74,20 +74,20 @@ const DesktopSavedOpportunitiesLayout = ({ savedOpportunities }) => {
         <div className="mb-6 border-b border-gray-200 pb-4">
           <div className="flex items-center space-x-4 mb-4">
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600 -400" />
               <input
                 type="text"
                 placeholder="Search by job title or company..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-vuka-blue focus:border-vuka-blue"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-600 focus:border-blue-600"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="status-filter" className="text-vuka-medium-grey text-sm whitespace-nowrap">Status:</label>
+              <label htmlFor="status-filter" className="text-grey-600 -600 0 text-sm whitespace-nowrap">Status:</label>
               <select
                 id="status-filter"
-                className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+                className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600"
                 value={activeStatusTab}
                 onChange={(e) => setActiveStatusTab(e.target.value)}
               >
@@ -97,10 +97,10 @@ const DesktopSavedOpportunitiesLayout = ({ savedOpportunities }) => {
               </select>
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="sort-by" className="text-vuka-medium-grey text-sm whitespace-nowrap">Sort by:</label>
+              <label htmlFor="sort-by" className="text-grey-600 -600 0 text-sm whitespace-nowrap">Sort by:</label>
               <select
                 id="sort-by"
-                className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+                className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
               >
@@ -133,13 +133,13 @@ const DesktopSavedOpportunitiesLayout = ({ savedOpportunities }) => {
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
-            <p className="text-vuka-medium-grey text-sm text-center mt-4">
+            <p className="text-grey-600 -600 0 text-sm text-center mt-4">
               Showing {paginatedOpportunities.length} of {sortedOpportunities.length} opportunities
             </p>
           </div>
         )}
         {sortedOpportunities.length === 0 && (
-          <p className="text-vuka-medium-grey text-center py-8">No saved opportunities found matching your criteria.</p>
+          <p className="text-grey-600 -600 0 text-center py-8">No saved opportunities found matching your criteria.</p>
         )}
       </div>
     </div>

@@ -54,7 +54,7 @@ const MessageInput = ({ onSendMessage }) => {
       <input
         type="text"
         placeholder="Type your message..."
-        className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-vuka-blue"
+        className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={handleKeyPress}
@@ -65,14 +65,14 @@ const MessageInput = ({ onSendMessage }) => {
         className="hidden"
         onChange={handleAttachmentChange}
       />
-      <label htmlFor="file-upload" className="cursor-pointer text-vuka-medium-grey hover:text-vuka-blue">
+      <label htmlFor="file-upload" className="cursor-pointer text-grey-600 -600 0 hover:text-blue-600">
         <PaperClipIcon className="h-6 w-6" />
       </label>
       {/* You can add a PhotoIcon for image uploads if needed, similar to PaperClipIcon */}
-      {/* <PhotoIcon className="h-6 w-6 text-gray-500 cursor-pointer hover:text-vuka-blue" /> */}
+      {/* <PhotoIcon className="h-6 w-6 text-grey-600 -600 0 cursor-pointer hover:text-blue-600" /> */}
 
       <Button
-        className="bg-vuka-orange hover:bg-vuka-orange-dark text-white p-2 rounded-full flex items-center justify-center"
+        className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full flex items-center justify-center"
         onClick={handleSend}
         disabled={(!message.trim() && !attachment) || uploading}
       >

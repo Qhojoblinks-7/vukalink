@@ -51,11 +51,11 @@ const DesktopApplicationsLayout = ({ applications }) => {
 
   return (
     <div className="container mx-auto px-4 py-8 lg:px-8">
-      <div className="bg-vuka-white p-8 rounded-lg shadow-md">
+      <div className="bg-white p-8 rounded-lg shadow-md">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-heading font-bold text-vuka-strong">My Applications</h1>
+          <h1 className="text-2xl font-heading font-bold text-blue-900">My Applications</h1>
           <Link to="/opportunities"> {/* Link to Find Internships page */}
-            <Button className="bg-vuka-orange hover:bg-vuka-orange-dark text-white">+ Find Internships</Button>
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white">+ Find Internships</Button>
           </Link>
         </div>
 
@@ -68,8 +68,8 @@ const DesktopApplicationsLayout = ({ applications }) => {
                 onClick={() => setActiveStatusTab(status)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
                   ${activeStatusTab === status
-                    ? 'bg-vuka-blue text-white'
-                    : 'bg-gray-100 text-vuka-text hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100     text-grey-600 -900 hover:bg-gray-200'
                   }`}
               >
                 {status}
@@ -78,20 +78,20 @@ const DesktopApplicationsLayout = ({ applications }) => {
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600 -400" />
               <input
                 type="text"
                 placeholder="Search by job or company"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-vuka-blue focus:border-vuka-blue"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-600 focus:border-blue-600"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="sort-by" className="text-vuka-medium-grey text-sm whitespace-nowrap">Sort by:</label>
+              <label htmlFor="sort-by" className="text-grey-600 -600 0 text-sm whitespace-nowrap">Sort by:</label>
               <select
                 id="sort-by"
-                className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+                className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
               >
@@ -101,11 +101,11 @@ const DesktopApplicationsLayout = ({ applications }) => {
               </select>
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="date-applied" className="text-vuka-medium-grey text-sm whitespace-nowrap">Date Applied:</label>
+              <label htmlFor="date-applied" className="text-grey-600 -600 0 text-sm whitespace-nowrap">Date Applied:</label>
               <input
                 type="date"
                 id="date-applied"
-                className="p-2 border border-gray-300 rounded-md bg-white text-vuka-text focus:ring-vuka-blue focus:border-vuka-blue"
+                className="p-2 border border-gray-300 rounded-md bg-white text-grey-600 -900 focus:ring-blue-600 focus:border-blue-600"
                 value={dateAppliedFilter}
                 onChange={(e) => setDateAppliedFilter(e.target.value)}
               />
@@ -115,10 +115,10 @@ const DesktopApplicationsLayout = ({ applications }) => {
 
         {/* Bulk Actions */}
         <div className="flex space-x-4 mb-6">
-          <Button variant="outline" className="border-gray-300 text-vuka-text hover:bg-gray-100">
+          <Button variant="outline" className="border-gray-300 text-grey-600 -900 hover:bg-gray-100    ">
             Bulk Withdraw
           </Button>
-          <Button variant="outline" className="border-gray-300 text-vuka-text hover:bg-gray-100">
+          <Button variant="outline" className="border-gray-300 text-grey-600 -900 hover:bg-gray-100    ">
             Export Data
           </Button>
         </div>
@@ -134,13 +134,13 @@ const DesktopApplicationsLayout = ({ applications }) => {
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
-            <p className="text-vuka-medium-grey text-sm text-center mt-4">
+            <p className="text-grey-600 -600 0 text-sm text-center mt-4">
               Showing {paginatedApplications.length} of {sortedApplications.length} applications
             </p>
           </div>
         )}
         {sortedApplications.length === 0 && (
-          <p className="text-vuka-medium-grey text-center py-8">No applications found matching your criteria.</p>
+          <p className="text-grey-600 -600 0 text-center py-8">No applications found matching your criteria.</p>
         )}
       </div>
     </div>

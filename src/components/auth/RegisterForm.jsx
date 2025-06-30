@@ -70,7 +70,7 @@ const RegisterForm = () => {
         error={error && error.includes('email') ? error : ''}
       />
       <div>
-        <label htmlFor="register-role" className="block text-sm font-medium text-vuka-medium-grey mb-1">Register as</label>
+        <label htmlFor="register-role" className="block text-sm font-medium text-grey-600 -600 0 mb-1">Register as</label>
         <select
           id="register-role"
           value={role}
@@ -82,7 +82,7 @@ const RegisterForm = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="register-org" className="block text-sm font-medium text-vuka-medium-grey mb-1">Organization</label>
+        <label htmlFor="register-org" className="block text-sm font-medium text-grey-600 -600 0 mb-1">Organization</label>
         <select
           id="register-org"
           value={orgId}
@@ -119,10 +119,10 @@ const RegisterForm = () => {
 
       {/* General Error/Success Messages */}
       {error && !error.includes('email') && !error.includes('password') && !error.includes('match') && (
-        <p className="text-vuka-danger text-sm text-center">{error}</p>
+        <p className="text-red-600 text-sm text-center">{error}</p>
       )}
       {successMessage && (
-        <p className="text-vuka-success text-sm text-center font-medium">{successMessage}</p>
+        <p className="text-green-600 text-sm text-center font-medium">{successMessage}</p>
       )}
 
       <Button type="submit" className="w-full" disabled={loading}>
