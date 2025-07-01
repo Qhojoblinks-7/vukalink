@@ -35,7 +35,7 @@ const CompanyDashboardPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col md:flex-row">
+    <div className="bg-gray-100   min-h-screen flex flex-col md:flex-row">
       {/* Mobile Header (conditionally rendered for mobile view) */}
       <div className="md:hidden">
         <MobileHeader

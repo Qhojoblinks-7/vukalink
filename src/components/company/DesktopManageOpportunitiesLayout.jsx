@@ -48,7 +48,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
     <div className="flex w-full">
       <CompanyDashboardSidebar /> {/* Company specific sidebar */}
       <div className="flex-1 container mx-auto px-4 py-8 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+        <div className="bg-white   p-8 rounded-lg shadow-md">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600 -100">Manage Opportunities</h1>
             <Link to="/company/post-opportunity">
@@ -72,7 +72,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
               <label htmlFor="status-filter" className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm whitespace-nowrap">Status:</label>
               <select
                 id="status-filter"
-                className="p-2 border border-gray-300 rounded-md bg-white dark:bg-gray-800 text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
+                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
                 value={activeStatusFilter}
                 onChange={(e) => setActiveStatusFilter(e.target.value)}
               >
@@ -85,7 +85,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
               <label htmlFor="sort-by" className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm whitespace-nowrap">Sort:</label>
               <select
                 id="sort-by"
-                className="p-2 border border-gray-300 rounded-md bg-white dark:bg-gray-800 text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
+                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
               >
@@ -98,7 +98,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
 
           {/* Bulk Actions */}
           <div className="flex space-x-4 mb-6">
-            <Button variant="outline" className="border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700">
+            <Button variant="outline" className="border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100      ">
               Export
             </Button>
             <Button className="bg-red-500 hover:bg-red-600 text-white">

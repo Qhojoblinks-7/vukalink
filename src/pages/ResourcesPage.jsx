@@ -272,7 +272,7 @@ const ResourcesPage = () => {
   }, [searchTerm, selectedCategory, sortBy]);
 
   return (
-    <div className="bg-grey-100 dark:bg-gray-900 min-h-screen flex flex-1">
+    <div className="bg-grey-100   min-h-screen flex flex-1">
       {/* Mobile Header (conditionally rendered) */}
       {isMobile && (
         <MobileHeader
@@ -305,10 +305,10 @@ const ResourcesPage = () => {
             {/* Articles List (2/3 width on desktop) */}
             <div className="md:col-span-2 flex flex-col space-y-6">
               {/* Desktop Heading and Search/Filter section */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
+              <div className="bg-white   rounded-lg shadow-lg p-4 md:p-6">
                 <div className="mb-4 hidden md:block"> {/* Show title only on desktop here */}
                   <h1 className="text-3xl font-heading text-vuka-strong dark:text-white mb-2">Resources & Blog</h1>
-                  <p className="text-grey-900 dark:text-gray-300 text-lg">Insights, guides & tips for your career journey</p>
+                  <p className="text-grey-900  text-lg">Insights, guides & tips for your career journey</p>
                 </div>
 
                 {/* Search and Filter Section */}
@@ -323,7 +323,7 @@ const ResourcesPage = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10" // Add padding for icon
                     />
-                    <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-vuka-medium-grey dark:text-gray-400" />
+                    <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-vuka-medium-grey  " />
                   </div>
                   <div className="w-full sm:w-auto">
                     <SelectField
@@ -344,7 +344,7 @@ const ResourcesPage = () => {
                       <ArticleCard key={article.id} article={article} />
                     ))
                   ) : (
-                    <div className="col-span-full text-center py-10 text-vuka-medium-grey dark:text-gray-400 text-lg">
+                    <div className="col-span-full text-center py-10 text-vuka-medium-grey   text-lg">
                       No articles found matching your criteria.
                     </div>
                   )}
@@ -352,9 +352,9 @@ const ResourcesPage = () => {
 
                 {/* Pagination */}
                 <div className="flex justify-center mt-8">
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text dark:text-gray-200 hover:bg-vuka-blue-light dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700">1</button>
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text dark:text-gray-200 hover:bg-vuka-blue-light dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700">2</button>
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text dark:text-gray-200 hover:bg-vuka-blue-light dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700">3</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">1</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">2</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">3</button>
                 </div>
               </div>
             </div>
@@ -362,19 +362,19 @@ const ResourcesPage = () => {
             {/* Right Sidebar (1/3 width on desktop) */}
             <div className="md:col-span-1 z-10 flex flex-col space-y-6">
               {/* Popular Articles */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sticky top-8"> {/* Added sticky */}
+              <div className="bg-white   rounded-lg shadow-lg p-6 sticky top-8"> {/* Added sticky */}
                 <h3 className="font-heading text-lg text-bold mb-4 dark:text-white">Popular Articles</h3>
                 <ul className="space-y-2">
                   {/* You can map actual popular articles here */}
-                  <li className="flex items-center text-grey-700 dark:text-gray-200">
+                  <li className="flex items-center text-grey-700  ">
                     <span className="mr-2 text-orange-600">🔥</span>
                     <Link to="/resources/2" className="hover:underline">Ace Your Internship Interview</Link>
                   </li>
-                  <li className="flex items-center text-grey-700 dark:text-gray-200">
+                  <li className="flex items-center text-grey-700  ">
                     <span className="mr-2 text-orange-600">🚀</span>
                     <Link to="/resources/4" className="hover:underline">First Steps to Career Success</Link>
                   </li>
-                  <li className="flex items-center text-grey-700 dark:text-gray-200">
+                  <li className="flex items-center text-grey-700  ">
                     <span className="mr-2 text-green-700">✅</span>
                     <Link to="/resources/1" className="hover:underline">Crafting a CV that Gets Noticed</Link>
                   </li>
@@ -391,7 +391,7 @@ const ResourcesPage = () => {
                   name="newsletter-email"
                   type="email"
                   placeholder="Your email address"
-                  className="bg-transparent text-grey-700 dark:text-gray-200 border-1 rounded-lg h-10 mb-3 p-5 placeholder:text-grey-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent w-full"
+                  className="bg-transparent text-grey-700   border-1 rounded-lg h-10 mb-3 p-5 placeholder:text-grey-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent w-full"
                 />
                 <Button className="w-full bg-blue-500 dark:bg-blue-700 text-white py-2.5 rounded-md hover:bg-blue-700 dark:hover:bg-blue-900">
                   Subscribe

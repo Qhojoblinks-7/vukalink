@@ -16,13 +16,13 @@ export default function LandingSplash() {
   // Handle navigation to sign-up
   const handleGetStarted = (e) => {
     e.preventDefault();
-    navigate('/auth', { replace: true }); // Navigate to signup on the final page
+    navigate('/signup', { replace: true }); // Navigate to signup on the final page
   };
 
   // Handle navigation to login
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/auth', { replace: true }); // Navigate to login on any page
+    navigate('/login', { replace: true }); // Navigate to login on any page
   };
 
   // Handle next page
@@ -80,7 +80,7 @@ export default function LandingSplash() {
   // Only render on mobile (hide everything on md and up for desktop view)
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-between py-12 px-6 bg-blue-750 text-white mobile-only relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-between py-12 px-6 bg-blue-950 text-white mobile-only relative overflow-hidden"
       style={{
         backgroundImage: `url(${currentContent.background})`,
         backgroundSize: 'cover',
@@ -92,14 +92,14 @@ export default function LandingSplash() {
       <div className="absolute top-0 left-0 w-full h-full bg-blue-950 opacity-50 z-0"></div>
 
       {/* Main Content Area */}
-      <div className="flex flex-col items-center text-center z-10  flex-grow">
+      <div className="flex flex-col items-center text-center z-10 mt-16 flex-grow">
         {/* Logo - "VukaLink" text logo */}
-        <p className="text-3xl md:text-4xl font-heading font-bold mb2.5">VukaLink</p>
+        <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">VukaLink</h1>
 
         {/* Main Headline */}
-        <p className="text-2xl md:text-3xl font-heading font-bold mb-4 leading-tight">
+        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 leading-tight">
           {currentContent.headline}
-        </p>
+        </h2>
 
         {/* Sub-headline */}
         <p className="text-base md:text-lg font-body mb-8 px-4 text-gray-200">
@@ -139,7 +139,7 @@ export default function LandingSplash() {
         <a
           href="#"
           onClick={handleLogin}
-          className="w-11/12 max-w-xs px-6 py-4 rounded-xl bg-transparent border-2 border-gray-300 text-white font-heading font-bold tracking-wide hover:bg-gray-700 transition flex items-center justify-center mb-8 text-md"
+          className="w-11/12 max-w-xs px-6 py-4 rounded-xl bg-transparent border-2 border-gray-300 text-white font-heading font-bold text-lg tracking-wide hover:bg-gray-700 transition flex items-center justify-center mb-8"
           role="button"
         >
           I already have an account

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '../ui/Button';
 
 const OpportunityCard = ({ title, company, location, type, tags }) => (
-  <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+  <div className="bg-white   p-6 rounded-lg shadow-md">
     <h3 className="text-xl font-semibold text-bold mb-2">{title}</h3>
     <p className="text-grey-600 mb-3">{company} · {location}</p>
     <div className="flex flex-wrap gap-2 mb-4">
@@ -45,7 +45,7 @@ const PopularOpportunities = () => {
   ];
 
   return (
-    <section className="py-20 px-6 md:px-10 bg-white dark:bg-gray-900">
+    <section className="py-20 px-6 md:px-10 bg-white  ">
       <h2 className="text-4xl font-heading font-bold text-boldtext-center mb-12">Explore Popular Opportunities</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
         {opportunities.map((opp, index) => (

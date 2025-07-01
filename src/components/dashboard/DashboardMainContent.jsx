@@ -8,7 +8,7 @@ import DashboardTopPicks from './DashboardTopPicks';
 
 const DashboardMainContent = ({ user }) => {
     return (
-        <div className="flex-1 p-4 bg-grey-100 dark:bg-gray-900 md:p-8 hidden sm:block">
+        <div className="flex-1 p-4 bg-grey-100   md:p-8 hidden sm:block">
             <DashboardWelcome user={user} />
 
             {/* Profile Completeness and Application Status */}

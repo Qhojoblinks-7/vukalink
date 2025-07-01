@@ -1,102 +1,195 @@
-// DEPRECATED: src/components/common/Header.jsx (remove this file, use layout/Header.jsx instead)
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// src/components/layout/Header.jsx
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { signOut } from '../../services/auth';
 import Button from '../ui/Button';
-import Logo from '../../assets/logo.svg'; // Importing logo for bundler compatibility
+import logo from '../../assets/logo.svg';
 
-// Functional Component: Using a functional component with React Hooks.
-// Best Practice: Prefer functional components for new React development.
+import NotificationBell from '../common/NotificationBell';
+import SearchBox from '../common/SearchBox';
+import { useDarkMode } from '../../context/DarkMode/DarkModeContext'; // Corrected path assuming it's in a subfolder
+
 const Header = () => {
-  // Destructuring props/hooks: Clear and concise way to get values.
-  const { user, loading } = useAuth();
+  const { user, logout } = useAuth();
+  const { darkMode, setDarkMode } = useDarkMode();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  // Event Handler: Defined inside the component for direct access to state/props.
-  // Async/Await: Proper error handling for asynchronous operations.
+  // Determine if the current page is an authentication page
+  const isOnAuthPage = location.pathname === '/login' || location.pathname === '/register-student';
+
   const handleLogout = async () => {
-    // Guard Clause: Early exit for clearer logic.
-    if (loading) {
-      console.warn('Attempted logout while auth state is loading.');
-      return;
-    }
-
-    const { error } = await signOut(); // signOut is a pure function from services/auth.js
-
-    if (error) {
-      console.error('Logout failed:', error.message);
-      // Best Practice: Provide user feedback (e.g., a toast notification) in a real app.
-      // alert('Failed to log out. Please try again.'); // Simple alert for development
-    } else {
-      console.log('User logged out successfully.');
-      // Best Practice: Navigate after successful state change.
-      // AuthContext's onAuthStateChange listener will update 'user' to null,
-      // and App.jsx's PrivateRoute will handle the actual redirection.
-      // navigate('/auth'); // This might be redundant if App.jsx handles it, but ensures redirect
+    try {
+      await logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Failed to log out:', error);
     }
   };
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle dark mode toggle: updates state in context
+  const handleToggleDarkMode = () => {
+    console.log('[Header] Toggling dark mode. Current (before update):', darkMode);
+    setDarkMode(prevMode => !prevMode);
+  };
+
+  // Effect to log the state *after* it has updated and component re-rendered
+  useEffect(() => {
+    console.log('[Header] After render. darkMode from context:', darkMode);
+  }, [darkMode]);
+
   return (
-    // Semantic HTML: Using <header> for page header.
-    <header className="bg-white dark:bg-gray-900 shadow-sm py-4 px-6 md:px-8 flex items-center justify-between">
-      {/* Logo - links to dashboard if logged in, or auth page */}
-      <div className="flex items-center space-x-4">
-        {/* Conditional Link Target: Directs users based on auth status. */}
-        <Link to={user ? "/dashboard" : "/auth"}>
-          {/* Image Optimization & Accessibility: Using `alt` text for screen readers. */}
-          {/* Static Asset Reference: Using absolute path for images in `public` folder. */}
-          <img
-            src={Logo}
-            alt="VukaLink Logo"
-            className="h-10 sm:h-12 w-auto"
-          />
+    <header className="bg-white   shadow-md py-4 px-6 md:px-10 flex justify-between items-center">
+      {/* Logo Section */}
+      <div className="flex items-center">
+        <Link
+          to={
+            user
+              ? user.role === 'student'
+                ? '/dashboard'
+                : '/company/dashboard'
+              : '/'
+          }
+          className="flex items-center space-x-2"
+        >
+          <img src={logo} alt="VukaLink Logo" className="h-10 w-auto" />
+          <h1 className="text-blue-900 dark:text-blue-300 text-2xl font-bold -ml-4 mt-4">ukaLink</h1>
         </Link>
-        {/* Responsive Design: `hidden sm:block` for mobile-first approach. */}
-        <h1 className="text-xl sm:text-2xl font-heading font-bold text-blue-900 dark:text-gray-100 hidden sm:block">
-          VukaLink
-        </h1>
       </div>
 
-      {/* Navigation and User Info */}
-      {/* Semantic HTML: Using <nav> for navigation links. */}
-      <nav className="flex items-center space-x-4 sm:space-x-6">
-        {/* Conditional Rendering: Only show navigation links if user is authenticated. */}
-        {user && (
+      <nav className="flex items-center space-x-6">
+        {user ? (
+          // Logged In State Navigation
+          // (This section remains unchanged as per your previous requirements for logged-in users)
           <>
-            {/* Link Components: Using React Router's Link for client-side navigation. */}
-            <Link to="/dashboard" className="text-grey-600 -900 dark:text-gray-300 hover:text-blue-700 dark:hover:text-white font-medium transition-colors duration-200">
+            {/* Dashboard link changes based on role */}
+            <Link
+              to={user.role === 'student' ? '/dashboard' : '/company/dashboard'}
+              className="text-gray-600  hover:text-blue-600   transition-colors font-medium"
+            >
               Dashboard
             </Link>
-            <Link to="/opportunities" className="text-grey-600 -900 dark:text-gray-300 hover:text-blue-900 dark:hover:text-white font-medium transition-colors duration-200">
-              Opportunities
-            </Link>
-            <Link to="/profile" className="text-grey-600 -900 dark:text-gray-300 hover:text-blue-700 dark:hover:text-white font-medium transition-colors duration-200">
+
+            {/* Only students see Find Internships */}
+            {user.role === 'student' && (
+              <Link to="/find-internships opportunitiess" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">Find Internships</Link>
+            )}
+
+            {/* Only students see My Applications and Saved */}
+            {user.role === 'student' && (
+              <>
+                <Link to="/applications" className="text-blue-600 dark:text-blue-400 font-semibold">My Applications</Link>
+                <Link to="/saved" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">Saved</Link>
+              </>
+            )}
+
+            <Link
+              to={user.role === 'student' ? '/profile/edit' : '/profile/edit'}
+              className="text-gray-600  hover:text-blue-600   transition-colors font-medium"
+            >
               Profile
             </Link>
-          </>
-        )}
 
-        {/* User Email and Logout Button */}
-        {user ? (
-          <div className="flex items-center space-x-3">
-            {/* Conditional Display: Hide email on smaller screens. */}
-            <span className="text-grey-600 dark:text-gray-300 text-sm hidden md:block">
-              {user.email}
-            </span>
-            {/* Button Component: Reusing the `Button` component for consistency. */}
-            {/* Disabled State: Preventing multiple clicks while an action is pending. */}
-            <Button onClick={handleLogout} variant="outline" size="sm" disabled={loading}>
-              {loading ? '...' : 'Log Out'} {/* User feedback for loading state */}
-            </Button>
-          </div>
+            {/* Messages: role-based navigation */}
+            <Link
+              to={user.role === 'student' ? '/messages' : '/company/messages'}
+              className="text-gray-600  hover:text-blue-600   transition-colors font-medium"
+            >
+              Messages
+            </Link>
+
+            <Link to="/resources" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">Resources</Link>
+
+            {/* Search Box for desktop */}
+            <div className="ml-4">
+              <SearchBox />
+            </div>
+            <div className="flex items-center space-x-4 ml-6">
+              <NotificationBell />
+              {/* User Avatar/Menu */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center text-sm font-semibold focus:outline-none"
+                  onClick={() => setDropdownOpen((open) => !open)}
+                  aria-haspopup="true"
+                  aria-expanded={dropdownOpen}
+                >
+                  {user.email ? user.email[0].toUpperCase() : 'U'}
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white   border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+                    <Link
+                      to={user.role === 'student' ? '/profile/edit' : '/profile/edit'}
+                      className="block px-4 py-2 text-gray-600  hover:bg-gray-100  "
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      to={user.role === 'student' ? '/messages' : '/company/messages'}
+                      className="block px-4 py-2 text-gray-600  hover:bg-gray-100  "
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Messages
+                    </Link>
+                    <Link
+                      to="/resources"
+                      className="block px-4 py-2 text-gray-600  hover:bg-gray-100  "
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Resources
+                    </Link>
+                    <button
+                      onClick={handleToggleDarkMode}
+                      className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-300 hover:bg-gray-100  "
+                    >
+                      {darkMode ? 'Light Mode' : 'Dark Mode'}
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100  "
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
         ) : (
-          // Render a login button if not logged in (e.g., if Header is shown on a public home page)
-          // For this app, `App.jsx` handles redirection to `/auth` directly,
-          // so this specific `Link` might not always be visible.
-          <Link to="/auth">
-             <Button variant="primary" size="sm">Log In</Button>
-          </Link>
+          // Logged Out State Navigation - Only show 4 primary links + conditional Auth buttons
+          <>
+            {/* Main navigation links */}
+            <Link to="/opportunities" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">Browse Opportunities</Link>
+            <Link to="/about" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">About Us</Link>
+            <Link to="/faq" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">FAQ</Link>
+            <Link to="/contact" className="text-gray-600  hover:text-blue-600   transition-colors font-medium">Contact Us</Link>
+
+            {/* Conditionally render Login/Sign Up buttons only if NOT on AuthPage */}
+            {!isOnAuthPage && (
+              <div className="flex items-center space-x-4 ml-6">
+                <Link to="/login">
+                  <Button variant="ghost" className="border border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-300 dark:text-blue-300  ">Login</Button>
+                </Link>
+                <Link to="/register-student">
+                  <Button className="bg-orange-500 hover:bg-orange-600 text-white shadow-md">Sign Up</Button>
+                </Link>
+              </div>
+            )}
+          </>
         )}
       </nav>
     </header>

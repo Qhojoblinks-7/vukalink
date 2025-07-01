@@ -1,24 +1,16 @@
+// src/context/DarkModeContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const DarkModeContext = createContext();
 
 export function DarkModeProvider({ children }) {
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('darkMode');
-      if (stored !== null) return stored === 'true';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+  // Always start with dark mode off
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('darkMode', darkMode);
+    // Always remove dark class and set localStorage to false
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('darkMode', false);
   }, [darkMode]);
 
   return (

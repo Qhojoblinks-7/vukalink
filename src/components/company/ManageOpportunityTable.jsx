@@ -125,7 +125,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
                         </Button>
                       </Link>
                       <Link to={`/company/opportunities/${opp.id}/edit`}>
-                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700 flex items-center text-sm">
+                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100       flex items-center text-sm">
                           Edit
                         </Button>
                       </Link>

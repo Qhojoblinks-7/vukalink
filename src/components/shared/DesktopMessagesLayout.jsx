@@ -11,7 +11,7 @@ const DesktopMessagesLayout = ({ conversations, selectedConversation, onSelectCo
   return (
     <div className="flex w-full min-h-screen">
       {isCompany && <CompanyDashboardSidebar />} {/* Conditionally render sidebar for company users */}
-      <div className={`flex-1 flex bg-white dark:bg-gray-900 shadow-lg rounded-lg m-4 ${isCompany ? 'ml-0' : 'mx-auto max-w-7xl'}`}>
+      <div className={`flex-1 flex bg-white   shadow-lg rounded-lg m-4 ${isCompany ? 'ml-0' : 'mx-auto max-w-7xl'}`}>
         {/* Left Pane: Conversation List */}
         <div className="w-1/3 border-r border-gray-200 bg-white flex flex-col">
           <div className="p-4 border-b border-gray-200 flex justify-between items-center">

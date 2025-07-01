@@ -8,7 +8,7 @@ import CallToAction from '../components/home/CallToAction';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-white  ">
       <main className="flex-grow">
         <HeroSection />
         <HowItWorks />

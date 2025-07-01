@@ -32,7 +32,7 @@ const MobileManageOpportunityCard = ({ opportunity }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex flex-col">
+    <div className="bg-white   p-4 rounded-lg shadow-md flex flex-col">
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -100">{opportunity.jobTitle}</h3>
         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClasses(opportunity.status)}`}>
@@ -67,7 +67,7 @@ const MobileManageOpportunityCard = ({ opportunity }) => {
           <Button className="w-full bg-blue-100 hover:bg-blue-600 text-blue-700 hover:text-white">View Applicants</Button>
         </Link>
         <Link to={`/company/opportunities/${opportunity.id}/edit`} className="flex-1">
-          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100     dark:hover:bg-gray-700">Edit</Button>
+          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100      ">Edit</Button>
         </Link>
         {opportunity.status === 'Active' && (
           <Button variant="ghost" className="flex-1 text-red-500 hover:bg-red-50 text-sm">Deactivate</Button>

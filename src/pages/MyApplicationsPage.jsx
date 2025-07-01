@@ -173,14 +173,14 @@ const MyApplicationsPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+    <div className="bg-gray-100   min-h-screen flex flex-col">
       {/* Desktop View */}
-      <div className="hidden md:flex flex-grow bg-white dark:bg-gray-900">
+      <div className="hidden md:flex flex-grow bg-white  ">
         <DesktopApplicationsLayout applications={applications} />
       </div>
 
       {/* Mobile View */}
-      <div className="md:hidden flex-grow flex flex-col bg-white dark:bg-gray-900">
+      <div className="md:hidden flex-grow flex flex-col bg-white  ">
         <MobileApplicationsLayout applications={applications} />
       </div>
     </div>

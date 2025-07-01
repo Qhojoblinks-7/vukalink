@@ -12,7 +12,7 @@ const DashboardActionButtons = () => {
                 </Button>
             </Link>
             <Link to="/resources/interview-prep" className="w-full sm:flex-1">
-                <Button variant="outline" className="w-full border-gray-300 text-grey-600 -900 hover:bg-gray-100    ">
+                <Button variant="outline" className="w-full border-gray-300 text-grey-600  hover:bg-blue-500    ">
                     Prepare for Interview
                 </Button>
             </Link>

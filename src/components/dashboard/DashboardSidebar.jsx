@@ -37,17 +37,17 @@ const DashboardSidebar = ({ user }) => {
     };
 
     return (
-        <div className="w-full max-w-xs md:max-w-full flex flex-col p-3 md:p-6 border-r border-gray-200 dark:border-gray-700 h-full bg-white dark:bg-gray-900 fixed md:static z-40 bottom-0 left-0 right-0 md:top-0 md:h-auto md:bg-transparent">
+        <div className="w-full max-w-xs md:max-w-full flex flex-col p-3 md:p-6 border-r border-gray-200 dark:border-gray-700 h-full bg-white   fixed md:static z-40 bottom-0 left-0 right-0 md:top-0 md:h-auto md:bg-transparent">
             {/* User Info (hidden on mobile, shown on md+) */}
-            <div className="hidden md:flex items-center mb-8 pb-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="hidden md:flex items-center mb-8 pb-6 border-b border-gray-200 dark:border-gray-700 bg-white  ">
                 <img
                     src={user.user_metadata?.avatar_url || getGravatarUrl(user.email)}
                     alt="User Avatar"
                     className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover mr-4 border-2 border-blue-300"
                 />
                 <div>
-                    <h2 className="text-lg md:text-xl font-heading font-bold text-blue-900 dark:text-gray-100">{user.user_metadata?.full_name || user.email.split('@')[0]}</h2>
-                    <p className="text-grey-600 text-xs md:text-sm dark:text-gray-300">B.Sc Computer Science</p>
+                    <h2 className="text-lg md:text-xl font-heading font-bold text-blue-900  ">{user.user_metadata?.full_name || user.email.split('@')[0]}</h2>
+                    <p className="text-grey-600 text-xs md:text-sm  ">B.Sc Computer Science</p>
                 </div>
             </div>
 
@@ -60,8 +60,8 @@ const DashboardSidebar = ({ user }) => {
                                 to={item.path}
                                 className={`flex flex-col md:flex-row items-center justify-center md:justify-start p-2 md:p-3 rounded-lg transition-colors duration-200
                                     ${location.pathname === item.path
-                                        ? 'bg-blue-900 dark:bg-gray-800 text-white dark:text-gray-100 font-semibold'
-                                        : 'text-grey-600 -900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-900 dark:hover:text-white'
+                                        ? 'bg-blue-900   text-white   font-semibold'
+                                        : 'text-grey-600 -900  hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-900 dark:hover:text-white'
                                     }`}
                             >
                                 <item.icon className="h-6 w-6 mb-0.5 md:mb-0 md:mr-3" />
@@ -73,20 +73,20 @@ const DashboardSidebar = ({ user }) => {
             </nav>
 
             {/* Logout Button */}
-            <div className="hidden md:block mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="hidden md:block mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 bg-white  ">
                 <button
                     onClick={handleLogout}
-                    className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-gray-800 transition-colors duration-200 bg-white dark:bg-gray-900"
+                    className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-gray-800 transition-colors duration-200 bg-white  "
                 >
                     <ArrowLeftEndOnRectangleIcon className="h-6 w-6 mr-3" />
                     <span>Logout</span>
                 </button>
             </div>
             {/* Mobile Logout Button */}
-            <div className="md:hidden flex justify-center mt-2 border-t border-gray-200 dark:border-gray-700 pt-2 bg-white dark:bg-gray-900">
+            <div className="md:hidden flex justify-center mt-2 border-t border-gray-200 dark:border-gray-700 pt-2 bg-white  ">
                 <button
                     onClick={handleLogout}
-                    className="flex flex-col items-center text-red-600 hover:bg-red-100 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200 bg-white dark:bg-gray-900"
+                    className="flex flex-col items-center text-red-600 hover:bg-red-100 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200 bg-white  "
                 >
                     <ArrowLeftEndOnRectangleIcon className="h-6 w-6" />
                     <span className="text-xs">Logout</span>

@@ -18,7 +18,7 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
   const isClosed = daysLeft <= 0;
 
   return (
-    <div className=" hidden flex flex-col h-full bg-gray-100     dark:bg-gray-900">
+    <div className=" hidden flex flex-col h-full bg-gray-100      ">
       {/* Mobile Header for details page */}
       <div className="bg-blue-900   dark:bg-blue-800 py-4 px-4 flex justify-between items-center shadow-md">
         <button onClick={() => navigate(-1)} className="text-white hover:text-blue-400">
@@ -34,7 +34,7 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
       {/* Main Content Scrollable Area */}
       <div className="flex-1 overflow-y-auto p-4 pb-20"> {/* pb-20 for bottom nav */}
         {/* Opportunity Card at Top */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <div className="bg-white   p-4 rounded-lg shadow-md mb-4">
           <div className="flex items-center mb-3">
             {opportunity.companyLogo && (
               <img src={opportunity.companyLogo} alt={`${opportunity.company} Logo`} className="h-10 w-10 rounded-full mr-3 object-cover" />
@@ -46,13 +46,13 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
           </div>
           <div className="flex items-center text-grey-600 -700 dark:text-grey-600 -600 text-sm mb-4 space-x-3">
             <span>{opportunity.location}</span>
-            <span className="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></span>
+            <span className="w-1 h-1 bg-gray-400   rounded-full"></span>
             <span>{opportunity.duration}</span>
           </div>
         </div>
 
         {/* Opportunity Sections */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <div className="bg-white   p-4 rounded-lg shadow-md mb-4">
           <section className="mb-6">
             <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -600 mb-3">Description</h2>
             <p className="text-grey-600 -700 dark:text-grey-600 -600 leading-relaxed whitespace-pre-wrap">{opportunity.aboutOpportunity}</p>

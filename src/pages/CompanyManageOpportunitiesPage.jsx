@@ -119,7 +119,7 @@ const CompanyManageOpportunitiesPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+    <div className="bg-gray-100   min-h-screen flex flex-col">
       {/* Desktop View */}
       <div className="hidden md:flex flex-grow">
         <DesktopManageOpportunitiesLayout opportunities={opportunities} />
