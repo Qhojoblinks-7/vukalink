@@ -132,12 +132,12 @@ const SavedOpportunitiesPage = () => {
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
       {/* Desktop View */}
-      <div className="hidden md:flex flex-grow">
+      <div className="hidden md:flex flex-grow bg-white dark:bg-gray-900">
         <DesktopSavedOpportunitiesLayout savedOpportunities={savedOpportunities} />
       </div>
 
       {/* Mobile View */}
-      <div className="md:hidden flex-grow flex flex-col">
+      <div className="md:hidden flex-grow flex flex-col bg-white dark:bg-gray-900">
         <MobileSavedOpportunitiesLayout savedOpportunities={savedOpportunities} />
       </div>
     </div>

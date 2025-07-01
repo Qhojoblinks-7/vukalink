@@ -126,8 +126,8 @@ const PublicProfilePage = () => {
       </div>
 
       <div className="flex-grow md:flex md:justify-center md:items-start p-4 md:p-8">
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 w-full md:max-w-4xl">
-          <h1 className="text-2xl md:text-3xl font-heading text-grey-600 -900 dark:text-grey-600 -600 mb-6 border-b pb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 w-full md:max-w-4xl">
+          <h1 className="text-2xl md:text-3xl font-heading text-grey-600 -900 dark:text-white mb-6 border-b pb-4">
             {profileData.role === 'student' ? 'Student Profile' : 'Company Profile'}
           </h1>
           {profileData.role === 'student' ? (

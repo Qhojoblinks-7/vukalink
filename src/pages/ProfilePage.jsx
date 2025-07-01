@@ -140,7 +140,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen text-grey-100 bg-white dark:bg-gray-900 flex flex-col items-center justify-center py-10">
-      <h1 className="text-4xl font-heading font-bold text-boldmb-8">Your Profile</h1>
+      <h1 className="text-4xl font-heading font-bold text-boldmb-8 dark:text-white">Your Profile</h1>
       <ProfileCard
         user={user}
         profile={profile}

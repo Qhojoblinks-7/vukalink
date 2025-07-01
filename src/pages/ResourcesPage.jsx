@@ -308,7 +308,7 @@ const ResourcesPage = () => {
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
                 <div className="mb-4 hidden md:block"> {/* Show title only on desktop here */}
                   <h1 className="text-3xl font-heading text-vuka-strong dark:text-white mb-2">Resources & Blog</h1>
-                  <p className="text-vuka-text dark:text-gray-300 text-lg">Insights, guides & tips for your career journey</p>
+                  <p className="text-grey-900 dark:text-gray-300 text-lg">Insights, guides & tips for your career journey</p>
                 </div>
 
                 {/* Search and Filter Section */}

@@ -37,17 +37,17 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-grey-100 dark:bg-gray-900 ">
+    <div className="flex flex-col md:flex-row min-h-screen bg-grey-100 dark:bg-gray-900">
       {/* Desktop View: Sidebar and Main Content */}
-      <div className="hidden md:flex md:w-64 lg:w-72 bg-white shadow-lg z-10">
+      <div className="hidden md:flex md:w-64 lg:w-72 bg-white dark:bg-gray-800 shadow-lg z-10">
         <DashboardSidebar user={user} />
       </div>
-      <div className="flex-1 overflow-y-auto p-4 md:p-8">
+      <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-white dark:bg-gray-900">
         <DashboardMainContent user={user} />
       </div>
 
       {/* Mobile View: Renders a completely different layout for small screens */}
-      <div className="md:hidden flex-1 flex flex-col">
+      <div className="md:hidden flex-1 flex flex-col bg-white dark:bg-gray-900">
         <DashboardMobileView user={user} />
       </div>
     </div>
