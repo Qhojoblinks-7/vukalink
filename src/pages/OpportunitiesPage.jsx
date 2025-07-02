@@ -1,7 +1,7 @@
 // src/pages/OpportunitiesPage.jsx
 import React, { useState } from 'react';
-import DesktopOpportunitiesLayout from '../components/opportunities/DesktopOpportunitiesLayout';
-import MobileOpportunitiesLayout from '../components/opportunities/MobileOpportunitiesLayout';
+import DesktopOpportunitiesLayout from '../features/savedOpportunities/DesktopOpportunitiesLayout';
+import MobileOpportunitiesLayout from '../features/savedOpportunities/components/MobileOpportunitiesLayout';
 import { useAuth } from '../hooks/useAuth'; // Assuming useAuth is here
 
 const OpportunitiesPage = () => {

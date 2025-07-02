@@ -1,8 +1,8 @@
 // src/components/company/MobileManageOpportunitiesLayout.jsx
 import React, { useState } from 'react';
 // Assuming a generic MobileHeader can be used, or create a company-specific one
-import MobileHeader from '../dashboard/MobileHeader'; // Adjust if a company-specific header is needed
-import MobileBottomNav from '../dashboard/MobileBottomNav'; // Reusing mobile bottom nav, will need company-specific icons/routes
+import MobileHeader from '../../features/dashboard/MobileHeader'; // Adjust if a company-specific header is needed
+import MobileBottomNav from '../../features/dashboard/MobileBottomNav'; // Reusing mobile bottom nav, will need company-specific icons/routes
 import MobileManageOpportunityCard from './MobileManageOpportunityCard';
 import Button from '../ui/Button';
 import { PlusIcon } from '@heroicons/react/24/outline'; // For new opportunity button

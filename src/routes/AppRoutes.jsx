@@ -1,30 +1,44 @@
-// AppRoutes.jsx
-// Definitions of your routes (if using React Router)
+// src/components/PrivateRoute.jsx
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import { getCurrentUser } from '../features/auth/authSlice';
 
-import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import HomePage from '../pages/HomePage';
-// import AuthPage from '../pages/AuthPage';
-// import DashboardPage from '../pages/DashboardPage';
-// import ProfilePage from '../pages/ProfilePage';
-// import OpportunitiesPage from '../pages/OpportunitiesPage';
-// import NotFoundPage from '../pages/NotFoundPage';
+const PrivateRoute = ({ allowedRoles }) => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, role, status } = useSelector((state) => state.auth);
 
-const AppRoutes = () => {
-  // Uncomment and implement with React Router as needed
-  // return (
-  //   <Router>
-  //     <Routes>
-  //       <Route path="/" element={<HomePage />} />
-  //       <Route path="/auth" element={<AuthPage />} />
-  //       <Route path="/dashboard" element={<DashboardPage />} />
-  //       <Route path="/profile" element={<ProfilePage />} />
-  //       <Route path="/opportunities" element={<OpportunitiesPage />} />
-  //       <Route path="*" element={<NotFoundPage />} />
-  //     </Routes>
-  //   </Router>
-  // );
-  return null;
+  useEffect(() => {
+    // If not authenticated and not currently loading, try to get current user session
+    // This is important for page refreshes
+    if (!isAuthenticated && status === 'idle') {
+      dispatch(getCurrentUser());
+    }
+  }, [isAuthenticated, status, dispatch]);
+
+  if (status === 'loading') {
+    // Display a loading indicator while we check auth status
+    return <div style={{ textAlign: 'center', padding: '20px' }}>Loading authentication...</div>;
+  }
+
+  if (!isAuthenticated) {
+    // If not authenticated (after loading check), redirect to login
+    return <Navigate to="/login" replace />;
+  }
+
+  // If authenticated but not authorized for this specific route
+  // Redirect to their default dashboard or an unauthorized page
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    console.warn(`User with role '${role}' attempted to access route restricted to: ${allowedRoles.join(', ')}`);
+    if (role === 'student') return <Navigate to="/student/dashboard" replace />;
+    if (role === 'company_admin') return <Navigate to="/company/dashboard" replace />;
+    if (role === 'admin') return <Navigate to="/admin/dashboard" replace />;
+    // Fallback if role is authenticated but doesn't match any dashboard
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  // User is authenticated and authorized, render the child routes
+  return <Outlet />;
 };
 
-export default AppRoutes;
+export default PrivateRoute;

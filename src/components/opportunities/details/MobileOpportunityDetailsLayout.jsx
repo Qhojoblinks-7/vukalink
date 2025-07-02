@@ -1,7 +1,7 @@
 // src/components/opportunities/details/MobileOpportunityDetailsLayout.jsx
 import React from 'react';
-import MobileHeader from '../../dashboard/MobileHeader'; // Reusing mobile header
-import MobileBottomNav from '../../dashboard/MobileBottomNav'; // Reusing mobile bottom nav
+import MobileHeader from '../../../features/dashboard/MobileHeader'; // Reusing mobile header
+import MobileBottomNav from '../../../features/dashboard/MobileBottomNav'; // Reusing mobile bottom nav
 import Button from '../../ui/Button'; // Ensure path is correct
 import { ShareIcon, BookmarkIcon as OutlineBookmarkIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { Link, useNavigate } from 'react-router-dom';

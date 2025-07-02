@@ -1,6 +1,6 @@
 // src/components/shared/MobileMessagesLayout.jsx
 import React, { useState } from 'react';
-import MobileBottomNav from '../dashboard/MobileBottomNav';
+import MobileBottomNav from '../../features/dashboard/MobileBottomNav';
 import ConversationList from './ConversationList';
 import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';

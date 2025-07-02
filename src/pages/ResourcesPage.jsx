@@ -1,9 +1,9 @@
 // src/pages/ResourcesPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MobileHeader from '../components/dashboard/MobileHeader'; // Assuming you have this
+import MobileHeader from '../features/dashboard/MobileHeader'; // Assuming you have this
 import ResourceSidebar from '../components/resources/ResourceSidebar'; // New sidebar component
-import ArticleCard from '../components/resources/ArticleCard'; // New article card component
+import ArticleCard from '../features/resources/components/ArticleCard'; // New article card component
 import InputField from '../components/forms/InputField'; // Reusing your InputField
 import SelectField from '../components/forms/SelectField'; // Reusing your SelectField
 import { MagnifyingGlassIcon, EnvelopeIcon } from '@heroicons/react/24/outline'; // Search and Envelope icon

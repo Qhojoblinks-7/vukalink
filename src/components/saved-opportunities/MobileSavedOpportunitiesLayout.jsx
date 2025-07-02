@@ -1,7 +1,7 @@
 // src/components/saved-opportunities/MobileSavedOpportunitiesLayout.jsx
 import React, { useState } from 'react';
-import MobileHeader from '../dashboard/MobileHeader'; // Reusing mobile header
-import MobileBottomNav from '../dashboard/MobileBottomNav'; // Reusing mobile bottom nav
+import MobileHeader from '../../features/dashboard/MobileHeader'; // Reusing mobile header
+import MobileBottomNav from '../../features/dashboard/MobileBottomNav'; // Reusing mobile bottom nav
 import MobileSavedOpportunityCard from './MobileSavedOpportunityCard';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'; // For back icon in header
 import Button from '../ui/Button'; // Ensure path is correct
