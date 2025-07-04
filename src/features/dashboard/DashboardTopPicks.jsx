@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DashboardJobCard from './DashboardJobCard';
 import { opportunityService } from '../../services'; // Import your opportunityService
-import { useAuth } from '../../../hooks/useAuth'; // To get user preferences for personalized picks (optional)
+import { useAuth } from '../../hooks/useAuth'; // To get user preferences for personalized picks (optional)
 import Loader from '../../components/ui/Loader'; // Assuming you have a Loader component
 import ErrorMessage from '../../components/ui/ErrorMessage'; // Assuming you have an ErrorMessage component
 

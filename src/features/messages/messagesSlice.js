@@ -1,74 +1,65 @@
 // src/features/messages/messagesSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// Assuming you'll create a dedicated messageService for API interactions
-// import messageService from '../../services/messageService';
-import api from '../../services/api'; // Reusing the general API instance for now
+import messageService from '../../services/messageService'; // Import the new service
+import { supabase } from '../../services/supabaseClient'; // Import for real-time (optional for now)
 
 const initialState = {
-  conversations: [], // List of conversation summaries (e.g., last message, participants, unread count)
-  currentConversation: null, // The active conversation being viewed
-  messages: [], // Messages for the currentConversation
-  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed' - for main operations
+  conversations: [],
+  currentConversation: null,
+  messages: [],
+  status: 'idle',
   error: null,
-  sendMessageStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed' - for sending messages
+  sendMessageStatus: 'idle',
   sendMessageError: null,
-  unreadCount: 0, // Global unread message count
+  unreadCount: 0,
 };
 
 // --- Async Thunks ---
 
-// Thunk to fetch all conversations for the authenticated user
 export const fetchConversations = createAsyncThunk(
   'messages/fetchConversations',
-  async (_, { rejectWithValue }) => {
+  async (userId, { rejectWithValue }) => { // Pass userId to the thunk
     try {
-      // Assuming an API endpoint like /messages/conversations or /users/me/conversations
-      const response = await api.get('/messages/conversations');
-      return response.data; // Expecting an array of conversation objects
+      const data = await messageService.getConversations(userId);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message || 'Failed to fetch conversations');
     }
   }
 );
 
-// Thunk to fetch messages for a specific conversation
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
   async (conversationId, { rejectWithValue }) => {
     try {
-      // Assuming an API endpoint like /messages/conversations/:conversationId/messages
-      const response = await api.get(`/messages/conversations/${conversationId}/messages`);
-      return response.data; // Expecting an array of message objects
+      const data = await messageService.getMessages(conversationId);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message || 'Failed to fetch messages');
     }
   }
 );
 
-// Thunk to send a new message
 export const sendMessage = createAsyncThunk(
   'messages/sendMessage',
-  async ({ conversationId, content }, { rejectWithValue }) => {
+  async ({ conversationId, senderId, content }, { rejectWithValue }) => { // Now also takes senderId
     try {
-      // Assuming an API endpoint like /messages/conversations/:conversationId/messages
-      const response = await api.post(`/messages/conversations/${conversationId}/messages`, { content });
-      return response.data; // Expecting the new message object
+      const newMessage = await messageService.sendMessage(conversationId, senderId, content);
+      return newMessage;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message || 'Failed to send message');
     }
   }
 );
 
-// Thunk to mark a conversation as read (optional, adjust based on your backend)
 export const markConversationAsRead = createAsyncThunk(
   'messages/markConversationAsRead',
-  async (conversationId, { rejectWithValue }) => {
+  async ({ conversationId, userId }, { rejectWithValue }) => { // Pass userId here
     try {
-      // Assuming a PUT/PATCH endpoint to update read status
-      await api.patch(`/messages/conversations/${conversationId}/read`);
-      return conversationId; // Return the ID of the conversation marked as read
+      await messageService.markConversationAsRead(conversationId, userId);
+      return conversationId;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message || 'Failed to mark as read');
     }
   }
 );
@@ -78,46 +69,39 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    // Synchronous reducers for local state updates
     setCurrentConversation: (state, action) => {
       state.currentConversation = action.payload;
-      // Optionally clear messages when switching conversation, they will be refetched
       state.messages = [];
       state.error = null;
-      state.status = 'idle'; // Reset status when navigating
+      state.status = 'idle';
     },
     addMessageLocally: (state, action) => {
-      // For optimistic updates or real-time message additions (e.g., from WebSockets)
-      if (state.currentConversation && state.currentConversation.id === action.payload.conversationId) {
-        state.messages.push(action.payload);
-      }
-      // Update the last message and unread count in conversations list
-      const convIndex = state.conversations.findIndex(c => c.id === action.payload.conversationId);
-      if (convIndex !== -1) {
-        state.conversations[convIndex].lastMessage = action.payload.content;
-        state.conversations[convIndex].lastMessageDate = action.payload.timestamp;
-        // Increment unread count if the message is for another conversation or if not viewing it
-        if (state.currentConversation.id !== action.payload.conversationId) {
-            state.conversations[convIndex].unreadCount = (state.conversations[convIndex].unreadCount || 0) + 1;
-            state.unreadCount++; // Increment global unread count
+        // Ensure payload has conversationId, senderId, content, timestamp
+        if (state.currentConversation && state.currentConversation.id === action.payload.conversationId) {
+            state.messages.push(action.payload);
         }
-      } else {
-        // If it's a new conversation, you might want to fetch conversations again or add a stub
-        // For simplicity, we'll assume it's for an existing conversation
-      }
+
+        const convIndex = state.conversations.findIndex(c => c.id === action.payload.conversationId);
+        if (convIndex !== -1) {
+            state.conversations[convIndex].lastMessage = action.payload.content;
+            state.conversations[convIndex].lastMessageDate = action.payload.timestamp;
+            // Note: incrementing unreadCount here is primarily for real-time incoming messages from *others*.
+            // The backend RPC handles increments for other users.
+            // You'd typically only increment if action.payload.senderId !== currentUserId
+            // and if the current user is NOT viewing this conversation.
+            // For simplicity, leave as is, and rely on `fetchConversations` for accurate counts.
+        }
     },
     clearMessagesError: (state) => {
       state.error = null;
       state.sendMessageError = null;
     },
-    // Reducer to update global unread count (e.g., after reading a conversation)
-    decrementUnreadCount: (state, action) => {
-        // Find conversation by ID and subtract its unread count from global total
+    resetConversationUnreadCount: (state, action) => {
         const conversation = state.conversations.find(c => c.id === action.payload);
-        if (conversation && conversation.unreadCount) {
+        if (conversation && conversation.unreadCount > 0) {
             state.unreadCount -= conversation.unreadCount;
-            conversation.unreadCount = 0; // Reset conversation's unread count
-            if (state.unreadCount < 0) state.unreadCount = 0; // Prevent negative
+            conversation.unreadCount = 0;
+            if (state.unreadCount < 0) state.unreadCount = 0;
         }
     }
   },
@@ -131,19 +115,19 @@ const messagesSlice = createSlice({
       .addCase(fetchConversations.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.conversations = action.payload;
-        // Calculate initial global unread count
         state.unreadCount = action.payload.reduce((total, conv) => total + (conv.unreadCount || 0), 0);
       })
       .addCase(fetchConversations.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Failed to fetch conversations';
+        state.error = action.payload;
         state.conversations = [];
+        state.unreadCount = 0;
       })
       // --- fetchMessages ---
       .addCase(fetchMessages.pending, (state) => {
-        state.status = 'loading'; // Using main status for messages fetch
+        state.status = 'loading';
         state.error = null;
-        state.messages = []; // Clear previous messages
+        state.messages = [];
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -151,7 +135,7 @@ const messagesSlice = createSlice({
       })
       .addCase(fetchMessages.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Failed to fetch messages';
+        state.error = action.payload;
         state.messages = [];
       })
       // --- sendMessage ---
@@ -161,21 +145,17 @@ const messagesSlice = createSlice({
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.sendMessageStatus = 'succeeded';
-        // Add the newly sent message to the current messages list
         state.messages.push(action.payload);
-        // Update the corresponding conversation in the list (last message, date)
         const convIndex = state.conversations.findIndex(c => c.id === action.payload.conversationId);
         if (convIndex !== -1) {
           state.conversations[convIndex].lastMessage = action.payload.content;
           state.conversations[convIndex].lastMessageDate = action.payload.timestamp;
-          // When current user sends message, it's considered read by them
-          state.conversations[convIndex].unreadCount = 0;
-          // No change to global unread count here, as the sender doesn't have unread messages from self
+          state.conversations[convIndex].unreadCount = 0; // Sender's own unread count for this convo becomes 0
         }
       })
       .addCase(sendMessage.rejected, (state, action) => {
         state.sendMessageStatus = 'failed';
-        state.sendMessageError = action.payload || 'Failed to send message';
+        state.sendMessageError = action.payload;
       })
       // --- markConversationAsRead ---
       .addCase(markConversationAsRead.fulfilled, (state, action) => {
@@ -184,7 +164,7 @@ const messagesSlice = createSlice({
         if (convIndex !== -1 && state.conversations[convIndex].unreadCount > 0) {
             state.unreadCount -= state.conversations[convIndex].unreadCount;
             state.conversations[convIndex].unreadCount = 0;
-            if (state.unreadCount < 0) state.unreadCount = 0; // Prevent negative
+            if (state.unreadCount < 0) state.unreadCount = 0;
         }
       });
   },
@@ -194,7 +174,7 @@ export const {
   setCurrentConversation,
   addMessageLocally,
   clearMessagesError,
-  decrementUnreadCount, // Export this if you need to manually trigger unread count decrement
+  resetConversationUnreadCount,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

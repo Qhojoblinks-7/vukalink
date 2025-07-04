@@ -1,6 +1,6 @@
 // src/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { authService } from '../../services/index'; // Import your authService
+import { authService } from '../../services';
 
 const initialState = {
     user: null, // Supabase auth.users object, potentially merged with profile data
@@ -15,19 +15,20 @@ export const login = createAsyncThunk(
     'auth/login',
     async (credentials, { rejectWithValue }) => {
         try {
-            const { user } = await authService.login(credentials);
+            // CORRECTED: authService.login returns the {user, session} object directly.
+            const authData = await authService.login(credentials); // Assign the direct result
 
-            if (user) {
-                const profile = await authService.getProfile(user.id);
+            if (authData && authData.user) { // Check authData and its user property
+                const profile = await authService.getProfile(authData.user.id);
                 if (profile) {
-                    // Return the merged user and profile data
-                    return { ...user, profile };
+                    return { ...authData.user, profile };
                 } else {
-                    console.warn("User logged in but no profile found. Returning auth user only.");
-                    return user; // Return just the auth.user if profile missing
+                    console.warn("User logged in but no profile found for ID:", authData.user.id, ". Returning auth user only.");
+                    return authData.user;
                 }
             } else {
-                return rejectWithValue("Login successful, but no user data received.");
+                // This case should be rare if authService.login is successful, but handles if user is null
+                return rejectWithValue("Login successful, but no user data received. Email confirmation might be required.");
             }
         } catch (error) {
             console.error("Login Thunk Error:", error.message);
@@ -41,15 +42,19 @@ export const registerStudent = createAsyncThunk(
     'auth/registerStudent',
     async (userData, { rejectWithValue }) => {
         try {
-            const { user } = await authService.registerStudent(userData);
+            // CORRECTED: authService.registerStudent returns the {user, session} object directly.
+            const authData = await authService.registerStudent(userData); // Assign the direct result
 
-            if (user) {
-                const profile = await authService.getProfile(user.id);
+            if (authData && authData.user) {
+                // After signup, user might not be immediately authenticated or profile created by trigger.
+                // It's common to require email confirmation before full login/profile access.
+                const profile = await authService.getProfile(authData.user.id);
                 if (profile) {
-                    return { ...user, profile };
+                    console.log("Student registered and profile found:", profile);
+                    return { ...authData.user, profile };
                 } else {
                     console.warn("Student registered, but profile data not immediately available. Returning auth user only.");
-                    return user;
+                    return authData.user;
                 }
             } else {
                 return rejectWithValue("Registration successful, but email confirmation may be required. Please check your email.");
@@ -66,15 +71,17 @@ export const registerCompany = createAsyncThunk(
     'auth/registerCompany',
     async (companyData, { rejectWithValue }) => {
         try {
-            const { user } = await authService.registerCompany(companyData);
+            // CORRECTED: authService.registerCompany returns the {user, session} object directly.
+            const authData = await authService.registerCompany(companyData); // Assign the direct result
 
-            if (user) {
-                const profile = await authService.getProfile(user.id);
+            if (authData && authData.user) {
+                const profile = await authService.getProfile(authData.user.id);
                 if (profile) {
-                    return { ...user, profile };
+                    console.log("Company registered and profile found:", profile);
+                    return { ...authData.user, profile };
                 } else {
                     console.warn("Company registered, but profile data not immediately available. Returning auth user only.");
-                    return user;
+                    return authData.user;
                 }
             } else {
                 return rejectWithValue("Registration successful, but email confirmation may be required. Please check your email.");
@@ -91,21 +98,22 @@ export const getCurrentUser = createAsyncThunk(
     'auth/getCurrentUser',
     async (_, { rejectWithValue }) => {
         try {
-            const authUser = await authService.getCurrentUser();
+            const authUser = await authService.getCurrentUser(); // This now returns user or null
             if (authUser) {
                 const profile = await authService.getProfile(authUser.id);
                 if (profile) {
-                    return { ...authUser, profile }; // Return merged user
+                    console.log("getCurrentUser: Found user and profile.");
+                    return { ...authUser, profile };
                 } else {
-                    console.warn("Authenticated user found, but no matching profile. User ID:", authUser.id);
-                    return authUser; // Return auth user without profile
+                    console.warn("getCurrentUser: Authenticated user found, but no matching profile. User ID:", authUser.id);
+                    return authUser;
                 }
             } else {
-                return null; // No authenticated user found
+                console.log("getCurrentUser: No authenticated user found from service.");
+                return null; // Explicitly return null if no user
             }
         } catch (error) {
             console.error("Get Current User Thunk Error:", error.message);
-            authService.logout(); // Force logout on error to clear potentially invalid session
             return rejectWithValue(error.message || 'Failed to fetch user data');
         }
     }
@@ -125,7 +133,6 @@ export const logout = createAsyncThunk(
     }
 );
 
-
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -143,7 +150,6 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // --- ALL addCase calls MUST come FIRST ---
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.isAuthenticated = !!action.payload;
@@ -153,14 +159,14 @@ const authSlice = createSlice({
             })
             .addCase(registerStudent.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.isAuthenticated = !!action.payload;
+                state.isAuthenticated = !!action.payload; // Will be false if email confirmation is pending
                 state.user = action.payload;
                 state.role = action.payload?.profile?.role || null;
                 state.error = null;
             })
             .addCase(registerCompany.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.isAuthenticated = !!action.payload;
+                state.isAuthenticated = !!action.payload; // Will be false if email confirmation is pending
                 state.user = action.payload;
                 state.role = action.payload?.profile?.role || null;
                 state.error = null;
@@ -179,8 +185,6 @@ const authSlice = createSlice({
                 state.status = 'succeeded';
                 state.error = null;
             })
-
-            // --- ALL addMatcher calls MUST come AFTER all addCase calls ---
             .addMatcher(
                 (action) => action.type.startsWith('auth/') && action.type.endsWith('/pending'),
                 (state) => {
@@ -193,14 +197,20 @@ const authSlice = createSlice({
                 (state, action) => {
                     state.status = 'failed';
                     state.error = action.payload;
-                    state.user = null;
-                    state.isAuthenticated = false;
-                    state.role = null;
+                    // Only clear user on rejected if it's a login, register, or current user check
+                    // For logout.rejected, we might keep the user but show an error.
+                    if (action.type === login.rejected.type ||
+                        action.type === registerStudent.rejected.type ||
+                        action.type === registerCompany.rejected.type ||
+                        action.type === getCurrentUser.rejected.type) {
+                        state.user = null;
+                        state.isAuthenticated = false;
+                        state.role = null;
+                    }
                 }
             );
     },
 });
 
 export const { clearUser, clearAuthError } = authSlice.actions;
-
 export default authSlice.reducer;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BriefcaseIcon, CloudArrowUpIcon, DocumentMagnifyingGlassIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth'; // Assuming your useAuth hook is here
+import { useAuth } from '../../hooks/useAuth'; // Assuming your useAuth hook is here
 import { applicationService } from '../../services'; // Import your applicationService
 import Loader from '../../components/ui/Loader'; // Assuming you have a Loader component
 import ErrorMessage from '../../components/ui/ErrorMessage'; // Assuming you have an ErrorMessage component

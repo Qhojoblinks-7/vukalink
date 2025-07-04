@@ -1,14 +1,9 @@
-// src/pages/MessagesPage.jsx
-import React, { useState, useEffect } from 'react';
+// src/pages/MessagesPage.jsx (for student role)
+import React, { useState, useEffect, useRef } from 'react'; // Added useRef
 import DesktopMessagesLayout from '../../../components/shared/DesktopMessagesLayout';
 import MobileMessagesLayout from '../../../components/shared/MobileMessagesLayout';
 import { useAuth } from '../../../hooks/useAuth';
-import {
-  fetchConversations,
-  fetchMessages,
-  sendMessage,
-  subscribeToMessages,
-} from '../../../services/messages';
+import messageService from '../../../services/messageService';
 
 const MessagesPage = () => {
   const { user, loading: authLoading, error: authError } = useAuth();
@@ -17,47 +12,86 @@ const MessagesPage = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [subscription, setSubscription] = useState(null);
+  const currentSubscriptionRef = useRef(null); // Use a ref to manage subscription
 
+  // Fetch conversations on component mount or user change
   useEffect(() => {
-    if (!authLoading && user) {
+    if (!authLoading && user?.id) { // Ensure user.id is available
       setLoading(true);
-      fetchConversations(user.id)
+      messageService.fetchConversations(user.id) // Use the service
         .then(setConversations)
         .catch(setError)
         .finally(() => setLoading(false));
     }
   }, [user, authLoading]);
 
+  // Fetch messages and subscribe to real-time updates when selected conversation changes
   useEffect(() => {
-    if (selectedConversationId) {
+    if (selectedConversationId && user?.id) { // Ensure user.id is available for marking as read
       setLoading(true);
-      fetchMessages(selectedConversationId)
+      messageService.fetchMessages(selectedConversationId) // Use the service
         .then(setMessages)
         .catch(setError)
         .finally(() => setLoading(false));
-      // Subscribe to real-time updates
-      if (subscription) subscription.unsubscribe();
-      const sub = subscribeToMessages(selectedConversationId, (newMsg) => {
+
+      // Unsubscribe from previous channel if any
+      if (currentSubscriptionRef.current) {
+        currentSubscriptionRef.current.unsubscribe();
+        currentSubscriptionRef.current = null;
+      }
+
+      // Subscribe to real-time updates for the new conversation
+      const sub = messageService.subscribeToMessages(selectedConversationId, (newMsg) => { // Use the service
         setMessages((prev) => [...prev, newMsg]);
       });
-      setSubscription(sub);
-      return () => sub.unsubscribe();
+      currentSubscriptionRef.current = sub; // Store subscription in ref
+
+      // Mark conversation as read when it's opened/viewed
+      messageService.markConversationAsRead(selectedConversationId, user.id)
+        .then(() => {
+          // Optimistically update the unread count in conversations state
+          setConversations(prevConvos =>
+            prevConvos.map(conv =>
+              conv.id === selectedConversationId ? { ...conv, unreadCount: 0 } : conv
+            )
+          );
+        })
+        .catch(err => console.error("Failed to mark conversation as read:", err));
+
+
+      // Cleanup subscription on component unmount or conversation change
+      return () => {
+        if (currentSubscriptionRef.current) {
+          currentSubscriptionRef.current.unsubscribe();
+          currentSubscriptionRef.current = null;
+        }
+      };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedConversationId]);
+     // No dependency on 'subscription' state variable, use ref instead
+  }, [selectedConversationId, user?.id]);
+
 
   const handleSendMessage = async (text) => {
-    if (!selectedConversationId) return;
+    if (!selectedConversationId || !user?.id || !text.trim()) return; // Added text.trim() check
     try {
-      await sendMessage({
+      // Optimistically add the message
+      setMessages(prev => [...prev, {
+        id: 'temp-' + Date.now(), // Temporary ID
+        conversationId: selectedConversationId,
+        senderId: user.id,
+        content: text.trim(),
+        timestamp: new Date().toISOString(),
+      }]);
+
+      await messageService.sendMessage({ // Use the service
         conversation_id: selectedConversationId,
         sender_id: user.id,
-        sender_role: user.role,
-        content: text,
+        sender_role: user.role, // Pass user.role
+        content: text.trim(),
       });
     } catch (err) {
       setError(err);
+      // You might want to revert the optimistic update or show an error state for the message
     }
   };
 
@@ -82,16 +116,16 @@ const MessagesPage = () => {
   }
 
   return (
-    <div className="bg-gray-100     min-h-screen flex flex-col">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Desktop View */}
       <div className="hidden md:flex flex-grow">
         <DesktopMessagesLayout
-          conversations={conversations}
+          conversations={conversations} 
           selectedConversation={getSelectedConversation()}
           onSelectConversation={setSelectedConversationId}
           onSendMessage={handleSendMessage}
           currentUserId={user.id}
-          isCompany={user?.isCompany || false} // Pass company status
+          isCompany={user.role === 'company_admin'} // Correctly derive isCompany from user.role
           messages={messages}
         />
       </div>
@@ -104,7 +138,7 @@ const MessagesPage = () => {
           onSelectConversation={setSelectedConversationId}
           onSendMessage={handleSendMessage}
           currentUserId={user.id}
-          isCompany={user?.isCompany || false} // Pass company status
+          isCompany={user.role === 'company_admin'} // Correctly derive isCompany from user.role
           messages={messages}
         />
       </div>

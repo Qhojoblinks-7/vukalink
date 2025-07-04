@@ -1,12 +1,12 @@
-// src/pages/MessagesPage.jsx (for student role)
+// src/pages/CompanyMessagesPage.jsx
 import React, { useState, useEffect, useRef } from 'react'; // Added useRef
+import { useAuth } from '../../../hooks/useAuth';
 import DesktopMessagesLayout from '../../../components/shared/DesktopMessagesLayout';
 import MobileMessagesLayout from '../../../components/shared/MobileMessagesLayout';
-import { useAuth } from '../../../hooks/useAuth';
-import messageService from '../../../services/messageService';
+import messageService from '../../../services/messages'; // Renamed import to match file
 
-const MessagesPage = () => {
-  const { user, loading: authLoading, error: authError } = useAuth();
+const CompanyMessagesPage = () => {
+  const { user, loading: authLoading } = useAuth();
   const [conversations, setConversations] = useState([]);
   const [selectedConversationId, setSelectedConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -107,10 +107,10 @@ const MessagesPage = () => {
     );
   }
 
-  if (authError || error) {
+  if (error) {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600 text-xl font-body p-4">
-        {authError ? `Authentication error: ${authError.message}` : `Error: ${error.message}`}
+        {`Error: ${error.message}`}
       </div>
     );
   }
@@ -120,7 +120,7 @@ const MessagesPage = () => {
       {/* Desktop View */}
       <div className="hidden md:flex flex-grow">
         <DesktopMessagesLayout
-          conversations={conversations} {/* Corrected typo here */}
+          conversations={conversations}
           selectedConversation={getSelectedConversation()}
           onSelectConversation={setSelectedConversationId}
           onSendMessage={handleSendMessage}
@@ -129,7 +129,6 @@ const MessagesPage = () => {
           messages={messages}
         />
       </div>
-
       {/* Mobile View */}
       <div className="md:hidden flex-grow flex flex-col">
         <MobileMessagesLayout
@@ -146,4 +145,4 @@ const MessagesPage = () => {
   );
 };
 
-export default MessagesPage;
+export default CompanyMessagesPage;
