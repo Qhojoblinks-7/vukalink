@@ -40,11 +40,11 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
               <img src={opportunity.companyLogo} alt={`${opportunity.company} Logo`} className="h-10 w-10 rounded-full mr-3 object-cover" />
             )}
             <div>
-              <h3 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -100">{opportunity.company}</h3>
-              <p className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm">{opportunity.title}</p>
+              <h3 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600  ">{opportunity.company}</h3>
+              <p className="text-grey-600 -600 0 dark:text-grey-600   text-sm">{opportunity.title}</p>
             </div>
           </div>
-          <div className="flex items-center text-grey-600 -700 dark:text-grey-600 -600 text-sm mb-4 space-x-3">
+          <div className="flex items-center text-grey-600 -700 dark:text-grey-600   text-sm mb-4 space-x-3">
             <span>{opportunity.location}</span>
             <span className="w-1 h-1 bg-gray-400   rounded-full"></span>
             <span>{opportunity.duration}</span>
@@ -54,13 +54,13 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
         {/* Opportunity Sections */}
         <div className="bg-white   p-4 rounded-lg shadow-md mb-4">
           <section className="mb-6">
-            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -600 mb-3">Description</h2>
-            <p className="text-grey-600 -700 dark:text-grey-600 -600 leading-relaxed whitespace-pre-wrap">{opportunity.aboutOpportunity}</p>
+            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600   mb-3">Description</h2>
+            <p className="text-grey-600 -700 dark:text-grey-600   leading-relaxed whitespace-pre-wrap">{opportunity.aboutOpportunity}</p>
           </section>
 
           <section className="mb-6">
-            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -600 mb-3">Responsibilities</h2>
-            <ul className="list-disc list-inside text-grey-600 -700 dark:text-grey-600 -600 space-y-2">
+            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600   mb-3">Responsibilities</h2>
+            <ul className="list-disc list-inside text-grey-600 -700 dark:text-grey-600   space-y-2">
               {opportunity.keyResponsibilities.map((resp, index) => (
                 <li key={index}>{resp}</li>
               ))}
@@ -68,8 +68,8 @@ const MobileOpportunityDetailsLayout = ({ opportunity }) => {
           </section>
 
           <section className="mb-6">
-            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600 -600 mb-3">Requirements</h2>
-            <ul className="list-disc list-inside text-grey-600 -700 dark:text-grey-600 -600 space-y-2">
+            <h2 className="text-lg font-semibold text-grey-600 -900 dark:text-grey-600   mb-3">Requirements</h2>
+            <ul className="list-disc list-inside text-grey-600 -700 dark:text-grey-600   space-y-2">
               {opportunity.requirements.map((req, index) => (
                 <li key={index}>{req}</li>
               ))}

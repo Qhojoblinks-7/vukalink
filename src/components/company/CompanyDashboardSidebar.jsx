@@ -48,7 +48,7 @@ const CompanyDashboardSidebar = () => {
                   `flex items-center p-3 rounded-lg transition-colors
                    ${isActive
                       ? 'bg-blue-600 text-white font-semibold hover:bg-blue-700'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-grey-500  dark:hover:bg-gray-700'
                    }`
                 }
               >

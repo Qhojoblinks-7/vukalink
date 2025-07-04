@@ -155,7 +155,7 @@ const CompanyApplicantsForOpportunityPage = () => {
                     <div className="flex items-center mb-6">
                         <button
                             onClick={() => navigate(-1)}
-                            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 mr-3 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 mr-3 p-1 rounded-full hover:bg-grey-500  dark:hover:bg-gray-700"
                             title="Go back to opportunities"
                         >
                             <ChevronLeftIcon className="h-6 w-6" />
@@ -250,7 +250,7 @@ const CompanyApplicantsForOpportunityPage = () => {
                                                             href={application.resume_url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="text-vuka-blue hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                                                            className="text-vuka-blue hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center p-1 rounded-md hover:bg-grey-500  dark:hover:bg-gray-700"
                                                             title="View Resume"
                                                         >
                                                             <DocumentTextIcon className="h-5 w-5 mr-1" /> Resume
@@ -261,7 +261,7 @@ const CompanyApplicantsForOpportunityPage = () => {
                                                             href={application.cover_letter_url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="text-vuka-blue hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                                                            className="text-vuka-blue hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center p-1 rounded-md hover:bg-grey-500  dark:hover:bg-gray-700"
                                                             title="View Cover Letter"
                                                         >
                                                             <EnvelopeIcon className="h-5 w-5 mr-1" /> Cover Letter

@@ -50,7 +50,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
       <div className="flex-1 container mx-auto px-4 py-8 lg:px-8">
         <div className="bg-white   p-8 rounded-lg shadow-md">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600 -100">Manage Opportunities</h1>
+            <h1 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600  ">Manage Opportunities</h1>
             <Link to="/company/post-opportunity">
               <Button className="bg-orange-500 hover:bg-orange-600 text-white">+ Post New Opportunity</Button>
             </Link>
@@ -69,10 +69,10 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
               />
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="status-filter" className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm whitespace-nowrap">Status:</label>
+              <label htmlFor="status-filter" className="text-grey-600 -600 0 dark:text-grey-600   text-sm whitespace-nowrap">Status:</label>
               <select
                 id="status-filter"
-                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
+                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600   focus:ring-blue-600 focus:border-blue-600"
                 value={activeStatusFilter}
                 onChange={(e) => setActiveStatusFilter(e.target.value)}
               >
@@ -82,10 +82,10 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
               </select>
             </div>
             <div className="flex items-center space-x-2">
-              <label htmlFor="sort-by" className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm whitespace-nowrap">Sort:</label>
+              <label htmlFor="sort-by" className="text-grey-600 -600 0 dark:text-grey-600   text-sm whitespace-nowrap">Sort:</label>
               <select
                 id="sort-by"
-                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600 -600 focus:ring-blue-600 focus:border-blue-600"
+                className="p-2 border border-gray-300 rounded-md bg-white   text-grey-600 -700 dark:text-grey-600   focus:ring-blue-600 focus:border-blue-600"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
               >
@@ -98,7 +98,7 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
 
           {/* Bulk Actions */}
           <div className="flex space-x-4 mb-6">
-            <Button variant="outline" className="border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100      ">
+            <Button variant="outline" className="border-gray-300 text-grey-600 -700 dark:text-grey-600   hover:bg-grey-500       ">
               Export
             </Button>
             <Button className="bg-red-500 hover:bg-red-600 text-white">
@@ -120,13 +120,13 @@ const DesktopManageOpportunitiesLayout = ({ opportunities }) => {
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
               />
-              <p className="text-grey-600 -600 0 dark:text-grey-600 -600 text-sm text-center mt-4">
+              <p className="text-grey-600 -600 0 dark:text-grey-600   text-sm text-center mt-4">
                 Showing {paginatedOpportunities.length} of {sortedOpportunities.length} opportunities
               </p>
             </div>
           )}
           {sortedOpportunities.length === 0 && (
-            <p className="text-grey-600 -600 0 dark:text-grey-600 -600 text-center py-8">No opportunities found matching your criteria.</p>
+            <p className="text-grey-600 -600 0 dark:text-grey-600   text-center py-8">No opportunities found matching your criteria.</p>
           )}
         </div>
       </div>

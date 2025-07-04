@@ -66,7 +66,7 @@ const MobileApplicationCard = ({ application }) => {
         <Link to={`/applications/details/${application.id}`} className="flex-1">
           <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">View Details</Button>
         </Link>
-        <Button variant="outline" className="flex-1 border-gray-300 text-grey-600 -900 hover:bg-gray-100    ">
+        <Button variant="outline" className="flex-1 border-gray-300 text-grey-600 -900 hover:bg-grey-500     ">
           Withdraw
         </Button>
       </div>

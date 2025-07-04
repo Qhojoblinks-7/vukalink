@@ -122,10 +122,10 @@ const DesktopApplicationsLayout = ({ applications }) => {
                 {/* Bulk Actions */}
                 <div className="flex space-x-4 mb-6">
                     {/* Assuming you have these variants in your Button component */}
-                    <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-grey-500  dark:hover:bg-gray-700">
                         Bulk Withdraw
                     </Button>
-                    <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-grey-500  dark:hover:bg-gray-700">
                         Export Data
                     </Button>
                 </div>

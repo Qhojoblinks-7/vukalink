@@ -55,7 +55,7 @@ const SearchBox = ({ placeholder = 'Search internships, companies, skills...', o
           ) : (
             <ul>
               {results.map((item) => (
-                <li key={item.id} className="p-3 hover:bg-gray-100     cursor-pointer border-b last:border-b-0">
+                <li key={item.id} className="p-3 hover:bg-grey-500      cursor-pointer border-b last:border-b-0">
                   <div className="font-semibold">{item.title}</div>
                   <div className="text-xs text-grey-600 -600 0">{item.company} &middot; {item.location}</div>
                   <div className="text-xs text-grey-600 -400">{item.skills?.join(', ')}</div>

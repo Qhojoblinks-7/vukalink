@@ -19,15 +19,15 @@ const MobileSearchBar = ({ keyword, setKeyword, onFilterClick }) => {
 
       {/* Filter Buttons */}
       <div className="flex justify-around space-x-2">
-        <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-gray-100     transition-colors">
+        <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-grey-500      transition-colors">
           <MapPinIcon className="h-5 w-5 mr-2" /> Location
         </button>
-        <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-gray-100     transition-colors">
+        <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-grey-500      transition-colors">
           <CurrencyDollarIcon className="h-5 w-5 mr-2" /> Paid
         </button>
         <button
           onClick={onFilterClick}
-          className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-gray-100     transition-colors"
+          className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg ttext-grey-600 -900 bg-gray-50 hover:bg-grey-500      transition-colors"
         >
           <FunnelIcon className="h-5 w-5 mr-2" /> Filters
         </button>

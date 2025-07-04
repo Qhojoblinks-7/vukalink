@@ -22,7 +22,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           className={`px-4 py-2 rounded-md font-semibold
             ${currentPage === page
               ? 'bg-blue-600   text-white'
-              : 'bg-white ttext-grey-600 -900 hover:bg-gray-100    '
+              : 'bg-white ttext-grey-600 -900 hover:bg-grey-500     '
             }`}
         >
           {page}

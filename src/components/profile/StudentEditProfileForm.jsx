@@ -150,8 +150,8 @@ const StudentEditProfileForm = ({ user, onSave }) => {
           alt="Profile"
           className="w-24 h-24 rounded-full object-cover border-4 border-orange-400 shadow-md"
         />
-        <h2 className="text-xl font-semibold mt-3 text-grey-600 -900 dark:text-grey-600 -100">{user.name || `${formData.firstName} ${formData.lastName}`}</h2>
-        <p className="text-sm text-grey-600 -600 0 dark:text-grey-600 -400">{user.academicInfo?.university || 'University of Innovation'}</p>
+        <h2 className="text-xl font-semibold mt-3 text-grey-600 -900 dark:text-grey-600  ">{user.name || `${formData.firstName} ${formData.lastName}`}</h2>
+        <p className="text-sm text-grey-600 -600 0 dark:text-grey-600  -400">{user.academicInfo?.university || 'University of Innovation'}</p>
         <Button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm">
           Change Profile Photo
         </Button>
@@ -160,27 +160,27 @@ const StudentEditProfileForm = ({ user, onSave }) => {
       <ProfileSection title="Profile Details" icon={<UserCircleIcon className="h-5 w-5 mr-2 text-blue-600" />}> 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">First Name</label>
+            <label htmlFor="firstName" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">First Name</label>
             <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Last Name</label>
+            <label htmlFor="lastName" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Last Name</label>
             <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Email</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" readOnly /> {/* Email usually read-only */}
           </div>
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Phone</label>
+            <label htmlFor="phone" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Phone</label>
             <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="location" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Location</label>
+            <label htmlFor="location" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Location</label>
             <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="gender" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Gender</label>
+            <label htmlFor="gender" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Gender</label>
             <select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
               <option value="">Select</option>
               <option value="Male">Male</option>
@@ -191,7 +191,7 @@ const StudentEditProfileForm = ({ user, onSave }) => {
           </div>
         </div>
         <div className="mt-4">
-          <label htmlFor="bio" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Bio</label>
+          <label htmlFor="bio" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Bio</label>
           <textarea id="bio" name="bio" rows="3" value={formData.bio} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"></textarea>
         </div>
       </ProfileSection>
@@ -199,15 +199,15 @@ const StudentEditProfileForm = ({ user, onSave }) => {
       <ProfileSection title="Academic Information" icon={<AcademicCapIcon className="h-5 w-5 mr-2 text-blue-600" />}> 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="university" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">University</label>
+            <label htmlFor="university" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">University</label>
             <input type="text" id="university" name="university" value={formData.academicInfo.university} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="program" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Program</label>
+            <label htmlFor="program" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Program</label>
             <input type="text" id="program" name="program" value={formData.academicInfo.program} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
           <div>
-            <label htmlFor="graduationYear" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Graduation Year</label>
+            <label htmlFor="graduationYear" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Graduation Year</label>
             <input type="number" id="graduationYear" name="graduationYear" value={formData.academicInfo.graduationYear} onChange={handleAcademicInfoChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
           </div>
         </div>
@@ -215,18 +215,18 @@ const StudentEditProfileForm = ({ user, onSave }) => {
 
       <ProfileSection title="Skills & Interests" icon={<BriefcaseIcon className="h-5 w-5 mr-2 text-blue-600" />}> 
         <div className="mb-4">
-          <label htmlFor="skills" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Skills (comma-separated)</label>
+          <label htmlFor="skills" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Skills (comma-separated)</label>
           <input type="text" id="skills" name="skills" value={formData.skillsInterests.skills.join(', ')} onChange={(e) => handleArrayChange(e, 'skills')} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
         </div>
         <div>
-          <label htmlFor="interests" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600 -400">Interests (comma-separated)</label>
+          <label htmlFor="interests" className="block text-sm font-medium text-grey-600 -600 0 dark:text-grey-600  -400">Interests (comma-separated)</label>
           <input type="text" id="interests" name="interests" value={formData.skillsInterests.interests.join(', ')} onChange={(e) => handleArrayChange(e, 'interests')} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" />
         </div>
       </ProfileSection>
 
       <ProfileSection title="Resume / CV" icon={<BookOpenIcon className="h-5 w-5 mr-2 text-blue-600" />}> 
         <div className="flex items-center space-x-4">
-          <input type="file" id="resumeCV" name="resumeCV" onChange={handleResumeCVChange} className="block w-full text-sm text-grey-600 -600 0 dark:text-grey-600 -600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200" />
+          <input type="file" id="resumeCV" name="resumeCV" onChange={handleResumeCVChange} className="block w-full text-sm text-grey-600 -600 0 dark:text-grey-600   file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200" />
           {formData.resumeCV.fileName && (
             <a href={formData.resumeCV.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
               {formData.resumeCV.fileName}
@@ -264,8 +264,8 @@ const StudentEditProfileForm = ({ user, onSave }) => {
 
       {/* Account Settings sections (read-only for general info, but can link to dedicated pages) */}
       <ProfileSection title="Verification Status" icon={<ShieldCheckIcon className="h-5 w-5 mr-2 text-blue-600" />}> 
-        <p className="text-sm text-grey-600 -600 0 dark:text-grey-600 -400">Status: <span className="font-semibold text-green-600">Verified</span> (Simulated)</p>
-        <p className="text-xs text-grey-600 -600 0 dark:text-grey-600 -600 mt-1">
+        <p className="text-sm text-grey-600 -600 0 dark:text-grey-600  -400">Status: <span className="font-semibold text-green-600">Verified</span> (Simulated)</p>
+        <p className="text-xs text-grey-600 -600 0 dark:text-grey-600   mt-1">
           Verification helps build trust with employers.
         </p>
       </ProfileSection>

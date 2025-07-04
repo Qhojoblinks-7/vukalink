@@ -352,9 +352,9 @@ const ResourcesPage = () => {
 
                 {/* Pagination */}
                 <div className="flex justify-center mt-8">
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">1</button>
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">2</button>
-                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-vuka-blue-light   border-gray-300 dark:border-gray-700">3</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-blue-400    border-gray-300 dark:border-gray-700">1</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-blue-400    border-gray-300 dark:border-gray-700">2</button>
+                  <button className="px-4 py-2 mx-1 border rounded-md text-vuka-text   hover:bg-blue-400    border-gray-300 dark:border-gray-700">3</button>
                 </div>
               </div>
             </div>

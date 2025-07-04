@@ -92,34 +92,34 @@ const MobileHeader = ({ user }) => { // User prop ensures it works even if useAu
                             <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
                                 <Link
                                     to={user?.role === 'student' ? '/profile/edit' : '/company/profile'} // Adjust based on company profile path
-                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-grey-500  dark:hover:bg-gray-600"
                                     onClick={() => setDropdownOpen(false)}
                                 >
                                     Profile
                                 </Link>
                                 <Link
                                     to={user?.role === 'student' ? '/messages' : '/company/messages'}
-                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-grey-500  dark:hover:bg-gray-600"
                                     onClick={() => setDropdownOpen(false)}
                                 >
                                     Messages
                                 </Link>
                                 <Link
                                     to="/resources"
-                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-grey-500  dark:hover:bg-gray-600"
                                     onClick={() => setDropdownOpen(false)}
                                 >
                                     Resources
                                 </Link>
                                 <button
                                     onClick={handleToggleDarkMode}
-                                    className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-300 hover:bg-grey-500  dark:hover:bg-gray-600"
                                 >
                                     {darkMode ? 'Light Mode' : 'Dark Mode'}
                                 </button>
                                 <button
                                     onClick={handleLogout}
-                                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-grey-500  dark:hover:bg-gray-600"
                                 >
                                     Logout
                                 </button>

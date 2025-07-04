@@ -46,7 +46,7 @@ export const registerStudent = createAsyncThunk(
             const authData = await authService.registerStudent(userData); // Assign the direct result
 
             if (authData && authData.user) {
-                // After signup, user might not be immediately authenticated or profile created by trigger.
+                // After , user might not be immediately authenticated or profile created by trigger.
                 // It's common to require email confirmation before full login/profile access.
                 const profile = await authService.getProfile(authData.user.id);
                 if (profile) {

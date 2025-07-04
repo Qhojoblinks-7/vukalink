@@ -9,7 +9,7 @@ const ConversationList = ({ conversations, onSelectConversation, selectedConvers
           <div
             key={conv.id}
             className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200
-              ${selectedConversationId === conv.id ? 'bg-blue-100' : 'hover:bg-gray-100    '}
+              ${selectedConversationId === conv.id ? 'bg-blue-100' : 'hover:bg-grey-500     '}
             `}
             onClick={() => onSelectConversation(conv.id)}
           >
@@ -22,7 +22,7 @@ const ConversationList = ({ conversations, onSelectConversation, selectedConvers
             )}
             <div className="flex-1 overflow-hidden">
               <div className="flex justify-between items-center">
-                <p className="font-semibold text-grey-600 -900 dark:text-grey-600 -600 truncate">{conv.participant.name}</p>
+                <p className="font-semibold text-grey-600 -900 dark:text-grey-600   truncate">{conv.participant.name}</p>
                 <span className="text-xs text-grey-600 -600 0 whitespace-nowrap">{conv.lastMessageTime}</span>
               </div>
               <p className="text-sm text-grey-600 -600 0 truncate">{conv.lastMessage}</p>

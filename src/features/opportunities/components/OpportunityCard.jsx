@@ -1,7 +1,7 @@
 // src/components/shared/OpportunityCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../ui/Button'; // Ensure path is correct
+import Button from '../../../components/ui/Button';
 import { BookmarkIcon as OutlineBookmarkIcon } from '@heroicons/react/24/outline'; // For outline bookmark
 import { BookmarkIcon as SolidBookmarkIcon } from '@heroicons/react/24/solid'; // For solid/filled bookmark
 
@@ -93,7 +93,7 @@ const OpportunityCard = ({
           </Link>
         )}
         <Link to={`/opportunities/details/${id}`} className="flex-1">
-          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 hover:bg-gray-100    ">
+          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 hover:bg-grey-500     ">
             View Details
           </Button>
         </Link>

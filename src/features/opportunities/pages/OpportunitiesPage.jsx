@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchOpportunities, setOpportunityFilters, setCurrentPage } from '../opportunitiesSlice';
 import OpportunityCard from '../components/OpportunityCard'; // You'll create this
 import OpportunityFilters from '../components/OpportunityFilters'; // You'll create this
-import Pagination from '../../../components/ui/Pagination'; // Reusing your Pagination
+import Pagination from '../../../components/opportunities/Pagination'; // Reusing Pagination component
 
 const OpportunitiesPage = () => {
   const dispatch = useDispatch();

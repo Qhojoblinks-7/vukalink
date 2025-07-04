@@ -40,7 +40,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
 
     if (diffDays <= 0) return { text: 'Expired', classes: 'text-red-600' };
     if (diffDays <= 7) return { text: `${diffDays} days left`, classes: 'text-orange-500' };
-    return { text: deadline.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }), classes: 'text-grey-600 -600 0 dark:text-grey-600 -400' };
+    return { text: deadline.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }), classes: 'text-grey-600 -600 0 dark:text-grey-600  -400' };
   };
 
   return (
@@ -94,22 +94,22 @@ const ManageOpportunityTable = ({ opportunities }) => {
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-grey-600 -900 dark:text-grey-600 -100">{opp.jobTitle}</div>
+                    <div className="text-sm font-medium text-grey-600 -900 dark:text-grey-600  ">{opp.jobTitle}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClasses(opp.status)}`}>
                       {opp.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600  -400">
                     <Link to={`/company/opportunities/${opp.id}/applicants`} className="text-blue-600 hover:underline">
                       {opp.applicants}
                     </Link>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600  -400">
                     {opp.views}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600 -400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-600 -600 0 dark:text-grey-600  -400">
                     {new Date(opp.datePosted).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -125,7 +125,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
                         </Button>
                       </Link>
                       <Link to={`/company/opportunities/${opp.id}/edit`}>
-                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-grey-600 -700 dark:text-grey-600 -600 hover:bg-gray-100       flex items-center text-sm">
+                        <Button variant="outline" className="px-3 py-1 border-gray-300 text-grey-600 -700 dark:text-grey-600   hover:bg-grey-500        flex items-center text-sm">
                           Edit
                         </Button>
                       </Link>
@@ -139,7 +139,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
                           Activate
                         </Button>
                       )}
-                      <button className="text-grey-600 -600 0 dark:text-grey-600 -600 hover:text-grey-600 -900 dark:hover:text-grey-600 -100">
+                      <button className="text-grey-600 -600 0 dark:text-grey-600   hover:text-grey-600 -900 dark:hover:text-grey-600 -100">
                         <EllipsisVerticalIcon className="h-5 w-5" />
                       </button>
                     </div>
@@ -149,7 +149,7 @@ const ManageOpportunityTable = ({ opportunities }) => {
             })
           ) : (
             <tr>
-              <td colSpan="8" className="px-6 py-12 text-center text-grey-600 -600 0 dark:text-grey-600 -400">
+              <td colSpan="8" className="px-6 py-12 text-center text-grey-600 -600 0 dark:text-grey-600  -400">
                 No opportunities found.
               </td>
             </tr>

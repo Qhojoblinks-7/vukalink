@@ -1,17 +1,31 @@
 // src/components/opportunities/OpportunityFilters.jsx
 import React, { useState, useEffect } from 'react';
-import Button from '../ui/Button'; // Ensure path is correct
+import Button from '../../../components/ui/Button'; // Adjust the import path as necessary
 import { XMarkIcon } from '@heroicons/react/24/outline'; // For skill tag removal
 
 const locations = ['Accra', 'Kumasi', 'Tamale', 'Takoradi', 'Remote'];
 const industries = ['Tech', 'Marketing', 'Health', 'Finance', 'Education', 'Engineering'];
 const durations = ['1 Month', '2-3 Months', '4-6 Months', '6+ Months'];
 
+// Define a default filters structure
+const defaultFilters = {
+  keyword: '',
+  location: [],
+  industry: [],
+  skills: [],
+  academicProgram: 'Any', // Default for radio button
+  duration: '',          // Default for radio button
+  stipend: '',           // Default for radio button
+  attachmentType: ''     // Default for radio button
+};
+
 const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
-  const [localFilters, setLocalFilters] = useState(filters); // Use local state for immediate changes
+  // Merge incoming filters with default filters to ensure all properties exist
+  const [localFilters, setLocalFilters] = useState({ ...defaultFilters, ...filters });
 
   useEffect(() => {
-    setLocalFilters(filters); // Sync with external filters when they change
+    // When external filters change, merge them again with default to ensure completeness
+    setLocalFilters({ ...defaultFilters, ...filters });
   }, [filters]);
 
   const handleChange = (e) => {
@@ -33,10 +47,11 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
   const handleSkillAdd = (e) => {
     if (e.key === 'Enter' && e.target.value.trim() !== '') {
       const newSkill = e.target.value.trim();
+      // Ensure skills array exists before checking includes
       if (!localFilters.skills.includes(newSkill)) {
         setLocalFilters(prev => ({
           ...prev,
-          skills: [...prev.skills, newSkill]
+          skills: [...(prev.skills || []), newSkill] // Ensure it's an array, even if initial was missing
         }));
       }
       e.target.value = ''; // Clear input
@@ -52,11 +67,11 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600 -600 mb-6">Find Internships</h2>
+      <h2 className="text-2xl font-heading font-bold text-grey-600 -900 dark:text-grey-600   mb-6">Find Internships</h2>
 
       {/* Keyword Search */}
       <div className="mb-6">
-        <label htmlFor="keyword" className="block text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-2">Keyword, company, role...</label>
+        <label htmlFor="keyword" className="block text-grey-600 -900 dark:text-grey-600   text-sm font-medium mb-2">Keyword, company, role...</label>
         <input
           type="text"
           id="keyword"
@@ -70,10 +85,10 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Location Filter */}
       <div className="mb-6">
-        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Location</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600   text-sm font-medium mb-3">Location</h3>
         <div className="grid grid-cols-2 gap-2">
           {locations.map(loc => (
-            <label key={loc} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+            <label key={loc} className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
               <input
                 type="checkbox"
                 name="location"
@@ -90,10 +105,10 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Industry Filter */}
       <div className="mb-6">
-        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Industry</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600   text-sm font-medium mb-3">Industry</h3>
         <div className="grid grid-cols-2 gap-2">
           {industries.map(ind => (
-            <label key={ind} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+            <label key={ind} className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
               <input
                 type="checkbox"
                 name="industry"
@@ -110,7 +125,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Skills Filter */}
       <div className="mb-6">
-        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Skills</h3>
+        <h3 className="text-grey-600 -900 dark:text-grey-600   text-sm font-medium mb-3">Skills</h3>
         <input
           type="text"
           placeholder="Add skill"
@@ -132,8 +147,8 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
 
       {/* Academic Program Filter (Radio) */}
       <div className="mb-6">
-        <h3 className="text-grey-600 -900 dark:text-grey-600 -600 text-sm font-medium mb-3">Academic Program</h3>
-        <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+        <h3 className="text-grey-600 -900 dark:text-grey-600   text-sm font-medium mb-3">Academic Program</h3>
+        <label className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
           <input
             type="radio"
             name="academicProgram"
@@ -152,7 +167,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
         <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Duration</h3>
         <div className="grid grid-cols-2 gap-2">
           {durations.map(dur => (
-            <label key={dur} className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+            <label key={dur} className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
               <input
                 type="radio"
                 name="duration"
@@ -171,7 +186,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
       <div className="mb-6">
         <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Stipend</h3>
         <div className="flex space-x-4">
-          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
             <input
               type="radio"
               name="stipend"
@@ -182,7 +197,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
             />
             Paid
           </label>
-          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
             <input
               type="radio"
               name="stipend"
@@ -200,7 +215,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
       <div className="mb-6">
         <h3 className="text-grey-600 -900 text-sm font-medium mb-3">Attachment Type</h3>
         <div className="flex space-x-4">
-          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
             <input
               type="radio"
               name="attachmentType"
@@ -211,7 +226,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
             />
             Part-time
           </label>
-          <label className="flex items-center text-grey-600 -700 dark:text-grey-600 -300">
+          <label className="flex items-center text-grey-600 -700 dark:text-grey-600  -300">
             <input
               type="radio"
               name="attachmentType"
@@ -230,7 +245,7 @@ const OpportunityFilters = ({ filters, setFilters, onApply, onClear }) => {
         <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white" onClick={() => onApply(localFilters)}>
           Apply Filters
         </Button>
-        <Button variant="ghost" className="flex-1 border border-gray-300 text-grey-600 -900 hover:bg-gray-100    " onClick={onClear}>
+        <Button variant="ghost" className="flex-1 border border-gray-300 text-grey-600 -900 hover:bg-grey-500    " onClick={onClear}>
           Clear All
         </Button>
       </div>

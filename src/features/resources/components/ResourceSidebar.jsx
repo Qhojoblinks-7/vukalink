@@ -57,7 +57,7 @@ const ResourceSidebar = ({ isOpen, onClose, categories, selectedCategory, onSele
                 className={`flex items-center w-full text-left p-3 rounded-lg text-lg font-medium transition-colors duration-200
                   ${selectedCategory === category.value
                     ? 'bg-vuka-blue-light text-vuka-blue' // Active state
-                    : 'text-white hover:bg-vuka-blue-light hover:text-vuka-blue' // Inactive state
+                    : 'text-white hover:bg-blue-400  hover:text-vuka-blue' // Inactive state
                   }`}
               >
                 <Icon className="h-6 w-6 mr-3" />
@@ -70,7 +70,7 @@ const ResourceSidebar = ({ isOpen, onClose, categories, selectedCategory, onSele
                 to="/dashboard"
                 onClick={onClose}
                 className={`flex items-center w-full text-left p-3 rounded-lg text-lg font-medium transition-colors duration-200
-                  ${location.pathname === '/dashboard' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-vuka-blue-light hover:text-vuka-blue'}`}
+                  ${location.pathname === '/dashboard' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-blue-400  hover:text-vuka-blue'}`}
             >
                 <HomeIcon className="h-6 w-6 mr-3" />
                 My Dashboard
@@ -79,7 +79,7 @@ const ResourceSidebar = ({ isOpen, onClose, categories, selectedCategory, onSele
                 to="/opportunities"
                 onClick={onClose}
                 className={`flex items-center w-full text-left p-3 rounded-lg text-lg font-medium transition-colors duration-200
-                  ${location.pathname === '/opportunities' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-vuka-blue-light hover:text-vuka-blue'}`}
+                  ${location.pathname === '/opportunities' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-blue-400  hover:text-vuka-blue'}`}
             >
                 <BriefcaseIcon className="h-6 w-6 mr-3" />
                 Find Opportunities
@@ -88,7 +88,7 @@ const ResourceSidebar = ({ isOpen, onClose, categories, selectedCategory, onSele
                 to="/messages"
                 onClick={onClose}
                 className={`flex items-center w-full text-left p-3 rounded-lg text-lg font-medium transition-colors duration-200
-                  ${location.pathname === '/messages' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-vuka-blue-light hover:text-vuka-blue'}`}
+                  ${location.pathname === '/messages' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-blue-400  hover:text-vuka-blue'}`}
             >
                 <EnvelopeIcon className="h-6 w-6 mr-3" />
                 Messages
@@ -97,7 +97,7 @@ const ResourceSidebar = ({ isOpen, onClose, categories, selectedCategory, onSele
                 to="/profile/edit"
                 onClick={onClose}
                 className={`flex items-center w-full text-left p-3 rounded-lg text-lg font-medium transition-colors duration-200
-                  ${location.pathname === '/profile/edit' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-vuka-blue-light hover:text-vuka-blue'}`}
+                  ${location.pathname === '/profile/edit' ? 'bg-vuka-blue-light text-vuka-blue' : 'text-white hover:bg-blue-400  hover:text-vuka-blue'}`}
             >
                 <Cog6ToothIcon className="h-6 w-6 mr-3" /> {/* Assuming Cog8Icon is fixed/available */}
                 My Profile

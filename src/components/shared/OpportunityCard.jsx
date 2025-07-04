@@ -93,7 +93,7 @@ const OpportunityCard = ({
           </Link>
         )}
         <Link to={`/opportunities/details/${id}`} className="flex-1">
-          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 hover:bg-gray-100    ">
+          <Button variant="outline" className="w-full border-gray-300 text-grey-600 -700 hover:bg-grey-500     ">
             View Details
           </Button>
         </Link>

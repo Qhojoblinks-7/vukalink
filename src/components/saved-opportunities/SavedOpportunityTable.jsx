@@ -115,7 +115,7 @@ const SavedOpportunityTable = ({ savedOpportunities }) => {
                         </Button>
                       </Link>
                       <Link to={`/opportunities/details/${opp.id}`}>
-                        <Button variant="ghost" className="px-3 py-1 text-blue-900 hover:bg-gray-100    ">
+                        <Button variant="ghost" className="px-3 py-1 text-blue-900 hover:bg-grey-500     ">
                           View Details
                         </Button>
                       </Link>

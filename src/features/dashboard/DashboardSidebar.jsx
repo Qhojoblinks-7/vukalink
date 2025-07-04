@@ -61,7 +61,7 @@ const DashboardSidebar = ({ user }) => {
                                 className={`flex flex-col md:flex-row items-center justify-center md:justify-start p-2 md:p-3 rounded-lg transition-colors duration-200
                                     ${location.pathname === item.path
                                         ? 'bg-blue-900   text-white   font-semibold'
-                                        : 'text-grey-600 -900  hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-900 dark:hover:text-white'
+                                        : 'text-grey-600 -900  hover:bg-grey-500  dark:hover:bg-gray-800 hover:text-blue-900 dark:hover:text-white'
                                     }`}
                             >
                                 <item.icon className="h-6 w-6 mb-0.5 md:mb-0 md:mr-3" />

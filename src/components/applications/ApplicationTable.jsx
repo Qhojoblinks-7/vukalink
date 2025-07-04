@@ -145,7 +145,7 @@ const ApplicationTable = ({ applications }) => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div className="flex space-x-2">
                                     <Link to={`/applications/details/${app.id}`}>
-                                        <Button variant="ghost" className="px-3 py-1 text-vuka-blue hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-blue-400">
+                                        <Button variant="ghost" className="px-3 py-1 text-vuka-blue hover:bg-grey-500  dark:hover:bg-gray-700 dark:text-blue-400">
                                             View
                                         </Button>
                                     </Link>

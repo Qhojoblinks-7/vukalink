@@ -16,13 +16,13 @@ export default function LandingSplash() {
   // Handle navigation to sign-up
   const handleGetStarted = (e) => {
     e.preventDefault();
-    navigate('/signup', { replace: true }); // Navigate to signup on the final page
+    navigate('/register-company', { replace: true }); // Navigate to signup on the final page
   };
 
   // Handle navigation to login
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/login', { replace: true }); // Navigate to login on any page
+    navigate('/register-company', { replace: true }); // Navigate to login on any page
   };
 
   // Handle next page
