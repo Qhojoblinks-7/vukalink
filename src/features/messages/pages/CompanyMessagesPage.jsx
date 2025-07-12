@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'; // Added useRef
 import { useAuth } from '../../../hooks/useAuth';
 import DesktopMessagesLayout from '../../../components/shared/DesktopMessagesLayout';
 import MobileMessagesLayout from '../../../components/shared/MobileMessagesLayout';
-import messageService from '../../../services/messages'; // Renamed import to match file
+import { messageService } from '../../../services'; // Use messageService from services index
 
 const CompanyMessagesPage = () => {
   const { user, loading: authLoading } = useAuth();

@@ -5,12 +5,12 @@ import {
   UserGroupIcon, 
   EyeIcon, 
   ClockIcon,
-  TrendingUpIcon,
-  TrendingDownIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
   CalendarDaysIcon
 } from '@heroicons/react/24/outline';
-import { supabase } from '@services/supabaseClient';
-import { useAuth } from '@hooks/useAuth';
+import { supabase } from '../../../services/supabaseClient';
+import { useAuth } from '../../../hooks/useAuth';
 
 const CompanyAnalytics = () => {
   const { user } = useAuth();
@@ -143,9 +143,9 @@ const CompanyAnalytics = () => {
               trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-gray-600'
             }`}>
               {trend === 'up' ? (
-                <TrendingUpIcon className="h-4 w-4 mr-1" />
+                <ArrowTrendingUpIcon className="h-4 w-4 mr-1" />
               ) : trend === 'down' ? (
-                <TrendingDownIcon className="h-4 w-4 mr-1" />
+                <ArrowTrendingDownIcon className="h-4 w-4 mr-1" />
               ) : null}
               {trendValue}
             </div>

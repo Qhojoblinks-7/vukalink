@@ -17,7 +17,7 @@ export default defineConfig({
       
       // Workbox configuration for caching strategies
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        globPatterns: ['**/*.{js,css,html}'],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set to 10 MB
         runtimeCaching: [
           {
