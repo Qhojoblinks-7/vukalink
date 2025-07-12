@@ -4,7 +4,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { opportunityService } from '../../../services'; // Adjust path if needed
 import { useAuth } from '../../../hooks/useAuth';
 import CompanyDashboardSidebar from '../../../components/company/CompanyDashboardSidebar'; // Your sidebar component
-import MobileHeader from '../dashboard/MobileHeader'; // Your mobile header component
+import MobileHeader from '../../dashboard/MobileHeader'; // Your mobile header component
 import Loader from '../../../components/ui/Loader'; // Your Loader component
 import ErrorMessage from '../../../components/ui/ErrorMessage'; // Your ErrorMessage component
 import { ChevronLeftIcon, DocumentTextIcon, EnvelopeIcon } from '@heroicons/react/24/outline'; // Icons
