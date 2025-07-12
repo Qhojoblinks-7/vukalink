@@ -12,6 +12,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import MobileBottomNav from './features/dashboard/MobileBottomNav';
 import MobileHeader from './features/dashboard/MobileHeader';
+import DemoModeBanner from './components/common/DemoModeBanner';
 
 // Lazy Imports for Features/Pages (paths adjusted to new structure)
 const AuthPage = lazy(() => import('./features/auth/pages/AuthPage'));
@@ -101,6 +102,8 @@ function App() {
   return (
     <DarkModeProvider>
       <div className="min-h-screen flex flex-col font-body text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
+        <DemoModeBanner />
+        
         {shouldRenderHeader && (
           <div className="hidden md:block">
             <Header />
