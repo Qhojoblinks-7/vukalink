@@ -3,6 +3,82 @@ import { supabase } from '../services/supabaseClient';
 
 export const applicationService = {
   /**
+   * Check if user has already applied to an opportunity
+   */
+  async checkExistingApplication(opportunityId, userId) {
+    try {
+      const { data, error } = await supabase
+        .from('applications')
+        .select('id')
+        .eq('internship_id', opportunityId)
+        .eq('student_id', userId)
+        .limit(1);
+
+      if (error) throw error;
+
+      return { exists: data && data.length > 0 };
+    } catch (error) {
+      console.error('Error checking existing application:', error);
+      throw new Error(error.message || 'Failed to check application status');
+    }
+  },
+
+  /**
+   * Upload resume file to Supabase storage
+   */
+  async uploadResume(file, userId) {
+    try {
+      const fileExtension = file.name.split('.').pop();
+      const fileName = `${userId}_${Date.now()}.${fileExtension}`;
+      const filePath = `resumes/${fileName}`;
+
+      const { data, error } = await supabase.storage
+        .from('resumes')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) throw error;
+
+      // Get public URL
+      const { data: publicUrlData } = supabase.storage
+        .from('resumes')
+        .getPublicUrl(filePath);
+
+      return publicUrlData.publicUrl;
+    } catch (error) {
+      console.error('Error uploading resume:', error);
+      throw new Error(error.message || 'Failed to upload resume');
+    }
+  },
+
+  /**
+   * Submit a new application
+   */
+  async submitApplication(applicationData) {
+    try {
+      const { data, error } = await supabase
+        .from('applications')
+        .insert([applicationData])
+        .select()
+        .single();
+
+      if (error) {
+        if (error.code === '23505') { // PostgreSQL unique violation error code
+          throw new Error("You have already applied to this opportunity.");
+        }
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      throw new Error(error.message || 'Failed to submit application');
+    }
+  },
+
+  /**
    * Student applies to an opportunity.
    * RLS ensures student_id is set to auth.uid().
    */

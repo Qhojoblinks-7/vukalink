@@ -12,6 +12,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import MobileBottomNav from './features/dashboard/MobileBottomNav';
 import MobileHeader from './features/dashboard/MobileHeader';
+import DemoModeBanner from './components/common/DemoModeBanner';
 import ToastNotification from './components/common/ToastNotification'; // <-- NEW IMPORT
 
 // Lazy Imports for Features/Pages
@@ -42,6 +43,7 @@ const CompanyMessagesPage = lazy(() => import('./features/messages/pages/Company
 
 // Application Details Page
 const ApplicationDetailsPage = lazy(() => import('./features/applications/pages/ApplicationDetailsPage'));
+const ApplyPage = lazy(() => import('./features/opportunities/pages/ApplyPage'));
 
 
 function App() {
@@ -129,14 +131,14 @@ function App() {
         return React.cloneElement(children, { showToast }); // Pass showToast prop to children
     };
 
-    return (
-        <DarkModeProvider>
-            <div className="min-h-screen flex flex-col font-body text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
-                {shouldRenderHeader && (
-                    <div className="hidden md:block">
-                        <Header />
-                    </div>
-                )}
+  return (
+    <DarkModeProvider>
+      <div className="min-h-screen flex flex-col font-body text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
+        {shouldRenderHeader && (
+          <div className="hidden md:block">
+            <Header />
+          </div>
+        )}
 
                 {shouldRenderHeader && isMobile && (
                     <MobileHeader
@@ -199,42 +201,41 @@ function App() {
                             <Route path="/profile/edit" element={<PrivateRoute allowedRoles={['student', 'company_admin']}><EditProfilePage /></PrivateRoute>} />
                             <Route path="/profile/view/:userId" element={<PrivateRoute allowedRoles={['student', 'company_admin']}><PublicProfilePage /></PrivateRoute>} />
 
-                            {/* STUDENT Protected Routes */}
-                            <Route
-                                path="/student/dashboard"
-                                element={<PrivateRoute allowedRoles={['student']}><DashboardPage /></PrivateRoute>}
-                            />
-                            <Route
-                                path="/student/opportunities/:id/apply"
-                                element={
-                                    <PrivateRoute allowedRoles={['student']}>
-                                        {/* This is a placeholder, when implemented, it will also receive showToast */}
-                                        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-                                            <h1 className="text-3xl font-heading text-blue-900 dark:text-blue-200">Apply Page for ID (Coming Soon!)</h1>
-                                        </div>
-                                    </PrivateRoute>
-                                }
-                            />
-                            <Route
-                                path="/student/applications"
-                                element={<PrivateRoute allowedRoles={['student']}><MyApplicationsPage /></PrivateRoute>}
-                            />
-                            <Route
-                                path="/student/applications/details/:id"
-                                element={
-                                    <PrivateRoute allowedRoles={['student', 'company_admin']}>
-                                        <ApplicationDetailsPage />
-                                    </PrivateRoute>
-                                }
-                            />
-                            <Route
-                                path="/student/saved-opportunities"
-                                element={<PrivateRoute allowedRoles={['student']}><SavedOpportunitiesPage /></PrivateRoute>}
-                            />
-                            <Route
-                                path="/student/messages"
-                                element={<PrivateRoute allowedRoles={['student']}><StudentMessagesPage /></PrivateRoute>}
-                            />
+              {/* STUDENT Protected Routes - All student-specific routes are now prefixed with /student/ */}
+              <Route
+                path="/student/dashboard"
+                element={<PrivateRoute allowedRoles={['student']}><DashboardPage /></PrivateRoute>}
+              />
+              <Route
+                path="/student/opportunities/:id/apply"
+                element={
+                  <PrivateRoute allowedRoles={['student']}>
+                    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+                      <h1 className="text-3xl font-heading text-blue-900 dark:text-blue-200">Apply Page for ID (Coming Soon!)</h1>
+                    </div>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/student/applications"
+                element={<PrivateRoute allowedRoles={['student']}><MyApplicationsPage /></PrivateRoute>}
+              />
+              <Route
+                path="/student/applications/details/:id"
+                element={
+                  <PrivateRoute allowedRoles={['student', 'company_admin']}>
+                    <ApplicationDetailsPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/student/saved"
+                element={<PrivateRoute allowedRoles={['student']}><SavedOpportunitiesPage /></PrivateRoute>}
+              />
+              <Route
+                path="/student/messages" // <-- New route for student messages
+                element={<PrivateRoute allowedRoles={['student']}><StudentMessagesPage /></PrivateRoute>}
+              />
 
                             {/* COMPANY Protected Routes */}
                             <Route

@@ -2,7 +2,10 @@
 
 // src/components/applications/DesktopApplicationsLayout.jsx
 import React, { useState, useEffect } from 'react';
-import Button from '../ui/Button'; // Ensure path is correct
+import MobileHeader from '../../features/dashboard/MobileHeader'; // Adjusted path if MobileHeader is in src/components/dashboard
+import MobileBottomNav from '../../features/dashboard/MobileBottomNav'; // Adjusted path if MobileBottomNav is in src/components/dashboard
+import MobileApplicationCard from './MobileApplicationCard';
+import Button from '../ui/Button'; // For the New button and potential filter buttons
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'; // For search icon
 import ApplicationTable from './ApplicationTable';
 import Pagination from '../opportunities/Pagination'; // Reusing Pagination from opportunities
