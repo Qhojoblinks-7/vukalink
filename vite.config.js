@@ -11,20 +11,30 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      // Include common PWA assets that might be in your public folder
       includeAssets: ['favicon.ico', 'logo.svg', 'masked-icon.png'],
       
-      // Workbox configuration for caching strategies
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        // THIS IS THE CRUCIAL LINE TO CHECK
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set to 10 MB
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'supabase-api',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
+          },
+        ],
       },
 
       manifest: {
         name: 'VukaLink',
         short_name: 'VukaLink',
-        description: 'VukaLink: Your platform for seamless connections between students and opportunities. Connect, learn, and grow together.',
+        description: 'Connect students with internship opportunities',
         theme_color: '#2D72F3',
         background_color: '#F8F9FA',
         display: 'standalone',
@@ -42,11 +52,6 @@ export default defineConfig({
             type: 'image/png',
             purpose: 'any maskable',
           },
-          {
-            src: '/src/assets/logo.svg', // Consider converting this to a PNG and updating the path
-            sizes: '180x180',
-            type: 'image/png',
-          },
         ],
       },
       devOptions: {
@@ -55,4 +60,24 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          supabase: ['@supabase/supabase-js'],
+          ui: ['@heroicons/react', 'lucide-react'],
+          forms: ['formik', 'yup'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@supabase/supabase-js'],
+  },
+  server: {
+    port: 5173,
+    host: true,
+  },
 })

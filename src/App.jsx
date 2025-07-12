@@ -12,6 +12,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import MobileBottomNav from './features/dashboard/MobileBottomNav';
 import MobileHeader from './features/dashboard/MobileHeader';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy Imports for Features/Pages (paths adjusted to new structure)
 const AuthPage = lazy(() => import('./features/auth/pages/AuthPage'));
@@ -20,6 +21,7 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const OpportunitiesPage = lazy(() => import('./features/opportunities/pages/OpportunitiesPage'));
 const OpportunityDetailsPage = lazy(() => import('./features/opportunities/pages/OpportunityDetailsPage'));
 const MyApplicationsPage = lazy(() => import('./features/applications/pages/MyApplicationsPage'));
+const ApplyPage = lazy(() => import('./features/applications/pages/ApplyPage'));
 const SavedOpportunitiesPage = lazy(() => import('./features/savedOpportunities/pages/SavedOpportunitiesPage'));
 const LandingSplash = lazy(() => import('./pages/LandingSplash'));
 // IMPORTANT: Use the StudentMessagesPage component for the student route
@@ -35,6 +37,7 @@ const CompanyManageOpportunitiesPage = lazy(() => import('./features/company/pag
 const CompanyPostOpportunityPage = lazy(() => import('./features/company/pages/CompanyPostOpportunityPage'));
 const CompanyApplicantsForOpportunityPage = lazy(() => import('./features/company/pages/CompanyApplicantsForOpportunityPage'));
 const CompanyMessagesPage = lazy(() => import('./features/messages/pages/CompanyMessagesPage')); // Existing route for company messages
+const EditOpportunityPage = lazy(() => import('./features/company/pages/EditOpportunityPage'));
 
 // Application Details Page
 const ApplicationDetailsPage = lazy(() => import('./features/applications/pages/ApplicationDetailsPage'));
@@ -98,8 +101,9 @@ function App() {
   };
 
   return (
-    <DarkModeProvider>
-      <div className="min-h-screen flex flex-col font-body text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
+    <ErrorBoundary>
+      <DarkModeProvider>
+        <div className="min-h-screen flex flex-col font-body text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
         {shouldRenderHeader && (
           <div className="hidden md:block">
             <Header />
@@ -165,13 +169,7 @@ function App() {
               />
               <Route
                 path="/student/opportunities/:id/apply"
-                element={
-                  <PrivateRoute allowedRoles={['student']}>
-                    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-                      <h1 className="text-3xl font-heading text-blue-900 dark:text-blue-200">Apply Page for ID (Coming Soon!)</h1>
-                    </div>
-                  </PrivateRoute>
-                }
+                element={<PrivateRoute allowedRoles={['student']}><ApplyPage /></PrivateRoute>}
               />
               <Route
                 path="/student/applications"
@@ -213,13 +211,7 @@ function App() {
               />
               <Route
                 path="/company/opportunities/:id/edit"
-                element={
-                  <PrivateRoute allowedRoles={['company_admin']}>
-                    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-                      <h1 className="text-3xl font-heading text-blue-900 dark:text-blue-200">Edit Opportunity ID (Coming Soon!)</h1>
-                    </div>
-                  </PrivateRoute>
-                }
+                element={<PrivateRoute allowedRoles={['company_admin']}><EditOpportunityPage /></PrivateRoute>}
               />
               <Route
                 path="/company/messages" // Existing route for company messages
@@ -260,7 +252,8 @@ function App() {
           <Footer />
         )}
       </div>
-    </DarkModeProvider>
+      </DarkModeProvider>
+    </ErrorBoundary>
   );
 }
 
