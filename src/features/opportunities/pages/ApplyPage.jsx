@@ -1,8 +1,8 @@
 // src/features/opportunities/pages/ApplyPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@hooks/useAuth';
-import { opportunityService, applicationService } from '@services';
+import { useAuth } from '../../../hooks/useAuth';
+import { opportunityService, applicationService } from '../../../services';
 import { toast } from 'react-toastify';
 import { 
   ArrowLeftIcon, 
