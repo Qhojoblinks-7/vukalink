@@ -21,7 +21,7 @@ const MobileBottomNav = ({ isCompany = false }) => { // Add isCompany prop, defa
     { name: 'Home', icon: HomeIcon, path: '/dashboard' },
     { name: 'Search', icon: MagnifyingGlassIcon, path: '/opportunities' }, // Corrected path
     { name: 'Applications', icon: BriefcaseIcon, path: '/applications' },
-    { name: 'Saved', icon: BookmarkIcon, path: '/saved' }, // Added Saved for students
+    { name: 'Saved', icon: BookmarkIcon, path: '/opportunities' }, // Added Saved for students
     { name: 'Messages', icon: ChatBubbleBottomCenterTextIcon, path: '/student/messages' },
     { name: 'Profile', icon: UserCircleIcon, path: '/profile/edit' }, // Added Profile for students
     { name: 'Notifications', icon: BellIcon, path: '/notifications' }, // Regular link

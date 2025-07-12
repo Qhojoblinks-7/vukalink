@@ -91,7 +91,7 @@ const Header = () => {
             {user.role === 'student' && (
               <>
                 <Link to="/applications" className="text-blue-600 dark:text-blue-400 font-semibold">My Applications</Link>
-                <Link to="/saved" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Saved</Link>
+                <Link to="/opportunities" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Saved</Link>
               </>
             )}
 

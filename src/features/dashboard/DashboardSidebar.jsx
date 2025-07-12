@@ -20,8 +20,8 @@ const DashboardSidebar = ({ user }) => {
     const navItems = [
         { name: 'My Dashboard', icon: HomeIcon, path: '/dashboard' },
         { name: 'Find Internships', icon: MagnifyingGlassIcon, path: '/opportunities' },
-        { name: 'My Applications', icon: BriefcaseIcon, path: '/applications' },
-        { name: 'Saved Opportunities', icon: BookmarkIcon, path: '/saved' },
+        { name: 'My Applications', icon: BriefcaseIcon, path: '/student/applications' },
+        { name: 'Saved Opportunities', icon: BookmarkIcon, path: '/student/saved-opportunities' },
         { name: 'My Profile', icon: UserIcon, path: '/profile/edit' },
         { name: 'Messages', icon: ChatBubbleLeftRightIcon, path: '/messages' },
         { name: 'Resources', icon: BookOpenIcon, path: '/resources' },

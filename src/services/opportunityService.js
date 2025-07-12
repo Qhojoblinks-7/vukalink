@@ -5,7 +5,9 @@ import { supabase } from './supabaseClient'; // Ensure this path is correct
 export const opportunityService = {
     /**
      * Fetches all opportunities.
-     * @returns {Promise<Array>} An array of opportunity objects.
+     * Currently fetches all and returns an array directly.
+     * Consider implementing server-side pagination for large datasets.
+     * @returns {Promise<Array>} An array of formatted opportunity objects.
      */
     async getOpportunities() {
         try {
@@ -27,7 +29,6 @@ export const opportunityService = {
                 throw new Error(error.message || 'Could not fetch opportunities.');
             }
 
-            // Flatten the company data if needed for consistency
             const formattedData = data.map(opportunity => ({
                 ...opportunity,
                 company: {
@@ -40,6 +41,7 @@ export const opportunityService = {
                 profiles: undefined // Remove the original nested profiles object if aliased
             }));
 
+            // This is the array that will become `action.payload` in the Redux slice
             return formattedData;
         } catch (error) {
             console.error("Error in getOpportunities:", error);
@@ -50,7 +52,7 @@ export const opportunityService = {
     /**
      * Fetches a single opportunity by its ID.
      * @param {string} opportunityId The ID of the opportunity.
-     * @returns {Promise<Object>} The opportunity data.
+     * @returns {Promise<Object>} The formatted opportunity data.
      * @throws {Error} If the opportunity is not found or an error occurs.
      */
     async getOpportunityById(opportunityId) {
@@ -69,7 +71,7 @@ export const opportunityService = {
                     )
                 `)
                 .eq('id', opportunityId)
-                .single();
+                .single(); // Use .single() for fetching a single record
 
             if (error) {
                 console.error("Supabase error fetching opportunity by ID:", error);
@@ -79,7 +81,7 @@ export const opportunityService = {
                 throw new Error('Opportunity not found.');
             }
 
-            // Flatten the company data
+            // Flatten the company data for easier access
             const formattedData = {
                 ...data,
                 company: {
@@ -92,7 +94,7 @@ export const opportunityService = {
                     industry: data.company?.company_data?.industry,
                     size: data.company?.company_data?.size, // Assuming size is in company_data
                 },
-                profiles: undefined
+                profiles: undefined // Clean up if `profiles` is also returned
             };
 
             return formattedData;
@@ -105,21 +107,24 @@ export const opportunityService = {
     // Placeholder for createOpportunity (implement as needed)
     async createOpportunity(opportunityData) {
         console.log('Creating opportunity with data:', opportunityData);
-        // Implement actual Supabase insert
-        return { id: 'new-opportunity-id-123', ...opportunityData }; // Mock
+        // Implement actual Supabase insert here
+        // Example: const { data, error } = await supabase.from('opportunities').insert(opportunityData).select().single();
+        return { id: 'new-opportunity-id-123', ...opportunityData }; // Mock response
     },
 
     // Placeholder for updateOpportunity (implement as needed)
     async updateOpportunity(opportunityId, updateData) {
         console.log(`Updating opportunity ${opportunityId} with data:`, updateData);
-        // Implement actual Supabase update
-        return { id: opportunityId, ...updateData }; // Mock
+        // Implement actual Supabase update here
+        // Example: const { data, error } = await supabase.from('opportunities').update(updateData).eq('id', opportunityId).select().single();
+        return { id: opportunityId, ...updateData }; // Mock response
     },
 
     // Placeholder for deleteOpportunity (implement as needed)
     async deleteOpportunity(opportunityId) {
         console.log(`Deleting opportunity: ${opportunityId}`);
-        // Implement actual Supabase delete
+        // Implement actual Supabase delete here
+        // Example: const { error } = await supabase.from('opportunities').delete().eq('id', opportunityId);
         return true; // Mock success
     },
 
@@ -140,7 +145,8 @@ export const opportunityService = {
                 .eq('opportunity_id', opportunityId)
                 .single();
 
-            if (existingError && existingError.code !== 'PGRST116') { // PGRST116 means "no rows found" - which is good here
+            // PGRST116 means "no rows found" - which is desired here
+            if (existingError && existingError.code !== 'PGRST116') {
                 throw new Error(`Error checking existing application: ${existingError.message}`);
             }
 
@@ -188,20 +194,19 @@ export const opportunityService = {
                     applied_at,
                     status,
                     updated_at,
-                    opportunity:opportunities ( // Alias to 'opportunity'
+                    opportunity:opportunities (
                         id,
                         title,
                         type,
-                        location_type,
                         location,
-                        company:profiles!opportunities_company_id_fkey ( // Nested join to get company profile from opportunity
+                        company:profiles!opportunities_company_id_fkey (
                             id,
                             full_name,
                             avatar_url,
                             company_data
                         )
                     )
-                `)
+                `) // Removed 'location_type' completely
                 .eq('student_id', studentId)
                 .order('applied_at', { ascending: false });
 
@@ -220,7 +225,7 @@ export const opportunityService = {
                     id: app.opportunity?.id,
                     title: app.opportunity?.title,
                     type: app.opportunity?.type,
-                    locationType: app.opportunity?.location_type,
+                    // locationType: app.opportunity?.location_type, // This field won't be available from the DB
                     location: app.opportunity?.location,
                     company: { // Flatten company data here
                         id: app.opportunity?.company?.id,
@@ -265,23 +270,23 @@ export const opportunityService = {
                         requirements,
                         responsibilities,
                         benefits,
-                        deadline,
+                        application_deadline,
                         type,
-                        location_type,
-                        location,
+                        location, -- Removed 'location_type'
+                        stipend_type,
                         salary_range_start,
                         salary_range_end,
                         created_at,
-                        company:profiles!opportunities_company_id_fkey ( // Use profiles table for company
+                        company:profiles!opportunities_company_id_fkey (
                             id,
                             full_name,
                             email,
                             website,
                             avatar_url,
-                            company_data // Fetch company_data JSONB
+                            company_data
                         )
                     ),
-                    student:profiles!applications_student_id_fkey ( // Assuming 'profiles' table for students
+                    student:profiles!applications_student_id_fkey (
                         id,
                         full_name,
                         email,
@@ -293,7 +298,7 @@ export const opportunityService = {
                         resume_url,
                         portfolio_url,
                         linkedin_url,
-                        role // Important for auth checks
+                        role
                     )
                     `
                 )
@@ -313,6 +318,8 @@ export const opportunityService = {
                 ...data,
                 opportunity: {
                     ...data.opportunity,
+                    // locationType: data.opportunity?.location_type, // This field won't be available from the DB
+                    // Flatten company nested within opportunity
                     company: {
                         id: data.opportunity?.company?.id,
                         fullName: data.opportunity?.company?.full_name,
@@ -324,6 +331,7 @@ export const opportunityService = {
                         size: data.opportunity?.company?.company_data?.size,
                     }
                 },
+                // Flatten student data
                 student: {
                     id: data.student?.id,
                     fullName: data.student?.full_name,

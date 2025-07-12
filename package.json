@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^2.50.2",
     "axios": "^1.10.0",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.0",
     "lucide-react": "^0.525.0",
     "md5": "^2.3.0",
     "react": "^19.1.0",

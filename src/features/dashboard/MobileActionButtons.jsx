@@ -31,7 +31,7 @@ const MobileActionButtons = () => {
                 </Button>
             </Link>
             <ActionButton icon={BriefcaseIcon} label="My Applications" to="/applications" />
-            <ActionButton icon={BookmarkIcon} label="Saved Opportunities" to="/saved" />
+            <ActionButton icon={BookmarkIcon} label="Saved Opportunities" to="/opportunities" />
             <ActionButton icon={UserIcon} label="Edit Profile" to="/profile" />
             <ActionButton icon={ChatBubbleLeftRightIcon} label="Messages" to="/messages" />
         </div>
