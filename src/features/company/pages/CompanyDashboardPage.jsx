@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth'; // Assuming you have an auth context
 import MobileHeader from '../../dashboard/MobileHeader'; // For mobile view header
-import CompanyDashboardSidebar from '../../../components/company/CompanyDashboardSidebar'; // The sidebar component
+import CompanyDashboardSidebar from '../../../components/company/CompanyDashboardSidebar';
+import CompanyAnalytics from '../components/CompanyAnalytics'; // The sidebar component
 import {
   BriefcaseIcon, PlusCircleIcon, UserGroupIcon, ChartBarIcon, BellIcon,
   MegaphoneIcon, BuildingOfficeIcon // Icons for dashboard cards
@@ -104,7 +105,7 @@ const CompanyDashboardPage = () => {
             <div className="bg-white  ttext-grey-600 -900 rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center border text-grey-600 -600 ">
               <ChartBarIcon className="h-16 w-16 mb-4 font-bold " />
               <h2 className="text-xl font-semibold mb-2 font-heading">Analytics & Reports</h2>
-              <p className="text-sm text-grey-600 -600 0">Gain insights into your recruiting efforts. (Coming Soon!)</p>
+                                <CompanyAnalytics />
             </div>
 
             {/* Dashboard Card 6: Messages */}

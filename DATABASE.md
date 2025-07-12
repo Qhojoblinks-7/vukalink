@@ -14,6 +14,7 @@ ALTER TABLE IF EXISTS public.applications DISABLE ROW LEVEL SECURITY;
 -- Stores student profiles, linked to Supabase auth.users
 CREATE TABLE public.students (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE, -- Links to Supabase Auth user ID
+    organization_id UUID REFERENCES public.organizations(id) ON DELETE SET NULL, -- Multi-tenancy link (optional for students)
     full_name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL, -- Should match auth.users email for consistency
     university TEXT,
@@ -33,10 +34,44 @@ COMMENT ON COLUMN public.students.updated_by IS 'User who last updated the recor
 
 COMMENT ON TABLE public.students IS 'User profiles for students, linked to Supabase authentication.';
 
+-- -----------------------------------------------------------
+-- MULTI-TENANCY TABLES
+-- -----------------------------------------------------------
+
+-- Table: public.organizations
+-- Stores organization details for multi-tenancy
+CREATE TABLE public.organizations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    domain TEXT,
+    description TEXT,
+    logo_url TEXT,
+    settings JSONB DEFAULT '{}'::jsonb, -- Organization-specific settings
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID
+);
+COMMENT ON TABLE public.organizations IS 'Organizations for multi-tenancy support.';
+
+-- Table: public.user_organizations
+-- Maps users to organizations for multi-tenancy
+CREATE TABLE public.user_organizations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    organization_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+    role TEXT DEFAULT 'member' CHECK (role IN ('admin', 'member')),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID,
+    UNIQUE(user_id, organization_id)
+);
+COMMENT ON TABLE public.user_organizations IS 'Maps users to organizations with roles.';
+
 -- Table: public.companies
 -- Stores company profiles, linked to Supabase auth.users for company admins
 CREATE TABLE public.companies (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE, -- Links to Supabase Auth user ID
+    organization_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE, -- Multi-tenancy link
     name TEXT UNIQUE NOT NULL,
     industry TEXT,
     description TEXT,
@@ -303,6 +338,8 @@ COMMENT ON FUNCTION public.create_company_profile_on_signup() IS 'Creates a new 
 -- -----------------------------------------------------------
 
 -- Enable RLS for all tables
+ALTER TABLE public.organizations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_organizations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.students ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.internships ENABLE ROW LEVEL SECURITY;
@@ -312,6 +349,34 @@ ALTER TABLE public.chats ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.company_team_members ENABLE ROW LEVEL SECURITY;
+
+--
+-- RLS Policies for public.organizations table
+--
+-- Users can view organizations they're members of
+CREATE POLICY "Users can view their organizations" ON public.organizations
+FOR SELECT TO authenticated
+USING (id IN (SELECT organization_id FROM public.user_organizations WHERE user_id = auth.uid()));
+
+-- Organization admins can update their organization
+CREATE POLICY "Organization admins can update their organization" ON public.organizations
+FOR UPDATE TO authenticated
+USING (id IN (SELECT organization_id FROM public.user_organizations WHERE user_id = auth.uid() AND role = 'admin'))
+WITH CHECK (id IN (SELECT organization_id FROM public.user_organizations WHERE user_id = auth.uid() AND role = 'admin'));
+
+--
+-- RLS Policies for public.user_organizations table
+--
+-- Users can view their own organization memberships
+CREATE POLICY "Users can view their own organization memberships" ON public.user_organizations
+FOR SELECT TO authenticated
+USING (user_id = auth.uid());
+
+-- Organization admins can manage memberships in their organization
+CREATE POLICY "Organization admins can manage memberships" ON public.user_organizations
+FOR ALL TO authenticated
+USING (organization_id IN (SELECT organization_id FROM public.user_organizations WHERE user_id = auth.uid() AND role = 'admin'))
+WITH CHECK (organization_id IN (SELECT organization_id FROM public.user_organizations WHERE user_id = auth.uid() AND role = 'admin'));
 
 --
 -- RLS Policies for public.students table

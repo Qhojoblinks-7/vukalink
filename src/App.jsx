@@ -38,6 +38,7 @@ const CompanyMessagesPage = lazy(() => import('./features/messages/pages/Company
 
 // Application Details Page
 const ApplicationDetailsPage = lazy(() => import('./features/applications/pages/ApplicationDetailsPage'));
+const ApplyPage = lazy(() => import('./features/opportunities/pages/ApplyPage'));
 
 // Main App component
 function App() {
@@ -165,13 +166,7 @@ function App() {
               />
               <Route
                 path="/student/opportunities/:id/apply"
-                element={
-                  <PrivateRoute allowedRoles={['student']}>
-                    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-                      <h1 className="text-3xl font-heading text-blue-900 dark:text-blue-200">Apply Page for ID (Coming Soon!)</h1>
-                    </div>
-                  </PrivateRoute>
-                }
+                element={<PrivateRoute allowedRoles={['student']}><ApplyPage /></PrivateRoute>}
               />
               <Route
                 path="/student/applications"

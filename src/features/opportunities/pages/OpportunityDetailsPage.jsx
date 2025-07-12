@@ -1,17 +1,17 @@
 // src/pages/OpportunityDetailsPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { opportunityService } from '../services'; // Adjust path as needed
-import { useAuth } from '../hooks/useAuth'; // To check if student is logged in
-import Loader from '../components/ui/Loader';
-import ErrorMessage from '../components/ui/ErrorMessage';
-import Button from '../components/ui/Button'; // Reusing your Button component
-import InputField from '../components/forms/InputField'; // Reusing your InputField
+import { opportunityService } from '../../../services'; // Adjust path as needed
+import { useAuth } from '../../../hooks/useAuth'; // To check if student is logged in
+import Loader from '../../../components/ui/Loader';
+import ErrorMessage from '../../../components/ui/ErrorMessage';
+import Button from '../../../components/ui/Button'; // Reusing your Button component
+import InputField from '../../../components/forms/InputField'; // Reusing your InputField
 import { toast } from 'react-toastify';
 import { ArrowLeftIcon, CalendarDaysIcon, MapPinIcon, CurrencyDollarIcon, BuildingOffice2Icon, MegaphoneIcon } from '@heroicons/react/24/outline'; // Icons
 
 // For handling file uploads
-import { supabase } from '../services/supabaseClient'; // Import supabase client directly for storage operations
+import { supabase } from '../../../services/supabaseClient'; // Import supabase client directly for storage operations
 
 const OpportunityDetailsPage = () => {
     const { id: opportunityId } = useParams(); // Get opportunity ID from URL
